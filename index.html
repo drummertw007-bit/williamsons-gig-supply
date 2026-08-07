@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Williamson's Gig Supply Co. v4.3</title>
+<title>Williamson's Gig Supply Co. v4.3.1</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 :root{
@@ -557,7 +557,7 @@ button:not(:disabled){transition:transform .08s ease,filter .12s ease}button:not
 .yearBadge{display:inline-block;padding:3px 7px;border-radius:999px;background:#38465d;color:#fff;font-size:10px;margin-left:4px}
 
 
-/* v4.3 mobile touch fixes */
+/* v4.3.1 mobile touch fixes */
 button,
 .priceBtns button,
 .inventoryRow button,
@@ -733,7 +733,7 @@ button,
 }
 
 
-/* v4.3 Franchise Progression */
+/* v4.3.1 Franchise Progression */
 .launchModal{
   position:fixed;inset:0;z-index:130;background:rgba(5,8,13,.93);
   align-items:center;justify-content:center;padding:18px;
@@ -793,7 +793,7 @@ button,
 }
 
 
-/* v4.3 clean static opening */
+/* v4.3.1 clean static opening */
 .splashScreen{
   position:fixed;inset:0;z-index:120;background:#05070d;
   display:flex;align-items:center;justify-content:center;padding:16px;
@@ -866,7 +866,7 @@ button,
 }
 
 
-/* v4.3 splash integration */
+/* v4.3.1 splash integration */
 .staticSplashCard{
   width:min(1180px,96vw);
   height:auto !important;
@@ -924,7 +924,7 @@ button,
   text-shadow:0 1px 3px #000;
 }
 
-/* v4.3 franchise agreement */
+/* v4.3.1 franchise agreement */
 .agreementCard{
   width:min(920px,96vw);
   background:#e8e1cf;
@@ -1069,6 +1069,15 @@ button,
   .signatureLine{width:150px}
 }
 
+
+.difficultyCard:active{
+  transform:translateY(1px) scale(.995);
+}
+.difficultyCard:focus{
+  outline:3px solid #b18b32;
+  outline-offset:2px;
+}
+
 </style>
 </head>
 <body>
@@ -1090,7 +1099,7 @@ button,
       <div class="splashControls">
         <button class="splashBtn" id="splashStartBtn" onclick="startFromSplash()">Press Start</button>
         <button class="soundToggle" id="soundToggleBtn" onclick="toggleSound()">🔊 Sound On</button>
-        <div class="splashVersion">Franchise Edition • v4.3</div>
+        <div class="splashVersion">Franchise Edition • v4.3.1</div>
       </div>
     </div>
   </div>
@@ -1098,7 +1107,7 @@ button,
 
 <div class="wrap">
 <h1>🎵 Williamson’s Gig Supply Co.</h1>
-<div class="sub">Build the Beat. Grow the Business. <span style="opacity:.65">• Franchise Edition • v4.3</span></div>
+<div class="sub">Build the Beat. Grow the Business. <span style="opacity:.65">• Franchise Edition • v4.3.1</span></div>
 
 <div class="topbar">
  <div class="stat"><div class="label">Cash</div><div class="value" id="cash">$0</div></div>
@@ -1243,7 +1252,7 @@ button,
 
    <div class="tabletBottom">
      <span id="tabletClock">WGSC OS</span>
-     <span>Franchise Edition • v4.3</span>
+     <span>Franchise Edition • v4.3.1</span>
    </div>
  </div>
 </div>
@@ -1281,7 +1290,7 @@ button,
       <div class="agreementSectionTitle">Select Management Challenge</div>
 
       <div class="difficultyCards">
-        <button class="difficultyCard easyCard" type="button" data-difficulty="Easy">
+        <button class="difficultyCard easyCard" type="button" data-difficulty="Easy" onclick="startContract('Easy')">
           <div class="difficultyRibbon">EASY</div>
           <strong>🟢 Rookie Manager</strong>
           <span><b>$7,500</b> WGSC startup grant</span>
@@ -1290,7 +1299,7 @@ button,
           <div class="selectChallenge">Select Contract</div>
         </button>
 
-        <button class="difficultyCard normalCard" type="button" data-difficulty="Normal">
+        <button class="difficultyCard normalCard" type="button" data-difficulty="Normal" onclick="startContract('Normal')">
           <div class="difficultyRibbon">NORMAL</div>
           <strong>🟡 Franchise Manager</strong>
           <span><b>$5,000</b> starting cash</span>
@@ -1299,7 +1308,7 @@ button,
           <div class="selectChallenge">Select Contract</div>
         </button>
 
-        <button class="difficultyCard hardCard" type="button" data-difficulty="Hard">
+        <button class="difficultyCard hardCard" type="button" data-difficulty="Hard" onclick="startContract('Hard')">
           <div class="difficultyRibbon">HARD</div>
           <strong>🔴 Music Entrepreneur</strong>
           <span><b>$3,500</b> starting cash</span>
@@ -1600,11 +1609,11 @@ function toast(msg){
 function saveGame(silent){
  if(!state.started)return;
  var data={state:state,products:PRODUCTS};
- localStorage.setItem("williamsonsGigSupplyV43",JSON.stringify(data));
+ localStorage.setItem("williamsonsGigSupplyV431",JSON.stringify(data));
  if(!silent)toast("Game saved");
 }
 function loadGame(){
- var raw=localStorage.getItem("williamsonsGigSupplyV43")||localStorage.getItem("williamsonsGigSupplyV42")||localStorage.getItem("williamsonsGigSupplyV41")||localStorage.getItem("williamsonsGigSupplyV40")||localStorage.getItem("williamsonsGigSupplyV311")||localStorage.getItem("williamsonsGigSupplyV31")||localStorage.getItem("williamsonsGigSupplyV30")||localStorage.getItem("williamsonsGigSupplyV23");if(!raw){toast("No save found");return}
+ var raw=localStorage.getItem("williamsonsGigSupplyV431")||localStorage.getItem("williamsonsGigSupplyV43")||localStorage.getItem("williamsonsGigSupplyV42")||localStorage.getItem("williamsonsGigSupplyV41")||localStorage.getItem("williamsonsGigSupplyV40")||localStorage.getItem("williamsonsGigSupplyV311")||localStorage.getItem("williamsonsGigSupplyV31")||localStorage.getItem("williamsonsGigSupplyV30")||localStorage.getItem("williamsonsGigSupplyV23");if(!raw){toast("No save found");return}
  try{
   var data=JSON.parse(raw);state=data.state;
   if(typeof state.year==="undefined"){state.year=1;state.month=state.week||1;delete state.week;}
@@ -1627,7 +1636,7 @@ function loadGame(){
   el("eventTitle").textContent="Game Loaded";el("eventText").textContent="Welcome back to your music business.";clearResult();scene("busy");render();applyResponsiveUI();initManagerTablet();initLaunchModal();toast("Game loaded")
  }catch(e){toast("Save could not be loaded")}
 }
-function resetSave(){localStorage.removeItem("williamsonsGigSupplyV43");localStorage.removeItem("williamsonsGigSupplyV42");localStorage.removeItem("williamsonsGigSupplyV41");localStorage.removeItem("williamsonsGigSupplyV40");localStorage.removeItem("williamsonsGigSupplyV31");localStorage.removeItem("williamsonsGigSupplyV30");localStorage.removeItem("williamsonsGigSupplyV23");toast("Save cleared")}
+function resetSave(){localStorage.removeItem("williamsonsGigSupplyV431");localStorage.removeItem("williamsonsGigSupplyV43");localStorage.removeItem("williamsonsGigSupplyV42");localStorage.removeItem("williamsonsGigSupplyV41");localStorage.removeItem("williamsonsGigSupplyV40");localStorage.removeItem("williamsonsGigSupplyV31");localStorage.removeItem("williamsonsGigSupplyV30");localStorage.removeItem("williamsonsGigSupplyV23");toast("Save cleared")}
 
 
 function assignMonthlyGoal(){
@@ -2287,7 +2296,7 @@ function closeLaunchModal(){
  if(modal)modal.style.display="none";
 }
 
-/* v4.3 static splash behavior */
+/* v4.3.1 static splash behavior */
 function toggleSound(){ return; }
 function playStartJingle(){ return; }
 function startFromSplash(){
@@ -2301,15 +2310,26 @@ function startFromSplash(){
   },230);
 }
 
+
+function startContract(level){
+  try{
+    closeLaunchModal();
+    newGame(level);
+  }catch(err){
+    console.error("WGSC franchise startup error:",err);
+    var modal=el("launchModal");
+    if(modal)modal.style.display="flex";
+    var hint=document.querySelector(".launchHint");
+    if(hint){
+      hint.textContent="Unable to open franchise. Please reload the page and try again.";
+      hint.style.color="#9b1c1c";
+      hint.style.fontWeight="bold";
+    }
+  }
+}
+
 function initLaunchModal(){
- var cards=document.querySelectorAll(".difficultyCard");
- for(var i=0;i<cards.length;i++){
-   cards[i].addEventListener("click",function(){
-     var level=this.getAttribute("data-difficulty");
-     closeLaunchModal();
-     newGame(level);
-   });
- }
+  /* Contract cards use direct click handlers for maximum browser compatibility. */
 }
 
 function initManagerTablet(){
