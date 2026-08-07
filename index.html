@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Music Mogul v2.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+ --bg:#10151e;--panel:#1d2634;--panel2:#273244;--line:#3c4b62;
+ --text:#f7f9fc;--muted:#b8c2d0;--gold:#f1c84b;--green:#61d681;--red:#ef6e6e;
+ --blue:#6fb9ff;--orange:#f1a44b;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#0f141c,#151d29);color:var(--text)}
+.wrap{max-width:1480px;margin:auto;padding:14px 18px 18px}
+h1{margin:0;font-size:32px;letter-spacing:.2px}
+.sub{color:var(--muted);font-size:12px;margin:2px 0 10px}
+.topbar{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:10px}
+.stat{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;min-height:58px}
+.label{font-size:10px;color:var(--muted);text-transform:uppercase}
+.value{font-size:20px;font-weight:800;margin-top:2px}
+.layout{display:grid;grid-template-columns:1.05fr 1.4fr .9fr;gap:10px;align-items:start}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:10px}
+h2{font-size:18px;margin:0 0 7px}
+.small{font-size:11px;color:var(--muted);line-height:1.35}
+button{border:0;border-radius:8px;padding:8px 10px;font-size:12px;font-weight:800;cursor:pointer;margin:2px}
+.primary{background:var(--gold);color:#161616}
+.secondary{background:#43526c;color:white}
+.good{background:#2f7a44;color:white}
+.danger{background:#7b3439;color:white}
+.orange{background:#80551e;color:white}
+button:disabled{opacity:.42;cursor:not-allowed}
+.news{background:#2a2411;border:1px solid #6f5b22;border-radius:9px;padding:8px;font-size:12px;margin-bottom:8px}
+.eventBox{background:#111926;border:1px solid #304057;border-radius:11px;padding:10px;min-height:275px}
+.eventHead{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:start}
+.eventTitle{font-size:21px;font-weight:900;margin-bottom:5px}
+.eventText{font-size:15px;line-height:1.4}
+.choiceArea{margin-top:10px}
+.resultGood{background:#173d27;border:1px solid #3eaa61;color:#dff8e7;padding:8px;border-radius:8px;margin-top:8px}
+.resultBad{background:#481e22;border:1px solid #c65760;color:#ffe4e4;padding:8px;border-radius:8px;margin-top:8px}
+.resultNeutral{background:#22324a;border:1px solid #557296;padding:8px;border-radius:8px;margin-top:8px}
+.controls{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:9px}
+.inventoryRow{display:grid;grid-template-columns:1.25fr .42fr .52fr 1.08fr .55fr;gap:5px;align-items:center;padding:7px 0;border-top:1px solid #344258}
+.inventoryRow:first-child{border-top:0}
+.productName{font-size:13px;font-weight:800}
+.icon{font-size:20px;margin-right:5px;vertical-align:middle}
+.priceBtns{display:flex;gap:2px;flex-wrap:wrap}
+.priceBtns button{font-size:9px;padding:5px 6px}
+.activePrice{outline:2px solid var(--gold);outline-offset:1px}
+.loanGrid{display:grid;grid-template-columns:1fr;gap:5px}
+.loanOption{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center;background:#252f41;border-radius:8px;padding:7px}
+.loanOption strong{font-size:12px}
+.loanOption .small{font-size:10px}
+.moneyInput{width:100%;padding:8px;border-radius:7px;border:1px solid #53627a;background:#111824;color:white;font-size:13px;margin-top:7px}
+.competitor{margin-bottom:8px}
+.bar{height:7px;background:#354259;border-radius:8px;overflow:hidden;margin:3px 0}
+.bar span{display:block;height:100%;background:var(--gold)}
+.log{font-size:10px;max-height:188px;overflow:auto;line-height:1.35}
+.log div{padding:4px 0;border-bottom:1px dashed #344158}
+.setup{display:flex;gap:5px;flex-wrap:wrap}
+.scoreOverlay{display:none;position:fixed;inset:0;background:rgba(5,8,13,.91);z-index:99;align-items:center;justify-content:center;padding:20px}
+.scoreCard{width:min(760px,94vw);background:#202a39;border:2px solid #697b96;border-radius:18px;padding:22px;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+.scoreTitle{font-size:34px;font-weight:900}
+.scoreBig{font-size:54px;font-weight:900;color:var(--gold);margin:8px 0}
+.scoreStats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}
+.scoreStat{background:#2b374a;border-radius:10px;padding:10px}
+.badge{display:inline-block;border:2px solid var(--gold);border-radius:999px;padding:7px 14px;font-weight:900;margin:5px}
+.pixelScene{height:150px;background:#182536;border:4px solid #42546d;border-radius:6px;position:relative;overflow:hidden;image-rendering:pixelated}
+.sky{position:absolute;inset:0 0 36px;background:#223b58}
+.ground{position:absolute;left:0;right:0;bottom:0;height:36px;background:#3b5540}
+.shop{position:absolute;width:72px;height:58px;background:#b65b45;left:8px;bottom:34px;box-shadow:0 -18px 0 -8px #e8c44c}
+.shop:after{content:"";position:absolute;width:18px;height:28px;background:#382d35;left:27px;bottom:0}
+.person{position:absolute;width:14px;height:14px;background:#e9b985;bottom:58px}
+.person:before{content:"";position:absolute;width:18px;height:22px;background:#4f79bd;left:-2px;top:13px}
+.person:after{content:"";position:absolute;width:4px;height:18px;background:#252a35;left:1px;top:32px;box-shadow:9px 0 0 #252a35}
+.hat{position:absolute;width:22px;height:5px;background:#8a5a2b;left:-4px;top:-3px;box-shadow:4px -4px 0 -1px #8a5a2b}
+.hair{position:absolute;width:18px;height:6px;background:#171717;left:-2px;top:-1px}
+.guitar{position:absolute;width:10px;height:22px;background:#d58932;left:14px;top:17px;transform:rotate(-24deg);box-shadow:4px -11px 0 -3px #c8a06a}
+.mic{position:absolute;width:5px;height:5px;background:#dfe7ef;border-radius:50%;left:15px;top:11px;box-shadow:0 6px 0 -1px #8d98a6}
+.speaker{position:absolute;width:20px;height:30px;background:#20232b;border:3px solid #4b5664;bottom:38px}
+.speaker:before,.speaker:after{content:"";position:absolute;border-radius:50%;background:#596677;left:3px;width:8px;height:8px}
+.speaker:before{top:3px}.speaker:after{bottom:3px}
+.queueDot{position:absolute;width:12px;height:12px;background:#e9b985;bottom:57px}
+.queueDot:before{content:"";position:absolute;width:16px;height:22px;left:-2px;top:11px;background:#6a8fd0}
+.star{position:absolute;width:5px;height:5px;background:#f1d96d;box-shadow:12px 8px 0 #f1d96d,24px -4px 0 #f1d96d,44px 5px 0 #f1d96d}
+
+/* End-game high striker */
+.highStrikerWrap{
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:18px;
+  align-items:end;
+  margin:14px auto 10px;
+  max-width:620px;
+  text-align:left;
+}
+.strikerMachine{
+  position:relative;
+  width:130px;
+  height:390px;
+  margin:auto;
+}
+.strikerBase{
+  position:absolute;
+  left:11px;
+  right:11px;
+  bottom:0;
+  height:50px;
+  background:#8c432d;
+  border:4px solid #cf8c43;
+  border-radius:8px 8px 14px 14px;
+}
+.strikerRail{
+  position:absolute;
+  left:54px;
+  width:22px;
+  top:38px;
+  bottom:45px;
+  background:#d8dde7;
+  border:4px solid #5d6c82;
+  border-radius:8px;
+}
+.strikerRail:after{
+  content:"";
+  position:absolute;
+  left:5px;
+  top:4px;
+  bottom:4px;
+  width:4px;
+  background:#fff2a3;
+  opacity:.7;
+}
+.strikerBell{
+  position:absolute;
+  width:58px;
+  height:32px;
+  left:36px;
+  top:2px;
+  background:#f1c84b;
+  border:4px solid #8c6b17;
+  border-radius:28px 28px 8px 8px;
+  transform-origin:center bottom;
+}
+.strikerBell:after{
+  content:"";
+  position:absolute;
+  width:12px;
+  height:12px;
+  background:#c48c18;
+  border-radius:50%;
+  left:19px;
+  bottom:-10px;
+}
+.strikerPuck{
+  position:absolute;
+  width:38px;
+  height:18px;
+  left:46px;
+  bottom:49px;
+  background:#ef6e6e;
+  border:4px solid #762e34;
+  border-radius:7px;
+  transition:bottom 2.2s cubic-bezier(.18,.78,.24,1.02);
+  box-shadow:0 0 14px rgba(239,110,110,.45);
+}
+.strikerHammer{
+  position:absolute;
+  width:55px;
+  height:24px;
+  left:-3px;
+  bottom:24px;
+  background:#6fb9ff;
+  border:4px solid #345472;
+  border-radius:7px;
+  transform-origin:48px 12px;
+}
+.strikerHammer:after{
+  content:"";
+  position:absolute;
+  width:65px;
+  height:8px;
+  background:#a06b3e;
+  right:-58px;
+  top:5px;
+  border-radius:4px;
+}
+.strikerHammer.hit{
+  animation:hammerHit .65s ease-in-out;
+}
+.strikerBell.ring{
+  animation:ringBell .65s ease-in-out 3;
+}
+@keyframes hammerHit{
+  0%{transform:rotate(-28deg)}
+  52%{transform:rotate(18deg)}
+  68%{transform:rotate(18deg)}
+  100%{transform:rotate(-28deg)}
+}
+@keyframes ringBell{
+  0%,100%{transform:rotate(0)}
+  25%{transform:rotate(-10deg)}
+  50%{transform:rotate(10deg)}
+  75%{transform:rotate(-7deg)}
+}
+.rankRail{
+  height:390px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:4px 0 46px;
+}
+.rankMark{
+  position:relative;
+  padding-left:14px;
+  font-size:12px;
+  color:#d6deea;
+}
+.rankMark:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:8px;
+  width:8px;
+  border-top:2px solid #7f91aa;
+}
+.rankMark strong{display:block;font-size:13px;color:white}
+.rankMark.active strong{color:var(--gold);font-size:16px}
+.rankMark.active{color:#fff4be}
+.strikerCaption{
+  grid-column:1/3;
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
+  min-height:18px;
+}
+
+
+.splashScreen{
+  position:fixed;inset:0;z-index:120;background:#05070d;display:flex;align-items:center;justify-content:center;padding:14px;
+}
+.splashCard{
+  position:relative;width:min(1280px,96vw);height:min(90vh,820px);overflow:hidden;border-radius:18px;
+  border:3px solid #f1c84b;box-shadow:0 0 40px rgba(241,200,75,.25);background:#111;
+}
+.splashCard img{width:100%;height:100%;object-fit:cover;display:block}
+.splashOverlay{
+  position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding:0 0 24px;
+  background:linear-gradient(to bottom,transparent 65%,rgba(0,0,0,.45));
+}
+.splashBtn{
+  font-size:22px;padding:14px 24px;border:3px solid #fff3a8;background:#f1c84b;color:#111;
+  box-shadow:0 6px 0 #8c6b17;text-transform:uppercase;letter-spacing:1px;
+}
+.splashBtn:active{transform:translateY(4px);box-shadow:0 2px 0 #8c6b17}
+
+
+/* v2 additions */
+.toolbar{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.badgeGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.achieve{background:#252f41;border:1px solid #3b4a61;border-radius:8px;padding:7px;font-size:10px}
+.achieve.locked{opacity:.45}
+.achieve strong{display:block;font-size:11px}
+.upgradeRow{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center;background:#252f41;border-radius:8px;padding:7px;margin-bottom:5px}
+.saveToast{position:fixed;right:18px;bottom:18px;background:#173d27;border:1px solid #3eaa61;color:#e9fff0;padding:9px 12px;border-radius:8px;z-index:140;display:none}
+.progressOuter{height:10px;background:#2f3b50;border-radius:8px;overflow:hidden;margin-top:6px}
+.progressInner{height:100%;background:var(--gold);width:0}
+.marketTag{display:inline-block;padding:3px 7px;border-radius:999px;background:#2c3c54;font-size:10px;margin:2px 3px 0 0}
+.kpi{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.kpiBox{background:#252f41;border-radius:8px;padding:7px}
+
+@media(max-width:1050px){
+ .layout{grid-template-columns:1fr 1.25fr}.rightCol{grid-column:1/3;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.rightCol .panel{margin:0}
+}
+@media(max-width:760px){
+ .layout{grid-template-columns:1fr}.rightCol{grid-column:auto;display:block}.rightCol .panel{margin-bottom:10px}
+ .topbar{grid-template-columns:repeat(2,1fr)}.eventHead{grid-template-columns:110px 1fr}.pixelScene{height:120px}
+ .scoreStats{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="splashScreen" id="splashScreen">
+  <div class="splashCard">
+    <img src="music_mogul_splash.png" alt="Williamson's Music Mogul retro title screen">
+    <div class="splashOverlay">
+      <button class="splashBtn" onclick="startFromSplash()">Press Start</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+<h1>🎵 Music Mogul</h1>
+<div class="sub">Tycoon v2.0 — pricing, customers, borrowing, competition & business score</div>
+
+<div class="topbar">
+ <div class="stat"><div class="label">Cash</div><div class="value" id="cash">$0</div></div>
+ <div class="stat"><div class="label">Reputation</div><div class="value" id="rep">50</div></div>
+ <div class="stat"><div class="label">Debt</div><div class="value" id="debt">$10,000</div></div>
+ <div class="stat"><div class="label">Week</div><div class="value" id="week">1 / 14</div></div>
+ <div class="stat"><div class="label">Difficulty</div><div class="value" id="difficulty">-</div></div>
+</div>
+
+<div class="panel" style="margin-bottom:10px">
+ <div class="kpi">
+  <div class="kpiBox"><div class="label">Season Revenue</div><div class="value" id="seasonRevenue">$0</div></div>
+  <div class="kpiBox"><div class="label">Business Momentum</div><div class="progressOuter"><div class="progressInner" id="momentumBar"></div></div><div class="small" id="momentumText">Starting out</div></div>
+ </div>
+</div>
+
+<div class="layout">
+<!-- LEFT -->
+<div>
+ <div class="panel" id="setupPanel">
+   <h2>Choose Difficulty</h2>
+   <div class="small">Difficulty affects starting cash, expenses, competitors and customer tolerance.</div>
+   <div class="setup" style="margin-top:7px">
+    <button class="good" onclick="newGame('Easy')">Easy</button>
+    <button class="primary" onclick="newGame('Normal')">Normal</button>
+    <button class="danger" onclick="newGame('Hard')">Hard</button>
+   </div>
+ </div>
+
+ <div class="panel">
+  <h2>Inventory & Pricing</h2>
+  <div class="small">Budget sells more often. Premium earns more per sale but risks customer rejection.</div>
+  <div id="inventory"></div>
+ </div>
+</div>
+
+<!-- CENTER -->
+<div>
+ <div class="panel">
+   <div class="news" id="trend"><strong>Market Trend:</strong> Choose a difficulty.</div>
+   <div class="eventBox">
+     <div class="eventHead">
+       <div class="pixelScene" id="scene"></div>
+       <div>
+         <div class="eventTitle" id="eventTitle">Store Closed</div>
+         <div class="eventText" id="eventText">Choose a difficulty to open your business.</div>
+         <div id="result"></div>
+       </div>
+     </div>
+     <div class="choiceArea" id="choices"></div>
+   </div>
+   <div class="controls">
+     <button class="primary" id="nextBtn" onclick="nextEncounter()" disabled>Next Customer / Event</button>
+     <button class="secondary" id="endWeekBtn" onclick="endWeek()" disabled>End Week</button>
+   </div>
+   <div class="small" id="encounterCount"></div>
+ </div>
+</div>
+
+<!-- RIGHT -->
+<div class="rightCol">
+ <div class="panel">
+  <h2>🏦 Loan Center</h2>
+  <div class="small">Borrowing gives you cash now, but interest increases the debt you must repay.</div>
+  <div class="loanGrid" style="margin-top:7px">
+   <div class="loanOption"><div><strong>Small Loan: +$2,000</strong><div class="small">Adds $2,300 debt (15% cost)</div></div><button class="secondary" onclick="borrow(2000,2300)">Borrow</button></div>
+   <div class="loanOption"><div><strong>Growth Loan: +$5,000</strong><div class="small">Adds $5,600 debt (12% cost)</div></div><button class="secondary" onclick="borrow(5000,5600)">Borrow</button></div>
+   <div class="loanOption"><div><strong>Expansion Loan: +$10,000</strong><div class="small">Adds $11,000 debt (10% cost)</div></div><button class="orange" onclick="borrow(10000,11000)">Borrow</button></div>
+  </div>
+  <input class="moneyInput" id="loanPayment" type="number" min="0" step="100" placeholder="Extra repayment amount">
+  <button class="good" style="width:100%;margin-top:5px" onclick="payExtraLoan()">Make Extra Payment</button>
+  <div class="small" style="margin-top:5px">Credit limit: $30,000 total debt.</div>
+ </div>
+
+ <div class="panel">
+  <h2>🏁 Competitors</h2>
+  <div id="competitors"></div>
+ </div>
+
+
+ <div class="panel">
+  <h2>🏪 Store Upgrades</h2>
+  <div id="upgrades"></div>
+ </div>
+
+ <div class="panel">
+  <h2>🏅 Achievements</h2>
+  <div class="badgeGrid" id="achievements"></div>
+ </div>
+
+ <div class="panel">
+  <h2>💾 Game</h2>
+  <div class="toolbar">
+    <button class="secondary" onclick="saveGame()">Save</button>
+    <button class="secondary" onclick="loadGame()">Load</button>
+    <button class="danger" onclick="resetSave()">Reset Save</button>
+  </div>
+  <div class="small">Progress saves in this browser.</div>
+ </div>
+
+ <div class="panel">
+  <h2>📒 Business Log</h2>
+  <div class="log" id="log"></div>
+ </div>
+</div>
+</div>
+</div>
+
+<div class="saveToast" id="saveToast">Game saved</div>
+<div class="scoreOverlay" id="scoreOverlay">
+ <div class="scoreCard">
+  <div class="scoreTitle" id="scoreTitle">Season Complete!</div>
+
+  <div class="highStrikerWrap">
+    <div class="strikerMachine">
+      <div class="strikerBell" id="strikerBell"></div>
+      <div class="strikerRail"></div>
+      <div class="strikerPuck" id="strikerPuck"></div>
+      <div class="strikerBase"></div>
+      <div class="strikerHammer" id="strikerHammer"></div>
+    </div>
+
+    <div class="rankRail" id="rankRail">
+      <div class="rankMark" data-tier="7"><strong>⚡ Taylor Swift</strong> Swift Strategy</div>
+      <div class="rankMark" data-tier="6"><strong>👑 Queen</strong> Champion of Commerce</div>
+      <div class="rankMark" data-tier="5"><strong>💜 Prince</strong> Profit Royalty</div>
+      <div class="rankMark" data-tier="4"><strong>🚀 Bruno Mars</strong> Business in Orbit</div>
+      <div class="rankMark" data-tier="3"><strong>📅 The Weeknd</strong> Weekend Warrior</div>
+      <div class="rankMark" data-tier="2"><strong>🎸 Fleetwood Mac</strong> Steady Fleet</div>
+      <div class="rankMark" data-tier="1"><strong>🪨 Led Zeppelin</strong> Heavy Going</div>
+      <div class="rankMark" data-tier="0"><strong>🎤 Garage Band</strong> Just Getting Started</div>
+    </div>
+
+    <div class="strikerCaption" id="strikerCaption">Calculating your Music Mogul power...</div>
+  </div>
+
+  <div class="scoreBig" id="scoreBig">0</div>
+  <div id="scoreBadge"></div>
+  <div class="scoreStats" id="scoreStats"></div>
+  <div id="scoreComment" style="font-size:15px;line-height:1.45;margin:10px 0"></div>
+  <button class="primary" onclick="location.reload()">Play Again</button>
+ </div>
+</div>
+
+<script>
+var PRODUCTS=[
+ {name:"Guitars",icon:"🎸",cost:220,base:350,stock:0,priceMode:"Standard"},
+ {name:"Keyboards",icon:"🎹",cost:180,base:300,stock:0,priceMode:"Standard"},
+ {name:"Drum Sets",icon:"🥁",cost:260,base:410,stock:0,priceMode:"Standard"},
+ {name:"Microphones",icon:"🎤",cost:55,base:95,stock:0,priceMode:"Standard"},
+ {name:"Speakers",icon:"🔊",cost:240,base:390,stock:0,priceMode:"Standard"},
+ {name:"Mixers",icon:"🎚️",cost:150,base:260,stock:0,priceMode:"Standard"},
+ {name:"Headphones",icon:"🎧",cost:35,base:65,stock:0,priceMode:"Standard"},
+ {name:"Cables",icon:"🔌",cost:10,base:24,stock:0,priceMode:"Standard"}
+];
+
+var state={started:false,cash:0,rep:50,debt:10000,week:1,maxWeeks:14,difficulty:"-",encounters:0,maxEncounters:5,eventResolved:true,
+ demand:{},competitors:[],revenue:0,wholesaleSpent:0,operatingSpent:0,interestCost:0,loanBorrowed:10000,loanPaid:0,accepted:0,rejected:0,
+ upgrades:{online:false,rental:false,marketing:false,repair:false,delivery:false},
+ achievements:{},eventsHosted:0,bulkSales:0,loansTaken:0};
+
+var DIFF={
+ Easy:{cash:5000,encounters:4,tolerance:1.16,ai:42,expenses:650},
+ Normal:{cash:3500,encounters:5,tolerance:1.08,ai:52,expenses:800},
+ Hard:{cash:2500,encounters:6,tolerance:.99,ai:62,expenses:950}
+};
+
+var UPGRADE_DATA={
+ online:{name:"Online Store",cost:1800,desc:"+8% chance of customer acceptance"},
+ rental:{name:"Rental Department",cost:2200,desc:"+15% rental payouts"},
+ marketing:{name:"Local Marketing",cost:1600,desc:"+6 reputation immediately"},
+ repair:{name:"Repair Bench",cost:2000,desc:"Chance for weekly service income"},
+ delivery:{name:"Delivery Van",cost:2400,desc:"+10% payout on school/community jobs"}
+};
+
+var ACHIEVEMENTS={
+ firstSale:["First Gig","Complete your first sale."],
+ debtFree:["Debt Free","Repay all business debt."],
+ crowdPleaser:["Crowd Pleaser","Reach 80 reputation."],
+ bigBorrower:["Big Borrower","Take 3 additional loans."],
+ eventPro:["Event Pro","Host 3 in-store events."],
+ bulkBoss:["Bulk Boss","Complete 3 bulk sales."],
+ inventoryPro:["Stocked Up","Hold 25 total inventory items."],
+ revenueStar:["Revenue Star","Earn $10,000 in season revenue."]
+};
+
+function el(id){return document.getElementById(id)}
+function money(n){return "$"+Math.round(n).toLocaleString()}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function price(p){if(p.priceMode==="Budget")return Math.round(p.base*.84);if(p.priceMode==="Premium")return Math.round(p.base*1.25);return p.base}
+function log(msg){var d=document.createElement("div");d.textContent="Week "+state.week+": "+msg;el("log").insertBefore(d,el("log").firstChild)}
+function setResult(text,type){
+ el("result").className= type==="good"?"resultGood":type==="bad"?"resultBad":"resultNeutral";
+ el("result").innerHTML=text;
+}
+function clearResult(){el("result").className="";el("result").innerHTML=""}
+function scene(type){
+ var s=el("scene");s.innerHTML='<div class="sky"></div><div class="ground"></div><div class="shop"></div>';
+ function add(c,style,inside){var d=document.createElement("div");d.className=c;d.style.cssText=style||"";if(inside)d.innerHTML=inside;s.appendChild(d);return d}
+ add("star","left:18px;top:14px");
+ if(type==="cowboy"){var p=add("person","left:92px");p.innerHTML='<div class="hat"></div><div class="guitar"></div>'}
+ else if(type==="metal"){var p2=add("person","left:96px");p2.innerHTML='<div class="hair"></div><div class="guitar"></div>';p2.style.filter="hue-rotate(75deg)"}
+ else if(type==="school"){add("person","left:86px");add("person","left:112px");add("speaker","right:8px")}
+ else if(type==="sound"){add("person","left:96px");add("speaker","right:10px");add("speaker","right:35px")}
+ else if(type==="busy"){for(var i=0;i<6;i++)add("queueDot","left:"+(62+i*14)+"px;filter:hue-rotate("+(i*45)+"deg)")}
+ else if(type==="singer"){var p3=add("person","left:98px");p3.innerHTML='<div class="hair"></div><div class="mic"></div>'}
+ else if(type==="vendor"){add("speaker","right:10px");add("speaker","right:36px");add("person","left:100px")}
+ else add("person","left:98px");
+}
+function scoreScene(){
+ var s=el("scoreScene");s.innerHTML='<div class="sky"></div><div class="ground"></div><div class="shop" style="left:55px;transform:scale(1.45);transform-origin:bottom left"></div>';
+ for(var i=0;i<5;i++){var d=document.createElement("div");d.className="queueDot";d.style.cssText="left:"+(190+i*22)+"px;filter:hue-rotate("+(i*55)+"deg)";s.appendChild(d)}
+ var st=document.createElement("div");st.className="star";st.style.cssText="left:160px;top:18px;transform:scale(1.6)";s.appendChild(st);
+}
+
+function newGame(level){
+ state.started=true;state.difficulty=level;state.cash=DIFF[level].cash;state.rep=50;state.debt=10000;state.week=1;state.encounters=0;state.maxEncounters=DIFF[level].encounters;
+ state.revenue=0;state.wholesaleSpent=0;state.operatingSpent=0;state.interestCost=0;state.loanBorrowed=10000;state.loanPaid=0;state.accepted=0;state.rejected=0;
+ state.upgrades={online:false,rental:false,marketing:false,repair:false,delivery:false};state.achievements={};state.eventsHosted=0;state.bulkSales=0;state.loansTaken=0;
+ PRODUCTS[0].stock=2;PRODUCTS[1].stock=2;PRODUCTS[2].stock=1;PRODUCTS[3].stock=4;PRODUCTS[4].stock=2;PRODUCTS[5].stock=2;PRODUCTS[6].stock=5;PRODUCTS[7].stock=8;
+ for(var i=0;i<PRODUCTS.length;i++)PRODUCTS[i].priceMode="Standard";
+ state.competitors=[{name:"Beat Street",score:DIFF[level].ai,style:"Discount"},{name:"Stage Supply",score:DIFF[level].ai+3,style:"Rental"},{name:"Sound Central",score:DIFF[level].ai+1,style:"Balanced"}];
+ el("setupPanel").style.display="none";el("eventTitle").textContent="Doors Open";el("eventText").textContent="Set your prices and serve your first customer.";clearResult();scene("busy");
+ el("nextBtn").disabled=false;el("endWeekBtn").disabled=true;setTrend();render();log("Opened on "+level+" difficulty.");
+}
+function render(){
+ el("cash").textContent=money(state.cash);el("rep").textContent=Math.round(state.rep);el("debt").textContent=money(state.debt);el("week").textContent=state.week+" / "+state.maxWeeks;el("difficulty").textContent=state.difficulty;
+ el("encounterCount").textContent=state.started?"This week: "+state.encounters+" of "+state.maxEncounters+" encounters completed.":"";
+ if(el("seasonRevenue")) el("seasonRevenue").textContent=money(state.revenue);
+ if(el("momentumBar")){
+   var momentum=clamp((state.revenue/12000)*55+(state.rep/100)*25+((30000-Math.min(state.debt,30000))/30000)*20,0,100);
+   el("momentumBar").style.width=momentum+"%";
+   el("momentumText").textContent=momentum<25?"Starting out":momentum<50?"Building momentum":momentum<75?"Local favorite":"Mogul status";
+ }
+ var inv=el("inventory");inv.innerHTML="";
+ for(var i=0;i<PRODUCTS.length;i++){(function(idx){
+  var p=PRODUCTS[idx],row=document.createElement("div");row.className="inventoryRow";
+  var a=document.createElement("div");a.innerHTML='<span class="icon">'+p.icon+'</span><span class="productName">'+p.name+'</span><div class="small">Wholesale '+money(p.cost)+'</div>';
+  var b=document.createElement("div");b.innerHTML='<span class="small">Stock</span><br><strong>'+p.stock+'</strong>';
+  var c=document.createElement("div");c.innerHTML='<span class="small">Retail</span><br><strong>'+money(price(p))+'</strong>';
+  var pb=document.createElement("div");pb.className="priceBtns";["Budget","Standard","Premium"].forEach(function(m){var x=document.createElement("button");x.className="secondary"+(p.priceMode===m?" activePrice":"");x.textContent=m;x.onclick=function(){p.priceMode=m;render()};pb.appendChild(x)});
+  var d=document.createElement("div"),buy=document.createElement("button");buy.className="secondary";buy.textContent="Buy 1";buy.onclick=function(){if(state.cash>=p.cost){state.cash-=p.cost;p.stock++;state.wholesaleSpent+=p.cost;log("Bought 1 "+p.name+" for "+money(p.cost)+".");render()}else setResult("Not enough cash to buy that inventory.","bad")};d.appendChild(buy);
+  row.appendChild(a);row.appendChild(b);row.appendChild(c);row.appendChild(pb);row.appendChild(d);inv.appendChild(row)
+ })(i)}
+
+ var up=el("upgrades");if(up){up.innerHTML="";
+  for(var uk in UPGRADE_DATA){(function(key){
+    var u=UPGRADE_DATA[key],owned=state.upgrades[key],r=document.createElement("div");r.className="upgradeRow";
+    var t=document.createElement("div");t.innerHTML="<strong>"+u.name+"</strong><div class='small'>"+u.desc+" • "+money(u.cost)+"</div>";
+    var b=document.createElement("button");b.className=owned?"good":"secondary";b.textContent=owned?"Owned":"Buy";b.disabled=owned;
+    b.onclick=function(){buyUpgrade(key)};r.appendChild(t);r.appendChild(b);up.appendChild(r)
+  })(uk)}
+ }
+ checkAchievements();
+ var ag=el("achievements");if(ag){ag.innerHTML="";
+  for(var ak in ACHIEVEMENTS){var item=ACHIEVEMENTS[ak],got=!!state.achievements[ak],a=document.createElement("div");a.className="achieve"+(got?"":" locked");
+   a.innerHTML="<strong>"+(got?"🏆 ":"🔒 ")+item[0]+"</strong>"+item[1];ag.appendChild(a)}
+ }
+ var co=el("competitors");co.innerHTML="";
+ for(var j=0;j<state.competitors.length;j++){var cp=state.competitors[j],dv=document.createElement("div");dv.className="competitor";dv.innerHTML="<strong>"+cp.name+"</strong> <span class='small'>("+cp.style+")</span><div class='bar'><span style='width:"+clamp(cp.score,0,100)+"%'></span></div><div class='small'>Strength "+Math.round(cp.score)+"/100</div>";co.appendChild(dv)}
+}
+
+function buyUpgrade(key){
+ var u=UPGRADE_DATA[key];if(!state.started||state.upgrades[key])return;
+ if(state.cash<u.cost){setResult("Not enough cash for that upgrade.","bad");return}
+ state.cash-=u.cost;state.operatingSpent+=u.cost;state.upgrades[key]=true;
+ if(key==="marketing")state.rep+=6;
+ log("Purchased "+u.name+".");setResult(u.name+" installed!","good");render();saveGame(true)
+}
+function checkAchievements(){
+ if(state.accepted>=1)state.achievements.firstSale=true;
+ if(state.debt===0&&state.started)state.achievements.debtFree=true;
+ if(state.rep>=80)state.achievements.crowdPleaser=true;
+ if(state.loansTaken>=3)state.achievements.bigBorrower=true;
+ if(state.eventsHosted>=3)state.achievements.eventPro=true;
+ if(state.bulkSales>=3)state.achievements.bulkBoss=true;
+ var stock=0;for(var i=0;i<PRODUCTS.length;i++)stock+=PRODUCTS[i].stock;
+ if(stock>=25)state.achievements.inventoryPro=true;
+ if(state.revenue>=10000)state.achievements.revenueStar=true;
+}
+function toast(msg){
+ var t=el("saveToast");if(!t)return;t.textContent=msg;t.style.display="block";setTimeout(function(){t.style.display="none"},1200)
+}
+function saveGame(silent){
+ if(!state.started)return;
+ var data={state:state,products:PRODUCTS};
+ localStorage.setItem("musicMogulV2",JSON.stringify(data));
+ if(!silent)toast("Game saved");
+}
+function loadGame(){
+ var raw=localStorage.getItem("musicMogulV2");if(!raw){toast("No save found");return}
+ try{
+  var data=JSON.parse(raw);state=data.state;
+  for(var i=0;i<PRODUCTS.length;i++){for(var k in data.products[i])PRODUCTS[i][k]=data.products[i][k]}
+  if(!state.upgrades)state.upgrades={online:false,rental:false,marketing:false,repair:false,delivery:false};
+  if(!state.achievements)state.achievements={};
+  el("setupPanel").style.display="none";el("nextBtn").disabled=state.encounters>=state.maxEncounters;el("endWeekBtn").disabled=state.encounters<state.maxEncounters;
+  el("eventTitle").textContent="Game Loaded";el("eventText").textContent="Welcome back to your music business.";clearResult();scene("busy");render();toast("Game loaded")
+ }catch(e){toast("Save could not be loaded")}
+}
+function resetSave(){localStorage.removeItem("musicMogulV2");toast("Save cleared")}
+function setTrend(){
+ state.demand={};for(var i=0;i<PRODUCTS.length;i++)state.demand[PRODUCTS[i].name]=1;
+ var r=Math.floor(Math.random()*9),t="";
+ if(r===0){t="Concert season: guitars, microphones and speakers are hot.";state.demand.Guitars=1.4;state.demand.Microphones=1.5;state.demand.Speakers=1.4}
+ else if(r===1){t="Back-to-school: keyboards and headphones are popular.";state.demand.Keyboards=1.5;state.demand.Headphones=1.4}
+ else if(r===2){t="Festival weekend: speakers, mixers and cables are in demand.";state.demand.Speakers=1.5;state.demand.Mixers=1.5;state.demand.Cables=1.3}
+ else if(r===3){t="Home recording trend: microphones, headphones and keyboards rise.";state.demand.Microphones=1.4;state.demand.Headphones=1.5;state.demand.Keyboards=1.3}
+ else if(r===4){t="Rock revival: guitars and drum sets are trending.";state.demand.Guitars=1.5;state.demand["Drum Sets"]=1.5}
+ else if(r===5){t="Slow economy: customers are watching prices carefully.";for(var k in state.demand)state.demand[k]=.9}
+ else if(r===6){t="Holiday gift rush: keyboards, guitars and headphones jump.";state.demand.Keyboards=1.35;state.demand.Guitars=1.35;state.demand.Headphones=1.5}
+ else if(r===7){t="Local music festival announced: live sound gear demand rises.";state.demand.Speakers=1.45;state.demand.Mixers=1.4;state.demand.Microphones=1.3}
+ else t="Normal market conditions.";
+ el("trend").innerHTML="<strong>Market Trend:</strong> "+t;
+}
+function clearChoices(){el("choices").innerHTML=""}
+function choice(label,fn,cls){var b=document.createElement("button");b.className=cls||"secondary";b.textContent=label;b.onclick=fn;el("choices").appendChild(b)}
+function nextEncounter(){
+ if(!state.started||!state.eventResolved||state.encounters>=state.maxEncounters)return;
+ state.eventResolved=false;state.encounters++;clearResult();el("nextBtn").disabled=true;
+ if(Math.random()<.55)singleCustomer();else specialEvent();render()
+}
+function customerChance(p){
+ var ratio=price(p)/p.base,base=.90*state.demand[p.name]*DIFF[state.difficulty].tolerance;
+ if(ratio<.9)base+=.10;if(ratio>1.18)base-=.25;
+ base+=(state.rep-50)/260;if(state.upgrades.online)base+=.08;
+ return clamp(base,.12,.98)
+}
+function singleCustomer(){
+ var idx=Math.floor(Math.random()*PRODUCTS.length),p=PRODUCTS[idx],qty=Math.random()<.18?2:1;
+ if(p.name==="Guitars")scene(Math.random()<.5?"cowboy":"metal");else if(p.name==="Microphones")scene("singer");else scene("customer");
+ el("eventTitle").textContent="Customer Walk-In";
+ el("eventText").innerHTML="A customer wants <strong>"+qty+" "+p.name+"</strong>.<br>Your asking price: <strong>"+money(price(p))+"</strong> each.";
+ clearChoices();
+ choice("Offer at My Price",function(){
+  if(p.stock<qty){state.rep-=1;state.rejected++;setResult("OUT OF STOCK — the customer leaves.","bad");log("Lost "+p.name+" sale: out of stock.");finishEncounter();return}
+  if(Math.random()<customerChance(p)){
+    p.stock-=qty;var rev=qty*price(p);state.cash+=rev;state.revenue+=rev;state.accepted++;
+    setResult("SALE ACCEPTED — customer pays <strong>"+money(rev)+"</strong>.","good");log("Sold "+qty+" "+p.name+" for "+money(rev)+".")
+  }else{
+    state.rejected++;if(p.priceMode==="Premium"){state.rep-=1;setResult('DENIED — “Whoa, too much for that!” The customer walks out.',"bad")}else setResult("DENIED — the customer decides not to buy.","bad");
+    log("Customer rejected "+p.name+" at "+money(price(p))+".")
+  }finishEncounter()
+ },"primary");
+ choice("Let Them Walk",function(){state.rejected++;setResult("You chose not to make the sale.","neutral");log("Declined a walk-in sale.");finishEncounter()})
+}
+var EVENTS=[
+ function(){rental("School Sound Rental","A school needs 1 speaker + 1 mixer for a concert.","school",500,4,[[4,1],[5,1]])},
+ function(){rental("Wedding Rental","A wedding DJ needs 2 speakers + 1 microphone.","sound",650,3,[[4,2],[3,1]])},
+ function(){rental("Touring Singer","A singer needs 2 microphones + 1 speaker tonight.","singer",700,4,[[3,2],[4,1]])},
+ function(){rental("Country Artist Emergency","A cowboy guitarist needs 1 guitar + 1 microphone.","cowboy",625,3,[[0,1],[3,1]])},
+ function(){rental("Metal Band Emergency","A heavy-metal guitarist needs 1 guitar + 1 speaker.","metal",775,4,[[0,1],[4,1]])},
+ function(){vendor("Keyboard Bundle","Vendor offers 2 keyboards + 4 headphones for $450.","vendor",450,[[1,2],[6,4]])},
+ function(){vendor("Cable Clearance","Vendor offers 10 cables for $70.","vendor",70,[[7,10]])},
+ function(){expense("Broken Display","A store display breaks. Pay $250 or lose 4 reputation.","vendor",250,4)},
+ function(){expense("Damaged Rental","A returned speaker needs repair. Pay $220 or lose 3 reputation.","sound",220,3)},
+ function(){community()},
+ function(){busySaturday()},
+ function(){saleWeekend()},
+ function(){hostEvent()},
+ function(){competitorSale()},
+ function(){bulkCustomer()},
+
+ function(){flashTrend()},
+ function(){openMicNight()},
+ function(){teacherOrder()},
+ function(){stormDelay()},
+ function(){viralClip()},
+];
+function specialEvent(){EVENTS[Math.floor(Math.random()*EVENTS.length)]()}
+function rental(title,text,art,payout,repGain,needs){
+ scene(art);el("eventTitle").textContent=title;el("eventText").innerHTML=text+"<br><strong>Rental price: "+money(payout)+".</strong>";clearChoices();
+ choice("Accept Rental",function(){var ok=true;for(var i=0;i<needs.length;i++)if(PRODUCTS[needs[i][0]].stock<needs[i][1])ok=false;
+ if(!ok){state.rejected++;setResult("DENIED BY INVENTORY — you cannot fill the order.","bad");log("Could not fill "+title+".");finishEncounter();return}
+ var actual=payout;if(state.upgrades.rental)actual=Math.round(actual*1.15);if(state.upgrades.delivery&&(title.indexOf("School")>=0||title.indexOf("Community")>=0))actual=Math.round(actual*1.10);state.cash+=actual;state.revenue+=actual;state.rep+=repGain;state.accepted++;setResult("ACCEPTED — rental booked for <strong>"+money(actual)+"</strong>.","good");log(title+" earned "+money(actual)+".");finishEncounter()},"primary");
+ choice("Decline",function(){state.rejected++;setResult("You declined the rental.","neutral");finishEncounter()})
+}
+function vendor(title,text,art,cost,adds){
+ scene(art);el("eventTitle").textContent=title;el("eventText").textContent=text;clearChoices();
+ choice("Buy",function(){if(state.cash<cost){setResult("Not enough cash for this offer.","bad");finishEncounter();return}state.cash-=cost;state.wholesaleSpent+=cost;for(var i=0;i<adds.length;i++)PRODUCTS[adds[i][0]].stock+=adds[i][1];setResult("PURCHASED — inventory added.","good");log("Bought "+title+" for "+money(cost)+".");finishEncounter()},"primary");
+ choice("Pass",function(){setResult("You passed on the vendor offer.","neutral");finishEncounter()})
+}
+function expense(title,text,art,cost,repLoss){
+ scene(art);el("eventTitle").textContent=title;el("eventText").textContent=text;clearChoices();
+ choice("Pay "+money(cost),function(){if(state.cash>=cost){state.cash-=cost;state.operatingSpent+=cost;setResult("PAID — problem handled.","good");log(title+" cost "+money(cost)+".")}else{state.rep-=repLoss;setResult("You couldn't afford it. Reputation falls.","bad")}finishEncounter()},"primary");
+ choice("Don't Pay",function(){state.rep-=repLoss;setResult("You kept the cash but lost "+repLoss+" reputation.","bad");finishEncounter()})
+}
+function community(){
+ scene("school");el("eventTitle").textContent="Community Showcase";el("eventText").textContent="Sponsor a student showcase for $300. Success could boost your reputation.";clearChoices();
+ choice("Sponsor (-$300)",function(){if(state.cash<300){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=300;state.operatingSpent+=300;state.rep+=8;setResult("The showcase is a hit! +8 reputation.","good");log("Sponsored community showcase.");finishEncounter()},"primary");
+ choice("Skip",function(){setResult("You skip the sponsorship.","neutral");finishEncounter()})
+}
+function busySaturday(){
+ scene("busy");el("eventTitle").textContent="Busy Saturday";el("eventText").textContent="A line forms outside! Spend $150 on extra help to serve more customers?";clearChoices();
+ choice("Hire Extra Help (-$150)",function(){if(state.cash<150){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=150;state.operatingSpent+=150;var gain=520+Math.floor(Math.random()*281);state.cash+=gain;state.revenue+=gain;state.rep+=3;setResult("The line moves fast! You earn <strong>"+money(gain)+"</strong>.","good");log("Busy Saturday earned "+money(gain)+".");finishEncounter()},"primary");
+ choice("Handle It Yourself",function(){var gain=260+Math.floor(Math.random()*161);state.cash+=gain;state.revenue+=gain;state.rep-=1;setResult("You make "+money(gain)+", but some customers leave.","neutral");finishEncounter()})
+}
+function saleWeekend(){
+ scene("busy");el("eventTitle").textContent="Weekend Sale";el("eventText").textContent="Run a store-wide sale? You will earn less per item, but attract more customers.";clearChoices();
+ choice("Run Sale (-$200 ads)",function(){if(state.cash<200){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=200;state.operatingSpent+=200;var sold=0,rev=0;for(var i=0;i<PRODUCTS.length;i++){var q=Math.min(PRODUCTS[i].stock,Math.floor(Math.random()*2));PRODUCTS[i].stock-=q;sold+=q;rev+=q*Math.round(price(PRODUCTS[i])*.85)}state.cash+=rev;state.revenue+=rev;state.rep+=2;setResult("SALE SUCCESS — sold "+sold+" items for <strong>"+money(rev)+"</strong>.","good");log("Weekend sale earned "+money(rev)+".");finishEncounter()},"primary");
+ choice("No Sale",function(){setResult("You keep normal pricing.","neutral");finishEncounter()})
+}
+function hostEvent(){
+ scene("metal");el("eventTitle").textContent="Host an In-Store Performance";el("eventText").textContent="Host a local band for $400. A good turnout could increase sales and reputation.";clearChoices();
+ choice("Host Event (-$400)",function(){if(state.cash<400){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=400;state.operatingSpent+=400;var success=Math.random()<.72;if(success){var gain=650+Math.floor(Math.random()*351);state.cash+=gain;state.revenue+=gain;state.rep+=7;state.eventsHosted++;setResult("PACKED HOUSE — event generates <strong>"+money(gain)+"</strong> and +7 reputation.","good");log("Hosted successful in-store performance.")}else{state.rep+=2;state.eventsHosted++;setResult("Small turnout. You gain +2 reputation but don't recover the full event cost.","neutral")}finishEncounter()},"primary");
+ choice("Skip",function(){setResult("You pass on hosting the event.","neutral");finishEncounter()})
+}
+function competitorSale(){
+ scene("customer");el("eventTitle").textContent="Competitor Flash Sale";el("eventText").textContent="Beat Street announces a deep discount weekend. Match them with $175 in advertising?";clearChoices();
+ choice("Respond (-$175)",function(){if(state.cash<175){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=175;state.operatingSpent+=175;state.rep+=2;state.competitors[0].score-=3;setResult("Your promotion protects market share.","good");log("Countered competitor sale.");finishEncounter()},"primary");
+ choice("Ignore",function(){state.competitors[0].score+=3;setResult("Beat Street gains strength this week.","bad");finishEncounter()})
+}
+function bulkCustomer(){
+ scene("school");var idx=Math.floor(Math.random()*PRODUCTS.length),p=PRODUCTS[idx],qty=3;var offer=Math.round(price(p)*qty*.92);
+ el("eventTitle").textContent="Bulk Customer";el("eventText").innerHTML="A community group wants <strong>3 "+p.name+"</strong> and offers <strong>"+money(offer)+" total</strong>.";clearChoices();
+ choice("Accept Offer",function(){if(p.stock<qty){setResult("Not enough inventory.","bad");finishEncounter();return}p.stock-=qty;state.cash+=offer;state.revenue+=offer;state.accepted++;state.bulkSales++;setResult("BULK SALE ACCEPTED — "+money(offer)+".","good");log("Bulk sale: "+qty+" "+p.name+".");finishEncounter()},"primary");
+ choice("Decline",function(){state.rejected++;setResult("You decline the bulk offer.","neutral");finishEncounter()})
+}
+
+function flashTrend(){
+ scene("busy");el("eventTitle").textContent="Flash Trend";el("eventText").textContent="A song goes viral overnight. Customers suddenly want guitars and microphones.";clearChoices();
+ choice("Lean Into It (-$175 ads)",function(){if(state.cash<175){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=175;state.operatingSpent+=175;state.demand.Guitars=1.7;state.demand.Microphones=1.7;setResult("You ride the trend. Guitar and microphone demand jumps.","good");finishEncounter()},"primary");
+ choice("Ignore It",function(){setResult("You stick with your current plan.","neutral");finishEncounter()})
+}
+function openMicNight(){
+ scene("singer");el("eventTitle").textContent="Open Mic Night";el("eventText").textContent="Host an open mic for $250? Success may boost store traffic.";clearChoices();
+ choice("Host (-$250)",function(){if(state.cash<250){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=250;state.operatingSpent+=250;state.eventsHosted++;var gain=300+Math.floor(Math.random()*401);state.cash+=gain;state.revenue+=gain;state.rep+=5;setResult("Great turnout! You bring in "+money(gain)+" and +5 reputation.","good");finishEncounter()},"primary");
+ choice("Skip",function(){setResult("You skip open mic night.","neutral");finishEncounter()})
+}
+function teacherOrder(){
+ scene("school");var offer=720;el("eventTitle").textContent="Teacher Supply Order";el("eventText").textContent="A music teacher needs 4 headphones, 2 cables, and 1 keyboard. Offer: "+money(offer)+".";clearChoices();
+ choice("Accept",function(){if(PRODUCTS[6].stock<4||PRODUCTS[7].stock<2||PRODUCTS[1].stock<1){setResult("You cannot fill the full order.","bad");finishEncounter();return}PRODUCTS[6].stock-=4;PRODUCTS[7].stock-=2;PRODUCTS[1].stock-=1;state.cash+=offer;state.revenue+=offer;state.rep+=4;state.accepted++;setResult("Order filled for "+money(offer)+".","good");finishEncounter()},"primary");
+ choice("Decline",function(){state.rejected++;setResult("You decline the order.","neutral");finishEncounter()})
+}
+function stormDelay(){
+ scene("vendor");el("eventTitle").textContent="Shipping Delay";el("eventText").textContent="A storm delays your next vendor shipment. Pay $200 for expedited delivery?";clearChoices();
+ choice("Expedite (-$200)",function(){if(state.cash<200){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=200;state.operatingSpent+=200;setResult("Shipment stays on schedule.","good");finishEncounter()},"primary");
+ choice("Wait",function(){state.rep-=2;setResult("Some customers get frustrated. -2 reputation.","bad");finishEncounter()})
+}
+function viralClip(){
+ scene("metal");el("eventTitle").textContent="Viral Performance Clip";el("eventText").textContent="A local musician tags your store in a viral video.";clearChoices();
+ choice("Promote the Post (-$100)",function(){if(state.cash<100){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=100;state.operatingSpent+=100;state.rep+=6;var gain=250+Math.floor(Math.random()*251);state.cash+=gain;state.revenue+=gain;setResult("The post takes off! +6 reputation and "+money(gain)+".","good");finishEncounter()},"primary");
+ choice("Enjoy the Free Buzz",function(){state.rep+=3;setResult("Free publicity! +3 reputation.","good");finishEncounter()})
+}
+function finishEncounter(){
+ state.eventResolved=true;saveGame(true);clearChoices();render();
+ if(state.encounters<state.maxEncounters){el("nextBtn").disabled=false;el("endWeekBtn").disabled=true}else{el("nextBtn").disabled=true;el("endWeekBtn").disabled=false;el("eventText").innerHTML+="<br><br><strong>All encounters for this week are complete.</strong>"}
+}
+function borrow(cashAmt,debtAmt){
+ if(!state.started)return;
+ if(state.debt+debtAmt>30000){setResult("Loan denied: this would exceed your $30,000 credit limit.","bad");return}
+ state.cash+=cashAmt;state.debt+=debtAmt;state.loanBorrowed+=cashAmt;state.interestCost+=debtAmt-cashAmt;state.loansTaken++;log("Borrowed "+money(cashAmt)+"; debt increased by "+money(debtAmt)+".");setResult("LOAN APPROVED — +"+money(cashAmt)+" cash, +"+money(debtAmt)+" debt.","good");render()
+}
+function payExtraLoan(){
+ if(!state.started)return;var amt=parseInt(el("loanPayment").value,10);if(isNaN(amt)||amt<=0)return;
+ amt=Math.min(amt,state.cash,state.debt);if(amt<=0){setResult("No available cash for that payment.","bad");return}
+ state.cash-=amt;state.debt-=amt;state.loanPaid+=amt;el("loanPayment").value="";log("Extra debt payment: "+money(amt)+".");
+ if(state.debt===0){state.rep+=4;setResult("DEBT FREE! Your loan balance is now $0. +4 reputation.","good")}else setResult("Extra payment made. Remaining debt: "+money(state.debt)+".","good");render()
+}
+function endWeek(){
+ if(!state.started||state.encounters<state.maxEncounters)return;
+ var ex=DIFF[state.difficulty].expenses;state.cash-=ex;state.operatingSpent+=ex;log("Paid "+money(ex)+" weekly operating expenses.");
+ if(state.debt>0){var required=Math.min(250+Math.floor(state.debt*.005),state.debt);state.cash-=required;state.debt-=required;state.loanPaid+=required;log("Required loan payment: "+money(required)+".")}
+ for(var i=0;i<state.competitors.length;i++)state.competitors[i].score=clamp(state.competitors[i].score+(Math.random()*7-1),20,100);
+ if(state.cash<0)state.rep-=4;
+ if(state.upgrades.repair&&Math.random()<.60){var service=180+Math.floor(Math.random()*241);state.cash+=service;state.revenue+=service;log("Repair Bench earned "+money(service)+".")}
+ saveGame(true);
+ if(state.week>=state.maxWeeks){finishGame();return}
+ state.week++;state.encounters=0;state.eventResolved=true;setTrend();el("eventTitle").textContent="New Week";el("eventText").textContent="New market conditions are in effect.";clearResult();scene("busy");el("nextBtn").disabled=false;el("endWeekBtn").disabled=true;render()
+}
+
+function animateHighStriker(score){
+ var maxScore=14000;
+ var pct=clamp(score/maxScore,0,1);
+ var railTravel=286;
+ var puck=el("strikerPuck");
+ var hammer=el("strikerHammer");
+ var bell=el("strikerBell");
+ var caption=el("strikerCaption");
+
+ var tiers=[
+  {min:0,name:"Garage Band — Just Getting Started"},
+  {min:1800,name:"Led Zeppelin — Heavy Going"},
+  {min:3600,name:"Fleetwood Mac — Steady Fleet"},
+  {min:5400,name:"The Weeknd — Weekend Warrior"},
+  {min:7200,name:"Bruno Mars — Business in Orbit"},
+  {min:9000,name:"Prince — Profit Royalty"},
+  {min:11000,name:"Queen — Champion of Commerce"},
+  {min:13000,name:"Taylor Swift — Swift Strategy"}
+ ];
+
+ var tier=0;
+ for(var i=0;i<tiers.length;i++){
+   if(score>=tiers[i].min) tier=i;
+ }
+
+ var marks=document.querySelectorAll(".rankMark");
+ for(var j=0;j<marks.length;j++){
+   marks[j].classList.remove("active");
+   if(parseInt(marks[j].getAttribute("data-tier"),10)===tier){
+     marks[j].classList.add("active");
+   }
+ }
+
+ puck.style.transition="none";
+ puck.style.bottom="49px";
+ hammer.classList.remove("hit");
+ bell.classList.remove("ring");
+ caption.textContent="Ready... swing the hammer!";
+
+ setTimeout(function(){
+   hammer.classList.add("hit");
+   caption.textContent="WHAM!";
+ },350);
+
+ setTimeout(function(){
+   puck.style.transition="bottom 2.2s cubic-bezier(.18,.78,.24,1.02)";
+   puck.style.bottom=(49+railTravel*pct)+"px";
+   caption.textContent="Your score is climbing...";
+ },760);
+
+ setTimeout(function(){
+   caption.innerHTML="<strong>"+tiers[tier].name+"</strong>";
+   if(tier===7 || pct>.93){
+     bell.classList.add("ring");
+     caption.innerHTML="🔔 <strong>BELL RINGER! "+tiers[tier].name+"</strong>";
+   }
+ },3050);
+}
+
+function finishGame(){
+ var inv=0;for(var i=0;i<PRODUCTS.length;i++)inv+=PRODUCTS[i].stock*PRODUCTS[i].cost;
+ var profit=state.revenue-state.wholesaleSpent-state.operatingSpent-state.interestCost;
+ var netWorth=state.cash+inv-state.debt;
+ checkAchievements();var achievementCount=Object.keys(state.achievements).length;var score=Math.max(0,Math.round(netWorth + profit*.55 + state.rep*110 + achievementCount*250));
+ var grade="Garage Startup",comment="You survived, but the business needs a stronger financial plan.";
+ if(score>=12000){grade="Music Mogul",comment="Outstanding! You balanced profit, reputation, inventory and debt like a seasoned owner."}
+ else if(score>=8000){grade="Regional Headliner",comment="A strong business with room to become the top store in town."}
+ else if(score>=4500){grade="Local Favorite",comment="A solid shop. Better debt and inventory decisions could push you higher."}
+ else if(score>=1800){grade="Opening Act",comment="You built a functioning store, but cash flow and debt held you back."}
+ if(state.debt===0){score+=1500;grade=score>=12000?"Debt-Free Music Mogul":grade+" • Debt Free";comment+=" Finishing debt-free earns a 1,500-point bonus."}
+ scoreScene();el("scoreTitle").textContent="Season Complete!";el("scoreBig").textContent=score.toLocaleString()+" pts";
+ el("scoreBadge").innerHTML='<span class="badge">'+grade+'</span>';
+ el("scoreStats").innerHTML=
+  '<div class="scoreStat"><div class="label">Operating Profit</div><div class="value">'+money(profit)+'</div></div>'+
+  '<div class="scoreStat"><div class="label">Net Worth</div><div class="value">'+money(netWorth)+'</div></div>'+
+  '<div class="scoreStat"><div class="label">Debt Remaining</div><div class="value">'+money(state.debt)+'</div></div>'+
+  '<div class="scoreStat"><div class="label">Reputation</div><div class="value">'+Math.round(state.rep)+'/100</div></div>'+
+  '<div class="scoreStat"><div class="label">Sales Accepted</div><div class="value">'+state.accepted+'</div></div>'+
+  '<div class="scoreStat"><div class="label">Interest Cost</div><div class="value">'+money(state.interestCost)+'</div></div>'+
+  '<div class="scoreStat"><div class="label">Achievements</div><div class="value">'+achievementCount+' / '+Object.keys(ACHIEVEMENTS).length+'</div></div>';
+ el("scoreComment").textContent=comment;
+ el("scoreOverlay").style.display="flex";
+ setTimeout(function(){animateHighStriker(score)},180);
+}
+function startFromSplash(){document.getElementById("splashScreen").style.display="none";}
+scene("busy");render();
+</script>
+</body>
+</html>
