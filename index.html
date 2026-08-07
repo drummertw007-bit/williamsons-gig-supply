@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Williamson's Gig Supply Co. v3.1</title>
+<title>Williamson's Gig Supply Co. v3.1.1</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 :root{
@@ -556,6 +556,30 @@ button:not(:disabled){transition:transform .08s ease,filter .12s ease}button:not
 
 .yearBadge{display:inline-block;padding:3px 7px;border-radius:999px;background:#38465d;color:#fff;font-size:10px;margin-left:4px}
 
+
+/* v3.1.1 mobile touch fixes */
+button,
+.priceBtns button,
+.inventoryRow button,
+.controls button{
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+@media(max-width:760px){
+  button{
+    touch-action:manipulation;
+  }
+  .inventoryRow button,
+  .priceBtns button{
+    min-height:32px;
+  }
+  input,
+  select,
+  textarea{
+    font-size:16px !important; /* prevents iOS focus-zoom */
+  }
+}
+
 </style>
 </head>
 <body>
@@ -597,7 +621,7 @@ button:not(:disabled){transition:transform .08s ease,filter .12s ease}button:not
       <div class="splashControls">
         <button class="splashBtn" id="splashStartBtn" onclick="startFromSplash()">Press Start</button>
         <button class="soundToggle" id="soundToggleBtn" onclick="toggleSound()">🔊 Sound On</button>
-        <div class="splashVersion">Franchise Edition • v3.1</div>
+        <div class="splashVersion">Franchise Edition • v3.1.1</div>
       </div>
     </div>
   </div>
@@ -605,7 +629,7 @@ button:not(:disabled){transition:transform .08s ease,filter .12s ease}button:not
 
 <div class="wrap">
 <h1>🎵 Williamson’s Gig Supply Co.</h1>
-<div class="sub">Build the Beat. Grow the Business. <span style="opacity:.65">• Franchise Edition • v3.1</span></div>
+<div class="sub">Build the Beat. Grow the Business. <span style="opacity:.65">• Franchise Edition • v3.1.1</span></div>
 
 <div class="topbar">
  <div class="stat"><div class="label">Cash</div><div class="value" id="cash">$0</div></div>
@@ -880,7 +904,12 @@ function scene(type){
  else add("person","left:98px");
 }
 function scoreScene(){
- var s=el("scoreScene");s.innerHTML='<div class="sky"></div><div class="ground"></div><div class="shop" style="left:55px;transform:scale(1.45);transform-origin:bottom left"></div>';
+ /* Legacy celebration scene was removed when the high-striker review replaced it.
+    Keep this helper defensive so annual review can never fail because the optional
+    scene container is missing. */
+ var s=el("scoreScene");
+ if(!s)return;
+ s.innerHTML='<div class="sky"></div><div class="ground"></div><div class="shop" style="left:55px;transform:scale(1.45);transform-origin:bottom left"></div>';
  for(var i=0;i<5;i++){var d=document.createElement("div");d.className="queueDot";d.style.cssText="left:"+(190+i*22)+"px;filter:hue-rotate("+(i*55)+"deg)";s.appendChild(d)}
  var st=document.createElement("div");st.className="star";st.style.cssText="left:160px;top:18px;transform:scale(1.6)";s.appendChild(st);
 }
@@ -899,7 +928,7 @@ function newGame(level){
  el("nextBtn").disabled=false;el("endMonthBtn").disabled=true;assignMonthlyGoal();setTrend();render();log("Opened on "+level+" difficulty.");
 }
 function render(){
- el("cash").textContent=money(state.cash);el("rep").textContent=Math.round(state.rep);el("debt").textContent=money(state.debt);el("month").textContent=MONTH_NAMES[state.month-1]+" • Y"+state.year;el("difficulty").textContent=state.difficulty;
+ el("cash").textContent=money(state.cash);state.rep=clamp(state.rep,0,100);el("rep").textContent=Math.round(state.rep);el("debt").textContent=money(state.debt);el("month").textContent=MONTH_NAMES[state.month-1]+" • Y"+state.year;el("difficulty").textContent=state.difficulty;
  if(el("franchise"))el("franchise").textContent=state.franchiseName||"#---";
  
  if(el("hqMessage")&&state.started){
@@ -971,11 +1000,11 @@ function toast(msg){
 function saveGame(silent){
  if(!state.started)return;
  var data={state:state,products:PRODUCTS};
- localStorage.setItem("williamsonsGigSupplyV31",JSON.stringify(data));
+ localStorage.setItem("williamsonsGigSupplyV311",JSON.stringify(data));
  if(!silent)toast("Game saved");
 }
 function loadGame(){
- var raw=localStorage.getItem("williamsonsGigSupplyV31")||localStorage.getItem("williamsonsGigSupplyV30")||localStorage.getItem("williamsonsGigSupplyV23");if(!raw){toast("No save found");return}
+ var raw=localStorage.getItem("williamsonsGigSupplyV311")||localStorage.getItem("williamsonsGigSupplyV31")||localStorage.getItem("williamsonsGigSupplyV30")||localStorage.getItem("williamsonsGigSupplyV23");if(!raw){toast("No save found");return}
  try{
   var data=JSON.parse(raw);state=data.state;
   if(typeof state.year==="undefined"){state.year=1;state.month=state.week||1;delete state.week;}
@@ -990,7 +1019,7 @@ function loadGame(){
   el("eventTitle").textContent="Game Loaded";el("eventText").textContent="Welcome back to your music business.";clearResult();scene("busy");render();applyResponsiveUI();toast("Game loaded")
  }catch(e){toast("Save could not be loaded")}
 }
-function resetSave(){localStorage.removeItem("williamsonsGigSupplyV31");localStorage.removeItem("williamsonsGigSupplyV30");localStorage.removeItem("williamsonsGigSupplyV23");toast("Save cleared")}
+function resetSave(){localStorage.removeItem("williamsonsGigSupplyV311");localStorage.removeItem("williamsonsGigSupplyV31");localStorage.removeItem("williamsonsGigSupplyV30");localStorage.removeItem("williamsonsGigSupplyV23");toast("Save cleared")}
 
 
 function assignMonthlyGoal(){
@@ -1320,8 +1349,11 @@ function endMonth(){
 
  /* December always triggers annual review */
  if(state.month>=12){
-   saveGame(true);
-   finishGame();
+   el("eventTitle").textContent="Year "+state.year+" Complete";
+   el("eventText").textContent="WGSC Headquarters is preparing your annual franchise review...";
+   el("nextBtn").disabled=true;el("endMonthBtn").disabled=true;
+   render();saveGame(true);
+   setTimeout(function(){finishGame()},350);
    return;
  }
 
@@ -1409,6 +1441,7 @@ function animateHighStriker(score){
 }
 
 function finishGame(){
+ state.rep=clamp(state.rep,0,100);
  checkAchievements();
  var inv=0;for(var i=0;i<PRODUCTS.length;i++)inv+=PRODUCTS[i].stock*PRODUCTS[i].cost;
  var profit=state.revenue-state.wholesaleSpent-state.operatingSpent-state.interestCost;
@@ -1425,7 +1458,8 @@ function finishGame(){
  else if(score>=1800){grade="Opening Branch";comment="You built a functioning branch, but cash flow and debt held you back."}
  if(state.debt===0){grade="Debt-Free "+grade;comment+=" Finishing debt-free earns a 1,500-point bonus."}
 
- scoreScene();el("scoreTitle").textContent=(state.franchiseName||"Your Franchise")+" — Year "+state.year+" Review";
+ el("scoreOverlay").style.display="flex";
+ el("scoreTitle").textContent=(state.franchiseName||"Your Franchise")+" — Year "+state.year+" Review";
  el("scoreBig").textContent=score.toLocaleString()+" pts";
  el("scoreBadge").innerHTML='<span class="badge">'+grade+'</span>';
  el("scoreStats").innerHTML=
@@ -1436,7 +1470,7 @@ function finishGame(){
   '<div class="scoreStat"><div class="label">Achievements</div><div class="value">'+achievementCount+' / '+Object.keys(ACHIEVEMENTS).length+'</div></div>'+
   '<div class="scoreStat"><div class="label">Franchise</div><div class="value">'+(state.franchiseId||"#---")+'</div></div>';
  el("scoreComment").textContent=comment+" WGSC Headquarters invites you to continue into Year "+(state.year+1)+".";
- el("scoreOverlay").style.display="flex";
+ scoreScene();
  setTimeout(function(){animateHighStriker(score)},180);
  saveGame(true);
 }

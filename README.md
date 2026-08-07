@@ -1,28 +1,16 @@
-# Williamson's Gig Supply Co. v3.1 — Franchise Edition
+# Williamson's Gig Supply Co. v3.1.1 — Hotfix
 
-## v3.1 gameplay update
-- Calendar-based January–December franchise year
-- Annual WGSC franchise review at the end of December
-- Continue into Year 2, Year 3, etc. instead of ending the game
-- Each new year increases operating costs and rival-store strength slightly
-- Monthly market flavor and seasonal demand
-- Monthly HQ goals with cash rewards
-- WGSC HQ monthly messages
-- Upgrade-specific event families:
-  - Online Store → online orders, Cyber sales, damaged shipments, viral demand
-  - Rental Department → festival, touring, corporate and late-return events
-  - Local Marketing → radio, coupons, influencers and sponsorships
-  - Repair Bench → repair rushes, vintage repairs, emergency fixes and trade-ins
-  - Delivery Van → rush deliveries, school routes, flat tires and fuel spikes
-- Online Store is now $2,000 and visibly changes gameplay
-- December review screen reliably triggers
-- v3.0/v2.3 browser save migration
-- Animated franchise review high-striker remains
+## Fixes
+- Fixes December annual-review bug. The high-striker franchise review now opens reliably.
+- Adds a short "HQ is preparing your annual review" transition.
+- Caps Customer Satisfaction at 100.
+- Prevents mobile double-tap zoom on game buttons using `touch-action: manipulation`.
+- Uses 16px mobile input text to prevent iOS focus zoom.
+- Preserves migration from v3.1, v3.0 and v2.3 browser saves.
 
 ## GitHub Pages
-Upload:
-- index.html
-- gig_supply_splash.png
-- README.md (optional)
+Replace:
+- `index.html`
+- `gig_supply_splash.png`
 
-No server or database required.
+README.md is optional.
