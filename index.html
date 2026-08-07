@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Williamson's Gig Supply Co. v4.1</title>
+<title>Williamson's Gig Supply Co. v4.3</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 :root{
@@ -557,7 +557,7 @@ button:not(:disabled){transition:transform .08s ease,filter .12s ease}button:not
 .yearBadge{display:inline-block;padding:3px 7px;border-radius:999px;background:#38465d;color:#fff;font-size:10px;margin-left:4px}
 
 
-/* v4.1 mobile touch fixes */
+/* v4.3 mobile touch fixes */
 button,
 .priceBtns button,
 .inventoryRow button,
@@ -733,7 +733,7 @@ button,
 }
 
 
-/* v4.1 Franchise Progression */
+/* v4.3 Franchise Progression */
 .launchModal{
   position:fixed;inset:0;z-index:130;background:rgba(5,8,13,.93);
   align-items:center;justify-content:center;padding:18px;
@@ -792,48 +792,305 @@ button,
  .rewardChoices{grid-template-columns:1fr}
 }
 
+
+/* v4.3 clean static opening */
+.splashScreen{
+  position:fixed;inset:0;z-index:120;background:#05070d;
+  display:flex;align-items:center;justify-content:center;padding:16px;
+}
+.staticSplashCard{
+  width:min(1180px,96vw);
+  height:auto !important;
+  max-height:94vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:#05070d;
+  border:2px solid #37465d;
+  border-radius:18px;
+  box-shadow:none;
+}
+.staticSplashCard img{
+  width:100%;
+  height:auto;
+  max-height:72vh;
+  object-fit:contain;
+  display:block;
+  background:#05070d;
+}
+.staticSplashControls{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  padding:16px 14px 18px;
+  background:#05070d;
+}
+.staticStartBtn{
+  animation:none !important;
+  font-size:21px;
+  padding:13px 28px;
+}
+.staticStartBtn:hover{filter:brightness(1.07)}
+.splashVersion{
+  font-size:10px;
+  letter-spacing:1.2px;
+  color:#aeb8c8;
+  text-transform:uppercase;
+}
+.splashFX,.neonFlicker,.marqueeChase,.floatingNote,.pixelDrummer,.movingVan,.soundToggle{
+  display:none !important;
+  animation:none !important;
+}
+@media(max-width:760px){
+  .splashScreen{padding:0}
+  .staticSplashCard{
+    width:100vw;
+    max-width:none;
+    height:100vh !important;
+    max-height:none;
+    border:0;
+    border-radius:0;
+  }
+  .staticSplashCard img{
+    width:100%;
+    height:auto;
+    max-height:68vh;
+    object-fit:contain;
+  }
+  .staticSplashControls{padding:14px 12px 24px}
+  .staticStartBtn{font-size:19px;padding:12px 24px}
+}
+
+
+/* v4.3 splash integration */
+.staticSplashCard{
+  width:min(1180px,96vw);
+  height:auto !important;
+  max-height:94vh;
+  display:block;
+  overflow:hidden;
+  background:#05070d;
+  border:2px solid #37465d;
+  border-radius:18px;
+  box-shadow:none;
+}
+.splashArtworkWrap{
+  position:relative;
+  width:100%;
+  background:#05070d;
+}
+.splashArtworkWrap img{
+  width:100%;
+  height:auto;
+  max-height:88vh;
+  object-fit:contain;
+  display:block;
+}
+.splashFade{
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:28%;
+  background:linear-gradient(to bottom,rgba(5,7,13,0),rgba(5,7,13,.84) 55%,rgba(5,7,13,.98));
+  pointer-events:none;
+}
+.splashIntegratedControls{
+  position:absolute;
+  left:0;right:0;bottom:3.5%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:7px;
+}
+.staticStartBtn{
+  animation:none!important;
+  font-size:21px;
+  padding:13px 30px;
+  border:3px solid #fff0a4;
+  background:#f1c84b;
+  color:#161616;
+  box-shadow:0 5px 0 #8c6b17;
+}
+.staticStartBtn:hover{filter:brightness(1.07)}
+.staticStartBtn:active{transform:translateY(3px);box-shadow:0 2px 0 #8c6b17}
+.splashVersion{
+  color:#c6cfdb;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:1.3px;
+  text-shadow:0 1px 3px #000;
+}
+
+/* v4.3 franchise agreement */
+.agreementCard{
+  width:min(920px,96vw);
+  background:#e8e1cf;
+  color:#1b2430;
+  border:4px solid #8a6c2e;
+  box-shadow:0 20px 70px rgba(0,0,0,.55);
+}
+.agreementHeader{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding-bottom:14px;
+  border-bottom:3px double #8a6c2e;
+}
+.agreementHeader h2{
+  color:#17202d;
+  margin:2px 0 2px;
+  font-size:27px;
+}
+.agreementHeader .small{color:#5c6370}
+.agreementSeal{
+  width:70px;height:70px;
+  display:flex;align-items:center;justify-content:center;
+  border:4px solid #b18b32;
+  border-radius:50%;
+  background:#152438;
+  color:#f1c84b;
+  font-weight:900;
+  letter-spacing:2px;
+  box-shadow:inset 0 0 0 3px #e8e1cf;
+  flex:0 0 70px;
+}
+.agreementBody{padding-top:12px}
+.agreementIntro{
+  background:#f4efe3;
+  border-left:5px solid #b18b32;
+  padding:10px 12px;
+  border-radius:6px;
+  font-size:13px;
+  line-height:1.45;
+}
+.agreementCard .launchLabel{color:#1d2734}
+.agreementCard .launchInput{
+  background:#fffdf7;color:#19212c;border:1px solid #8d8574;
+}
+.agreementCard .small{color:#5f6670}
+.agreementClause{
+  margin:13px 0;
+  padding:9px 11px;
+  border:1px solid #b7aa8e;
+  background:#f6f1e7;
+  border-radius:7px;
+}
+.agreementClause strong{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+.agreementClause span{font-size:11px;color:#505963}
+.agreementSectionTitle{
+  font-size:12px;
+  font-weight:900;
+  color:#6d5421;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+  margin:14px 0 8px;
+}
+.difficultyCard{
+  position:relative;
+  min-height:180px;
+  border:2px solid #9c8c6f;
+  color:#16202b;
+  background:#f6f2e8;
+}
+.difficultyCard strong{font-size:15px}
+.difficultyCard span{font-size:11px}
+.difficultyCard small{color:#5d6570}
+.easyCard{background:#eef5e9}
+.normalCard{background:#f7f2dc}
+.hardCard{background:#f7e8e8}
+.difficultyRibbon{
+  position:absolute;
+  top:8px;right:8px;
+  font-size:8px;
+  letter-spacing:.8px;
+  font-weight:900;
+  background:#213047;
+  color:white;
+  padding:3px 6px;
+  border-radius:999px;
+}
+.selectChallenge{
+  margin-top:12px;
+  background:#25344a;
+  color:#fff;
+  padding:7px 8px;
+  border-radius:7px;
+  text-align:center;
+  font-size:10px;
+  font-weight:900;
+}
+.difficultyCard:hover{
+  border-color:#b18b32;
+  transform:translateY(-1px);
+}
+.agreementFooter{
+  margin-top:16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  border-top:1px solid #b7aa8e;
+  padding-top:12px;
+  font-size:10px;
+  color:#545d68;
+}
+.signatureLine{
+  width:180px;
+  border-top:1px solid #4e5660;
+  padding-top:3px;
+  text-align:center;
+  font-style:italic;
+}
+
+@media(max-width:760px){
+  .staticSplashCard{
+    width:100vw;
+    height:100vh!important;
+    max-height:none;
+    border:0;
+    border-radius:0;
+    display:flex;
+    align-items:center;
+    background:#05070d;
+  }
+  .splashArtworkWrap{width:100%}
+  .splashArtworkWrap img{max-height:78vh}
+  .splashIntegratedControls{bottom:3%}
+  .staticStartBtn{font-size:18px;padding:11px 24px}
+  .agreementCard{padding:14px;border-width:2px}
+  .agreementHeader{gap:9px}
+  .agreementSeal{width:54px;height:54px;flex-basis:54px;font-size:11px}
+  .agreementHeader h2{font-size:21px}
+  .difficultyCards{grid-template-columns:1fr}
+  .difficultyCard{min-height:0;padding:12px}
+  .agreementFooter{flex-direction:column;align-items:flex-start;gap:16px}
+  .signatureLine{width:150px}
+}
+
 </style>
 </head>
 <body>
 
 <div class="splashScreen" id="splashScreen">
-  <div class="splashCard">
-    <img src="gig_supply_splash.png" alt="Williamson’s Gig Supply Co. Franchise Edition retro title screen">
-
-    <!-- v3 animated title-screen overlays -->
-    <div class="splashFX" aria-hidden="true">
-      <div class="neonFlicker"></div>
-      <div class="marqueeChase marqueeTop"></div>
-      <div class="marqueeChase marqueeBottom"></div>
-
-      <div class="floatingNote note1">♪</div>
-      <div class="floatingNote note2">♫</div>
-      <div class="floatingNote note3">♪</div>
-      <div class="floatingNote note4">♬</div>
-
-      <div class="pixelDrummer">
-        <div class="drummerHead"></div>
-        <div class="drummerBody"></div>
-        <div class="drummerArm armL"></div>
-        <div class="drummerArm armR"></div>
-        <div class="miniDrum drumL"></div>
-        <div class="miniDrum drumR"></div>
-        <div class="miniCymbal"></div>
-      </div>
-
-      <div class="movingVan">
-        <div class="vanBody">WGSC</div>
-        <div class="vanCab"></div>
-        <div class="vanWheel wheelA"></div>
-        <div class="vanWheel wheelB"></div>
+  <div class="splashCard staticSplashCard">
+    <div class="splashArtworkWrap">
+      <img src="gig_supply_splash.png" alt="Williamson’s Gig Supply Co. Franchise Edition title artwork">
+      <div class="splashFade"></div>
+      <div class="splashIntegratedControls">
+        <button class="splashBtn staticStartBtn" id="splashStartBtn" onclick="startFromSplash()">Press Start</button>
+        <div class="splashVersion">Franchise Edition</div>
       </div>
     </div>
+  </div>
+</div>
 
     <div class="splashOverlay">
       <div class="splashControls">
         <button class="splashBtn" id="splashStartBtn" onclick="startFromSplash()">Press Start</button>
         <button class="soundToggle" id="soundToggleBtn" onclick="toggleSound()">🔊 Sound On</button>
-        <div class="splashVersion">Franchise Edition • v4.1</div>
+        <div class="splashVersion">Franchise Edition • v4.3</div>
       </div>
     </div>
   </div>
@@ -841,7 +1098,7 @@ button,
 
 <div class="wrap">
 <h1>🎵 Williamson’s Gig Supply Co.</h1>
-<div class="sub">Build the Beat. Grow the Business. <span style="opacity:.65">• Franchise Edition • v4.1</span></div>
+<div class="sub">Build the Beat. Grow the Business. <span style="opacity:.65">• Franchise Edition • v4.3</span></div>
 
 <div class="topbar">
  <div class="stat"><div class="label">Cash</div><div class="value" id="cash">$0</div></div>
@@ -986,7 +1243,7 @@ button,
 
    <div class="tabletBottom">
      <span id="tabletClock">WGSC OS</span>
-     <span>Franchise Edition • v4.1</span>
+     <span>Franchise Edition • v4.3</span>
    </div>
  </div>
 </div>
@@ -996,38 +1253,74 @@ button,
 
 
 <div class="launchModal" id="launchModal" style="display:none">
-  <div class="launchCard">
-    <div class="launchBrand">WGSC FRANCHISE APPLICATION</div>
-    <h2>Open Your Franchise</h2>
-    <p class="small">Name your branch and choose the challenge level for this franchise.</p>
-
-    <label class="launchLabel" for="franchiseNameInput">Franchise Name</label>
-    <input class="launchInput" id="franchiseNameInput" type="text" maxlength="24" placeholder="Example: West Reading">
-    <div class="small" style="margin-top:4px">Leave blank for an automatically numbered WGSC location.</div>
-
-    <div class="difficultyCards">
-      <button class="difficultyCard easyCard" type="button" data-difficulty="Easy">
-        <strong>🟢 Rookie Manager</strong>
-        <span>$7,500 WGSC startup grant</span>
-        <span>No opening debt</span>
-        <small>Forgiving customers and lower monthly expenses</small>
-      </button>
-      <button class="difficultyCard normalCard" type="button" data-difficulty="Normal">
-        <strong>🟡 Franchise Manager</strong>
-        <span>$5,000 starting cash</span>
-        <span>$5,000 opening financing</span>
-        <small>Balanced competition and operating costs</small>
-      </button>
-      <button class="difficultyCard hardCard" type="button" data-difficulty="Hard">
-        <strong>🔴 Music Entrepreneur</strong>
-        <span>$3,500 starting cash</span>
-        <span>$10,000 opening debt</span>
-        <small>Stronger rivals, tighter cash, less forgiving customers</small>
-      </button>
+  <div class="launchCard agreementCard">
+    <div class="agreementHeader">
+      <div class="agreementSeal">WGSC</div>
+      <div>
+        <div class="launchBrand">WILLIAMSON’S GIG SUPPLY CO.</div>
+        <h2>Franchise Agreement</h2>
+        <div class="small">Franchise Operations Division • New Location Authorization</div>
+      </div>
     </div>
 
-    <div class="launchHint">Choose one difficulty to open your branch.</div>
+    <div class="agreementBody">
+      <p class="agreementIntro">
+        Congratulations. WGSC Headquarters has approved you to operate a new franchise location.
+        Before opening your doors, complete the franchise details below and select your management challenge.
+      </p>
+
+      <label class="launchLabel" for="franchiseNameInput">Proposed Franchise Name</label>
+      <input class="launchInput" id="franchiseNameInput" type="text" maxlength="24" placeholder="Example: West Reading">
+      <div class="small" style="margin-top:4px">Leave blank and Headquarters will assign a numbered branch.</div>
+
+      <div class="agreementClause">
+        <strong>Operating Agreement</strong>
+        <span>You agree to manage pricing, inventory, debt, customer satisfaction, upgrades, and monthly WGSC goals.</span>
+      </div>
+
+      <div class="agreementSectionTitle">Select Management Challenge</div>
+
+      <div class="difficultyCards">
+        <button class="difficultyCard easyCard" type="button" data-difficulty="Easy">
+          <div class="difficultyRibbon">EASY</div>
+          <strong>🟢 Rookie Manager</strong>
+          <span><b>$7,500</b> WGSC startup grant</span>
+          <span><b>$0</b> opening debt</span>
+          <small>Forgiving customers • Lower monthly expenses • Best for learning the system</small>
+          <div class="selectChallenge">Select Contract</div>
+        </button>
+
+        <button class="difficultyCard normalCard" type="button" data-difficulty="Normal">
+          <div class="difficultyRibbon">NORMAL</div>
+          <strong>🟡 Franchise Manager</strong>
+          <span><b>$5,000</b> starting cash</span>
+          <span><b>$5,000</b> financing</span>
+          <small>Balanced competition • Moderate expenses • Full debt-management experience</small>
+          <div class="selectChallenge">Select Contract</div>
+        </button>
+
+        <button class="difficultyCard hardCard" type="button" data-difficulty="Hard">
+          <div class="difficultyRibbon">HARD</div>
+          <strong>🔴 Music Entrepreneur</strong>
+          <span><b>$3,500</b> starting cash</span>
+          <span><b>$10,000</b> opening debt</span>
+          <small>Strong rivals • Tight cash • Less forgiving customers • Higher operating costs</small>
+          <div class="selectChallenge">Select Contract</div>
+        </button>
+      </div>
+
+      <div class="agreementFooter">
+        <div>
+          <strong>WGSC Mission:</strong><br>
+          Build the Beat. Grow the Business.
+        </div>
+        <div class="signatureLine">
+          <span>Franchise Manager</span>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 </div>
 
 <div class="saveToast" id="saveToast">Game saved</div>
@@ -1307,11 +1600,11 @@ function toast(msg){
 function saveGame(silent){
  if(!state.started)return;
  var data={state:state,products:PRODUCTS};
- localStorage.setItem("williamsonsGigSupplyV41",JSON.stringify(data));
+ localStorage.setItem("williamsonsGigSupplyV43",JSON.stringify(data));
  if(!silent)toast("Game saved");
 }
 function loadGame(){
- var raw=localStorage.getItem("williamsonsGigSupplyV41")||localStorage.getItem("williamsonsGigSupplyV40")||localStorage.getItem("williamsonsGigSupplyV311")||localStorage.getItem("williamsonsGigSupplyV31")||localStorage.getItem("williamsonsGigSupplyV30")||localStorage.getItem("williamsonsGigSupplyV23");if(!raw){toast("No save found");return}
+ var raw=localStorage.getItem("williamsonsGigSupplyV43")||localStorage.getItem("williamsonsGigSupplyV42")||localStorage.getItem("williamsonsGigSupplyV41")||localStorage.getItem("williamsonsGigSupplyV40")||localStorage.getItem("williamsonsGigSupplyV311")||localStorage.getItem("williamsonsGigSupplyV31")||localStorage.getItem("williamsonsGigSupplyV30")||localStorage.getItem("williamsonsGigSupplyV23");if(!raw){toast("No save found");return}
  try{
   var data=JSON.parse(raw);state=data.state;
   if(typeof state.year==="undefined"){state.year=1;state.month=state.week||1;delete state.week;}
@@ -1334,7 +1627,7 @@ function loadGame(){
   el("eventTitle").textContent="Game Loaded";el("eventText").textContent="Welcome back to your music business.";clearResult();scene("busy");render();applyResponsiveUI();initManagerTablet();initLaunchModal();toast("Game loaded")
  }catch(e){toast("Save could not be loaded")}
 }
-function resetSave(){localStorage.removeItem("williamsonsGigSupplyV41");localStorage.removeItem("williamsonsGigSupplyV40");localStorage.removeItem("williamsonsGigSupplyV31");localStorage.removeItem("williamsonsGigSupplyV30");localStorage.removeItem("williamsonsGigSupplyV23");toast("Save cleared")}
+function resetSave(){localStorage.removeItem("williamsonsGigSupplyV43");localStorage.removeItem("williamsonsGigSupplyV42");localStorage.removeItem("williamsonsGigSupplyV41");localStorage.removeItem("williamsonsGigSupplyV40");localStorage.removeItem("williamsonsGigSupplyV31");localStorage.removeItem("williamsonsGigSupplyV30");localStorage.removeItem("williamsonsGigSupplyV23");toast("Save cleared")}
 
 
 function assignMonthlyGoal(){
@@ -1993,6 +2286,21 @@ function closeLaunchModal(){
  var modal=el("launchModal");
  if(modal)modal.style.display="none";
 }
+
+/* v4.3 static splash behavior */
+function toggleSound(){ return; }
+function playStartJingle(){ return; }
+function startFromSplash(){
+  var s=document.getElementById("splashScreen");
+  if(!s){showLaunchModal();return;}
+  s.style.transition="opacity .22s ease";
+  s.style.opacity="0";
+  setTimeout(function(){
+    s.style.display="none";
+    showLaunchModal();
+  },230);
+}
+
 function initLaunchModal(){
  var cards=document.querySelectorAll(".difficultyCard");
  for(var i=0;i<cards.length;i++){

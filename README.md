@@ -1,28 +1,18 @@
-# Williamson's Gig Supply Co. v4.1 — Franchise Progression
+# Williamson's Gig Supply Co. v4.3 — Franchise Agreement Polish
 
-## New in v4.1
-- Opening franchise/difficulty modal after the title screen
-- Easy mode uses a $7,500 WGSC startup grant with $0 opening debt
-- Normal starts with $5,000 cash / $5,000 debt
-- Hard starts with $3,500 cash / $10,000 debt
-- Lower required monthly debt payments
-- Customer Satisfaction 2.0:
-  - gains diminish above 60, 80 and 95
-  - premium-price rejections hurt more
-  - very high satisfaction drifts slightly at month-end
-  - capped at 100
-- Annual review now prominently shows a numeric Year Score
-- Visible score breakdown for classroom competition
-- Career Score, Best Year, Highest Satisfaction, Largest Cash Reserve, Debt-Free Years, Years Managed
-- End-of-year corporate reward selection:
-  - Capital Investment
-  - Debt Relief
-  - Inventory Grant
-  - Corporate Marketing
-  - Upgrade Credit on higher reward tiers
-- Continue button unlocks only after a reward is selected
-- Rewards scale by Bronze / Silver / Gold / Platinum annual performance
-- v4.0 and older save migration
+## v4.3 changes
+- Real Press Start button now sits visually inside a dark gradient over the splash artwork.
+- No opening animations.
+- Splash artwork remains static and decorative.
+- Franchise setup redesigned as an official WGSC Franchise Agreement.
+- Difficulty choices are presented as management contracts:
+  - Rookie Manager
+  - Franchise Manager
+  - Music Entrepreneur
+- Startup financing and v4.1 progression systems retained.
+- WGSC Manager Tablet retained.
+- Annual numeric scoring, career scoring, and year-end rewards retained.
+- Save migration supports v4.2, v4.1, v4.0 and earlier builds.
 
 ## GitHub Pages
 Replace:
