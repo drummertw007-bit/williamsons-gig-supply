@@ -1,27 +1,28 @@
-# Williamson's Gig Supply Co. v4.0 — Manager Tablet Edition
+# Williamson's Gig Supply Co. v4.1 — Franchise Progression
 
-## Major UI redesign
-The gameplay engine remains intact, but the desktop interface is reorganized around three primary areas:
-
-1. Inventory & Pricing
-2. Customer / Event gameplay
-3. WGSC Manager Tablet
-
-The Manager Tablet replaces the long right-hand stack of panels with six apps:
-
-- 📊 HQ — corporate messages, network rank, monthly goal
-- 💰 Finance — borrowing, repayment and financial snapshot
-- 🏪 Ops — branch upgrades
-- 🏁 Rivals — competing stores
-- 🏆 Awards — achievements
-- 📜 History — save/load controls and franchise log
-
-Only one tablet app is visible at a time, and the selected app scrolls internally. This keeps the main desktop dashboard compact while preserving every management feature.
-
-## Responsive layout
-- Desktop: three-column dashboard with sticky Manager Tablet
-- Tablet: gameplay/inventory plus a centered tablet console
-- Mobile: gameplay first, inventory second, Manager Tablet third
+## New in v4.1
+- Opening franchise/difficulty modal after the title screen
+- Easy mode uses a $7,500 WGSC startup grant with $0 opening debt
+- Normal starts with $5,000 cash / $5,000 debt
+- Hard starts with $3,500 cash / $10,000 debt
+- Lower required monthly debt payments
+- Customer Satisfaction 2.0:
+  - gains diminish above 60, 80 and 95
+  - premium-price rejections hurt more
+  - very high satisfaction drifts slightly at month-end
+  - capped at 100
+- Annual review now prominently shows a numeric Year Score
+- Visible score breakdown for classroom competition
+- Career Score, Best Year, Highest Satisfaction, Largest Cash Reserve, Debt-Free Years, Years Managed
+- End-of-year corporate reward selection:
+  - Capital Investment
+  - Debt Relief
+  - Inventory Grant
+  - Corporate Marketing
+  - Upgrade Credit on higher reward tiers
+- Continue button unlocks only after a reward is selected
+- Rewards scale by Bronze / Silver / Gold / Platinum annual performance
+- v4.0 and older save migration
 
 ## GitHub Pages
 Replace:

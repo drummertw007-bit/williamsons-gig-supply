@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Williamson's Gig Supply Co. v4.0</title>
+<title>Williamson's Gig Supply Co. v4.1</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 :root{
@@ -557,7 +557,7 @@ button:not(:disabled){transition:transform .08s ease,filter .12s ease}button:not
 .yearBadge{display:inline-block;padding:3px 7px;border-radius:999px;background:#38465d;color:#fff;font-size:10px;margin-left:4px}
 
 
-/* v4.0 mobile touch fixes */
+/* v4.1 mobile touch fixes */
 button,
 .priceBtns button,
 .inventoryRow button,
@@ -732,6 +732,66 @@ button,
   .badgeGrid{grid-template-columns:repeat(2,1fr)}
 }
 
+
+/* v4.1 Franchise Progression */
+.launchModal{
+  position:fixed;inset:0;z-index:130;background:rgba(5,8,13,.93);
+  align-items:center;justify-content:center;padding:18px;
+}
+.launchCard{
+  width:min(820px,96vw);max-height:92vh;overflow:auto;background:#202a39;
+  border:2px solid #697b96;border-radius:18px;padding:22px;
+}
+.launchBrand{font-size:11px;letter-spacing:1.3px;color:#f1c84b;font-weight:900}
+.launchLabel{display:block;margin-top:12px;font-size:12px;font-weight:900}
+.launchInput{
+  width:100%;margin-top:5px;padding:11px;border-radius:9px;border:1px solid #56657c;
+  background:#111824;color:white;font-size:16px;
+}
+.difficultyCards{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:16px}
+.difficultyCard{
+  text-align:left;background:#29364a;color:white;border:2px solid #465872;border-radius:12px;
+  padding:14px;min-height:150px;
+}
+.difficultyCard strong{display:block;font-size:15px;margin-bottom:8px}
+.difficultyCard span{display:block;font-size:12px;margin:4px 0}
+.difficultyCard small{display:block;color:#b9c4d3;font-size:10px;margin-top:8px;line-height:1.35}
+.difficultyCard:hover{border-color:#f1c84b}
+.easyCard{background:#233a2b}.normalCard{background:#403817}.hardCard{background:#45272b}
+.launchHint{text-align:center;color:#aeb8c8;font-size:11px;margin-top:11px}
+
+.scoreBreakdown,.careerSummary,.rewardPanel{
+  background:#253247;border-radius:11px;padding:11px;margin:12px 0;text-align:left;
+}
+.breakTitle,.careerTitle,.rewardTitle{
+  font-weight:900;color:#f1c84b;margin-bottom:7px;text-transform:uppercase;font-size:12px;letter-spacing:.6px;
+}
+.breakRow,.breakTotal{
+  display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #3b4960;font-size:12px;
+}
+.breakTotal{font-size:15px;font-weight:900;border-bottom:0;padding-top:9px}
+.bonusRow{color:#8fe0a3}
+.careerGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.careerGrid div{background:#1b2432;border-radius:8px;padding:8px;text-align:center}
+.careerGrid span{display:block;font-size:9px;color:#aeb8c8;text-transform:uppercase}
+.careerGrid strong{display:block;font-size:14px;margin-top:3px}
+.rewardChoices{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:9px}
+.rewardChoice{
+  text-align:left;background:#1c2736;color:white;border:2px solid #3d4e66;border-radius:9px;padding:10px;
+}
+.rewardChoice strong{display:block;font-size:12px}
+.rewardChoice span{display:block;font-size:10px;color:#b9c4d3;margin-top:4px}
+.rewardChoice.selected{border-color:#f1c84b;background:#3b3417}
+#continueYearBtn:disabled{opacity:.45}
+
+@media(max-width:760px){
+ .difficultyCards{grid-template-columns:1fr}
+ .difficultyCard{min-height:0}
+ .launchCard{padding:14px}
+ .careerGrid{grid-template-columns:repeat(2,1fr)}
+ .rewardChoices{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -773,7 +833,7 @@ button,
       <div class="splashControls">
         <button class="splashBtn" id="splashStartBtn" onclick="startFromSplash()">Press Start</button>
         <button class="soundToggle" id="soundToggleBtn" onclick="toggleSound()">🔊 Sound On</button>
-        <div class="splashVersion">Franchise Edition • v4.0</div>
+        <div class="splashVersion">Franchise Edition • v4.1</div>
       </div>
     </div>
   </div>
@@ -781,7 +841,7 @@ button,
 
 <div class="wrap">
 <h1>🎵 Williamson’s Gig Supply Co.</h1>
-<div class="sub">Build the Beat. Grow the Business. <span style="opacity:.65">• Franchise Edition • v4.0</span></div>
+<div class="sub">Build the Beat. Grow the Business. <span style="opacity:.65">• Franchise Edition • v4.1</span></div>
 
 <div class="topbar">
  <div class="stat"><div class="label">Cash</div><div class="value" id="cash">$0</div></div>
@@ -802,26 +862,7 @@ button,
 <div class="layout">
 <!-- LEFT -->
 <div>
- <div class="panel" id="setupPanel">
-   <h2>Open Your Franchise</h2>
-   <div class="small">You are the manager of a new Williamson’s Gig Supply Co. location. Choose a difficulty to open your branch.</div>
-   <div style="margin-top:8px;background:#252f41;border-radius:8px;padding:8px">
-     <div class="small">Franchise Name</div>
-     <input class="moneyInput" id="franchiseNameInput" type="text" maxlength="24" placeholder="Example: West Reading">
-     <div class="small" style="margin-top:5px">Leave blank for an automatically numbered location.</div>
-   </div>
-   <div class="setup" style="margin-top:7px">
-    <button class="good" onclick="newGame('Easy')">Easy</button>
-    <button class="primary" onclick="newGame('Normal')">Normal</button>
-    <button class="danger" onclick="newGame('Hard')">Hard</button>
-   </div>
- </div>
-
- <div class="panel">
-  <h2>Inventory & Pricing</h2>
-  <div class="small">Budget sells more often. Premium earns more per sale but risks customer rejection.</div>
-  <div id="inventory"></div>
- </div>
+ <div class="panel" id="setupPanel" style="display:none"></div>
 </div>
 
 <!-- CENTER -->
@@ -945,12 +986,48 @@ button,
 
    <div class="tabletBottom">
      <span id="tabletClock">WGSC OS</span>
-     <span>Franchise Edition • v4.0</span>
+     <span>Franchise Edition • v4.1</span>
    </div>
  </div>
 </div>
 </div>
 </div>
+</div>
+
+
+<div class="launchModal" id="launchModal" style="display:none">
+  <div class="launchCard">
+    <div class="launchBrand">WGSC FRANCHISE APPLICATION</div>
+    <h2>Open Your Franchise</h2>
+    <p class="small">Name your branch and choose the challenge level for this franchise.</p>
+
+    <label class="launchLabel" for="franchiseNameInput">Franchise Name</label>
+    <input class="launchInput" id="franchiseNameInput" type="text" maxlength="24" placeholder="Example: West Reading">
+    <div class="small" style="margin-top:4px">Leave blank for an automatically numbered WGSC location.</div>
+
+    <div class="difficultyCards">
+      <button class="difficultyCard easyCard" type="button" data-difficulty="Easy">
+        <strong>🟢 Rookie Manager</strong>
+        <span>$7,500 WGSC startup grant</span>
+        <span>No opening debt</span>
+        <small>Forgiving customers and lower monthly expenses</small>
+      </button>
+      <button class="difficultyCard normalCard" type="button" data-difficulty="Normal">
+        <strong>🟡 Franchise Manager</strong>
+        <span>$5,000 starting cash</span>
+        <span>$5,000 opening financing</span>
+        <small>Balanced competition and operating costs</small>
+      </button>
+      <button class="difficultyCard hardCard" type="button" data-difficulty="Hard">
+        <strong>🔴 Music Entrepreneur</strong>
+        <span>$3,500 starting cash</span>
+        <span>$10,000 opening debt</span>
+        <small>Stronger rivals, tighter cash, less forgiving customers</small>
+      </button>
+    </div>
+
+    <div class="launchHint">Choose one difficulty to open your branch.</div>
+  </div>
 </div>
 
 <div class="saveToast" id="saveToast">Game saved</div>
@@ -985,7 +1062,15 @@ button,
   <div id="scoreBadge"></div>
   <div class="scoreStats" id="scoreStats"></div>
   <div id="scoreComment" style="font-size:15px;line-height:1.45;margin:10px 0"></div>
-  <button class="primary" id="continueYearBtn" onclick="continueNextYear()">Continue to Next Year</button><button class="secondary" onclick="location.reload()">Start New Franchise</button>
+  <div class="scoreBreakdown" id="scoreBreakdown"></div>
+  <div class="careerSummary" id="careerSummary"></div>
+  <div class="rewardPanel" id="rewardPanel">
+    <div class="rewardTitle">WGSC Corporate Reward</div>
+    <div class="small">Choose one benefit before continuing.</div>
+    <div class="rewardChoices" id="rewardChoices"></div>
+  </div>
+  <button class="primary" id="continueYearBtn" onclick="continueNextYear()" disabled>Continue to Next Year</button>
+  <button class="secondary" onclick="location.reload()">Start New Franchise</button>
  </div>
 </div>
 
@@ -1004,13 +1089,13 @@ var PRODUCTS=[
 var state={started:false,cash:0,rep:50,debt:10000,year:1,month:1,maxMonths:12,difficulty:"-",encounters:0,maxEncounters:5,eventResolved:true,
  demand:{},competitors:[],revenue:0,wholesaleSpent:0,operatingSpent:0,interestCost:0,loanBorrowed:10000,loanPaid:0,accepted:0,rejected:0,
  upgrades:{online:false,rental:false,marketing:false,repair:false,delivery:false},
- franchiseId:"",franchiseName:"",monthStartRevenue:0,monthStartAccepted:0,monthStartDebt:10000,monthStartEvents:0,currentGoal:null,annualScoreHistory:[],
+ franchiseId:"",franchiseName:"",monthStartRevenue:0,monthStartAccepted:0,monthStartDebt:10000,monthStartEvents:0,currentGoal:null,annualScoreHistory:[],careerScore:0,bestYearScore:0,highestSatisfaction:50,largestCashReserve:0,debtFreeYears:0,monthlyGoalsCompleted:0,pendingReward:null,selectedReward:null,
  achievements:{},eventsHosted:0,bulkSales:0,loansTaken:0};
 
 var DIFF={
- Easy:{cash:5000,encounters:4,tolerance:1.16,ai:42,expenses:650},
- Normal:{cash:3500,encounters:5,tolerance:1.08,ai:52,expenses:800},
- Hard:{cash:2500,encounters:6,tolerance:.99,ai:62,expenses:950}
+ Easy:{cash:7500,debt:0,encounters:4,tolerance:1.15,ai:42,expenses:575,label:"Rookie Manager",desc:"WGSC startup grant • No opening debt"},
+ Normal:{cash:5000,debt:5000,encounters:5,tolerance:1.06,ai:52,expenses:725,label:"Franchise Manager",desc:"Moderate financing • Competitive market"},
+ Hard:{cash:3500,debt:10000,encounters:6,tolerance:.98,ai:62,expenses:900,label:"Music Entrepreneur",desc:"Heavy financing • Tough market"}
 };
 
 
@@ -1110,12 +1195,34 @@ function scoreScene(){
  var st=document.createElement("div");st.className="star";st.style.cssText="left:160px;top:18px;transform:scale(1.6)";s.appendChild(st);
 }
 
+
+function addSatisfaction(points){
+  var current=state.rep;
+  var gain=points;
+  if(points>0){
+    if(current>=95) gain=Math.min(1,points);
+    else if(current>=80) gain=Math.max(1,Math.ceil(points*.35));
+    else if(current>=60) gain=Math.max(1,Math.ceil(points*.65));
+  }
+  state.rep=clamp(current+gain,0,100);
+  return gain;
+}
+function loseSatisfaction(points){
+  state.rep=clamp(state.rep-points,0,100);
+  return points;
+}
+function applyMonthlySatisfactionDrift(){
+  if(state.rep>=96) loseSatisfaction(2);
+  else if(state.rep>=86) loseSatisfaction(1);
+  state.rep=clamp(state.rep,0,100);
+}
+
 function newGame(level){
- state.started=true;state.difficulty=level;state.cash=DIFF[level].cash;state.rep=50;state.debt=10000;state.year=1;state.month=1;state.encounters=0;state.maxEncounters=DIFF[level].encounters;
+ state.started=true;state.difficulty=level;state.cash=DIFF[level].cash;state.rep=50;state.debt=DIFF[level].debt;state.year=1;state.month=1;state.encounters=0;state.maxEncounters=DIFF[level].encounters;
  var fn=el("franchiseNameInput")?el("franchiseNameInput").value.trim():"";
  state.franchiseId="#"+String(101+Math.floor(Math.random()*899));
  state.franchiseName=fn?fn+" "+state.franchiseId:"Franchise "+state.franchiseId;
- state.revenue=0;state.wholesaleSpent=0;state.operatingSpent=0;state.interestCost=0;state.loanBorrowed=10000;state.loanPaid=0;state.accepted=0;state.rejected=0;
+ state.revenue=0;state.wholesaleSpent=0;state.operatingSpent=0;state.interestCost=0;state.loanBorrowed=DIFF[level].debt;state.loanPaid=0;state.accepted=0;state.rejected=0;
  state.upgrades={online:false,rental:false,marketing:false,repair:false,delivery:false};state.achievements={};state.eventsHosted=0;state.bulkSales=0;state.loansTaken=0;
  PRODUCTS[0].stock=2;PRODUCTS[1].stock=2;PRODUCTS[2].stock=1;PRODUCTS[3].stock=4;PRODUCTS[4].stock=2;PRODUCTS[5].stock=2;PRODUCTS[6].stock=5;PRODUCTS[7].stock=8;
  for(var i=0;i<PRODUCTS.length;i++)PRODUCTS[i].priceMode="Standard";
@@ -1124,7 +1231,10 @@ function newGame(level){
  el("nextBtn").disabled=false;el("endMonthBtn").disabled=true;assignMonthlyGoal();setTrend();render();log("Opened on "+level+" difficulty.");
 }
 function render(){
- el("cash").textContent=money(state.cash);state.rep=clamp(state.rep,0,100);el("rep").textContent=Math.round(state.rep);el("debt").textContent=money(state.debt);el("month").textContent=MONTH_NAMES[state.month-1]+" • Y"+state.year;el("difficulty").textContent=state.difficulty;
+ el("cash").textContent=money(state.cash);state.rep=clamp(state.rep,0,100);
+ state.highestSatisfaction=Math.max(state.highestSatisfaction||0,state.rep);
+ state.largestCashReserve=Math.max(state.largestCashReserve||0,state.cash);
+ el("rep").textContent=Math.round(state.rep);el("debt").textContent=money(state.debt);el("month").textContent=MONTH_NAMES[state.month-1]+" • Y"+state.year;el("difficulty").textContent=state.difficulty;
  if(el("franchise"))el("franchise").textContent=state.franchiseName||"#---";
  
  if(el("hqMessage")&&state.started){
@@ -1177,7 +1287,7 @@ function buyUpgrade(key){
  var u=UPGRADE_DATA[key];if(!state.started||state.upgrades[key])return;
  if(state.cash<u.cost){setResult("Not enough cash for that upgrade.","bad");return}
  state.cash-=u.cost;state.operatingSpent+=u.cost;state.upgrades[key]=true;
- if(key==="marketing")state.rep+=6;
+ if(key==="marketing")addSatisfaction(6);
  log("Purchased "+u.name+".");setResult(u.name+" installed!","good");render();saveGame(true)
 }
 function checkAchievements(){
@@ -1197,11 +1307,11 @@ function toast(msg){
 function saveGame(silent){
  if(!state.started)return;
  var data={state:state,products:PRODUCTS};
- localStorage.setItem("williamsonsGigSupplyV40",JSON.stringify(data));
+ localStorage.setItem("williamsonsGigSupplyV41",JSON.stringify(data));
  if(!silent)toast("Game saved");
 }
 function loadGame(){
- var raw=localStorage.getItem("williamsonsGigSupplyV40")||localStorage.getItem("williamsonsGigSupplyV31")||localStorage.getItem("williamsonsGigSupplyV30")||localStorage.getItem("williamsonsGigSupplyV23");if(!raw){toast("No save found");return}
+ var raw=localStorage.getItem("williamsonsGigSupplyV41")||localStorage.getItem("williamsonsGigSupplyV40")||localStorage.getItem("williamsonsGigSupplyV311")||localStorage.getItem("williamsonsGigSupplyV31")||localStorage.getItem("williamsonsGigSupplyV30")||localStorage.getItem("williamsonsGigSupplyV23");if(!raw){toast("No save found");return}
  try{
   var data=JSON.parse(raw);state=data.state;
   if(typeof state.year==="undefined"){state.year=1;state.month=state.week||1;delete state.week;}
@@ -1209,14 +1319,22 @@ function loadGame(){
   if(state.month>12)state.month=12;
   if(!state.annualScoreHistory)state.annualScoreHistory=[];
   if(!state.currentGoal)state.currentGoal=null;
+  if(typeof state.careerScore==="undefined")state.careerScore=0;
+  if(typeof state.bestYearScore==="undefined")state.bestYearScore=0;
+  if(typeof state.highestSatisfaction==="undefined")state.highestSatisfaction=state.rep||50;
+  if(typeof state.largestCashReserve==="undefined")state.largestCashReserve=state.cash||0;
+  if(typeof state.debtFreeYears==="undefined")state.debtFreeYears=0;
+  if(typeof state.monthlyGoalsCompleted==="undefined")state.monthlyGoalsCompleted=0;
+  if(typeof state.pendingReward==="undefined")state.pendingReward=null;
+  if(typeof state.selectedReward==="undefined")state.selectedReward=null;
   for(var i=0;i<PRODUCTS.length;i++){for(var k in data.products[i])PRODUCTS[i][k]=data.products[i][k]}
   if(!state.upgrades)state.upgrades={online:false,rental:false,marketing:false,repair:false,delivery:false};
   if(!state.achievements)state.achievements={};
   el("setupPanel").style.display="none";el("nextBtn").disabled=state.encounters>=state.maxEncounters;el("endMonthBtn").disabled=state.encounters<state.maxEncounters;
-  el("eventTitle").textContent="Game Loaded";el("eventText").textContent="Welcome back to your music business.";clearResult();scene("busy");render();applyResponsiveUI();initManagerTablet();toast("Game loaded")
+  el("eventTitle").textContent="Game Loaded";el("eventText").textContent="Welcome back to your music business.";clearResult();scene("busy");render();applyResponsiveUI();initManagerTablet();initLaunchModal();toast("Game loaded")
  }catch(e){toast("Save could not be loaded")}
 }
-function resetSave(){localStorage.removeItem("williamsonsGigSupplyV40");localStorage.removeItem("williamsonsGigSupplyV31");localStorage.removeItem("williamsonsGigSupplyV30");localStorage.removeItem("williamsonsGigSupplyV23");toast("Save cleared")}
+function resetSave(){localStorage.removeItem("williamsonsGigSupplyV41");localStorage.removeItem("williamsonsGigSupplyV40");localStorage.removeItem("williamsonsGigSupplyV31");localStorage.removeItem("williamsonsGigSupplyV30");localStorage.removeItem("williamsonsGigSupplyV23");toast("Save cleared")}
 
 
 function assignMonthlyGoal(){
@@ -1253,8 +1371,8 @@ function resolveMonthlyGoal(){
  if(gs.complete){
    state.cash+=state.currentGoal.reward;
    state.revenue+=state.currentGoal.reward;
-   state.rep+=2;
-   log("Monthly HQ goal completed. Bonus: "+money(state.currentGoal.reward)+".");
+   addSatisfaction(2);
+   state.monthlyGoalsCompleted=(state.monthlyGoalsCompleted||0)+1;log("Monthly HQ goal completed. Bonus: "+money(state.currentGoal.reward)+".");
  }else{
    log("Monthly HQ goal not completed.");
  }
@@ -1263,6 +1381,7 @@ function resolveMonthlyGoal(){
 function setTrend(){
  state.demand={};for(var i=0;i<PRODUCTS.length;i++)state.demand[PRODUCTS[i].name]=1;
  var m=state.month,t=MONTH_FLAVOR[MONTH_NAMES[m-1]];
+ if(m===1&&state.demandBoostJanuary){for(var dk in state.demand)state.demand[dk]*=state.demandBoostJanuary;state.demandBoostJanuary=null;t+=" WGSC national marketing is boosting traffic."; }
 
  if(m===8){state.demand.Keyboards=1.55;state.demand.Guitars=1.45;state.demand.Headphones=1.55;state.demand.Cables=1.3}
  else if(m===12){state.demand.Keyboards=1.45;state.demand.Guitars=1.45;state.demand.Headphones=1.6;state.demand.Microphones=1.25}
@@ -1300,12 +1419,12 @@ function singleCustomer(){
  el("eventText").innerHTML="A customer wants <strong>"+qty+" "+p.name+"</strong>.<br>Your asking price: <strong>"+money(price(p))+"</strong> each.";
  clearChoices();
  choice("Offer at My Price",function(){
-  if(p.stock<qty){state.rep-=1;state.rejected++;setResult("OUT OF STOCK — the customer leaves.","bad");log("Lost "+p.name+" sale: out of stock.");finishEncounter();return}
+  if(p.stock<qty){loseSatisfaction(1);state.rejected++;setResult("OUT OF STOCK — the customer leaves.","bad");log("Lost "+p.name+" sale: out of stock.");finishEncounter();return}
   if(Math.random()<customerChance(p)){
     p.stock-=qty;var rev=qty*price(p);state.cash+=rev;state.revenue+=rev;state.accepted++;
     setResult("SALE ACCEPTED — customer pays <strong>"+money(rev)+"</strong>.","good");log("Sold "+qty+" "+p.name+" for "+money(rev)+".")
   }else{
-    state.rejected++;if(p.priceMode==="Premium"){state.rep-=1;setResult('DENIED — “Whoa, too much for that!” The customer walks out.',"bad")}else setResult("DENIED — the customer decides not to buy.","bad");
+    state.rejected++;if(p.priceMode==="Premium"){loseSatisfaction(2);setResult('DENIED — “Whoa, too much for that!” The customer walks out.',"bad")}else setResult("DENIED — the customer decides not to buy.","bad");
     log("Customer rejected "+p.name+" at "+money(price(p))+".")
   }finishEncounter()
  },"primary");
@@ -1364,27 +1483,27 @@ function expense(title,text,art,cost,repLoss){
 }
 function community(){
  scene("school");el("eventTitle").textContent="Community Showcase";el("eventText").textContent="Sponsor a student showcase for $300. Success could boost your customer satisfaction.";clearChoices();
- choice("Sponsor (-$300)",function(){if(state.cash<300){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=300;state.operatingSpent+=300;state.rep+=8;setResult("The showcase is a hit! +8 customer satisfaction.","good");log("Sponsored community showcase.");finishEncounter()},"primary");
+ choice("Sponsor (-$300)",function(){if(state.cash<300){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=300;state.operatingSpent+=300;addSatisfaction(8);setResult("The showcase is a hit! +8 customer satisfaction.","good");log("Sponsored community showcase.");finishEncounter()},"primary");
  choice("Skip",function(){setResult("You skip the sponsorship.","neutral");finishEncounter()})
 }
 function busySaturday(){
  scene("busy");el("eventTitle").textContent="Busy Saturday";el("eventText").textContent="A line forms outside! Spend $150 on extra help to serve more customers?";clearChoices();
- choice("Hire Extra Help (-$150)",function(){if(state.cash<150){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=150;state.operatingSpent+=150;var gain=520+Math.floor(Math.random()*281);state.cash+=gain;state.revenue+=gain;state.rep+=3;setResult("The line moves fast! You earn <strong>"+money(gain)+"</strong>.","good");log("Busy Saturday earned "+money(gain)+".");finishEncounter()},"primary");
- choice("Handle It Yourself",function(){var gain=260+Math.floor(Math.random()*161);state.cash+=gain;state.revenue+=gain;state.rep-=1;setResult("You make "+money(gain)+", but some customers leave.","neutral");finishEncounter()})
+ choice("Hire Extra Help (-$150)",function(){if(state.cash<150){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=150;state.operatingSpent+=150;var gain=520+Math.floor(Math.random()*281);state.cash+=gain;state.revenue+=gain;addSatisfaction(3);setResult("The line moves fast! You earn <strong>"+money(gain)+"</strong>.","good");log("Busy Saturday earned "+money(gain)+".");finishEncounter()},"primary");
+ choice("Handle It Yourself",function(){var gain=260+Math.floor(Math.random()*161);state.cash+=gain;state.revenue+=gain;loseSatisfaction(1);setResult("You make "+money(gain)+", but some customers leave.","neutral");finishEncounter()})
 }
 function saleMonthend(){
  scene("busy");el("eventTitle").textContent="Monthend Sale";el("eventText").textContent="Run a store-wide sale? You will earn less per item, but attract more customers.";clearChoices();
- choice("Run Sale (-$200 ads)",function(){if(state.cash<200){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=200;state.operatingSpent+=200;var sold=0,rev=0;for(var i=0;i<PRODUCTS.length;i++){var q=Math.min(PRODUCTS[i].stock,Math.floor(Math.random()*2));PRODUCTS[i].stock-=q;sold+=q;rev+=q*Math.round(price(PRODUCTS[i])*.85)}state.cash+=rev;state.revenue+=rev;state.rep+=2;setResult("SALE SUCCESS — sold "+sold+" items for <strong>"+money(rev)+"</strong>.","good");log("Monthend sale earned "+money(rev)+".");finishEncounter()},"primary");
+ choice("Run Sale (-$200 ads)",function(){if(state.cash<200){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=200;state.operatingSpent+=200;var sold=0,rev=0;for(var i=0;i<PRODUCTS.length;i++){var q=Math.min(PRODUCTS[i].stock,Math.floor(Math.random()*2));PRODUCTS[i].stock-=q;sold+=q;rev+=q*Math.round(price(PRODUCTS[i])*.85)}state.cash+=rev;state.revenue+=rev;addSatisfaction(2);setResult("SALE SUCCESS — sold "+sold+" items for <strong>"+money(rev)+"</strong>.","good");log("Monthend sale earned "+money(rev)+".");finishEncounter()},"primary");
  choice("No Sale",function(){setResult("You keep normal pricing.","neutral");finishEncounter()})
 }
 function hostEvent(){
  scene("metal");el("eventTitle").textContent="Host an In-Store Performance";el("eventText").textContent="Host a local band for $400. A good turnout could increase sales and customer satisfaction.";clearChoices();
- choice("Host Event (-$400)",function(){if(state.cash<400){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=400;state.operatingSpent+=400;var success=Math.random()<.72;if(success){var gain=650+Math.floor(Math.random()*351);state.cash+=gain;state.revenue+=gain;state.rep+=7;state.eventsHosted++;setResult("PACKED HOUSE — event generates <strong>"+money(gain)+"</strong> and +7 customer satisfaction.","good");log("Hosted successful in-store performance.")}else{state.rep+=2;state.eventsHosted++;setResult("Small turnout. You gain +2 customer satisfaction but don't recover the full event cost.","neutral")}finishEncounter()},"primary");
+ choice("Host Event (-$400)",function(){if(state.cash<400){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=400;state.operatingSpent+=400;var success=Math.random()<.72;if(success){var gain=650+Math.floor(Math.random()*351);state.cash+=gain;state.revenue+=gain;addSatisfaction(7);state.eventsHosted++;setResult("PACKED HOUSE — event generates <strong>"+money(gain)+"</strong> and +7 customer satisfaction.","good");log("Hosted successful in-store performance.")}else{addSatisfaction(2);state.eventsHosted++;setResult("Small turnout. You gain +2 customer satisfaction but don't recover the full event cost.","neutral")}finishEncounter()},"primary");
  choice("Skip",function(){setResult("You pass on hosting the event.","neutral");finishEncounter()})
 }
 function competitorSale(){
  scene("customer");el("eventTitle").textContent="Competitor Flash Sale";el("eventText").textContent="Beat Street announces a deep discount monthend. Match them with $175 in advertising?";clearChoices();
- choice("Respond (-$175)",function(){if(state.cash<175){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=175;state.operatingSpent+=175;state.rep+=2;state.competitors[0].score-=3;setResult("Your promotion protects market share.","good");log("Countered competitor sale.");finishEncounter()},"primary");
+ choice("Respond (-$175)",function(){if(state.cash<175){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=175;state.operatingSpent+=175;addSatisfaction(2);state.competitors[0].score-=3;setResult("Your promotion protects market share.","good");log("Countered competitor sale.");finishEncounter()},"primary");
  choice("Ignore",function(){state.competitors[0].score+=3;setResult("Beat Street gains strength this month.","bad");finishEncounter()})
 }
 function bulkCustomer(){
@@ -1401,23 +1520,23 @@ function flashTrend(){
 }
 function openMicNight(){
  scene("singer");el("eventTitle").textContent="Open Mic Night";el("eventText").textContent="Host an open mic for $250? Success may boost store traffic.";clearChoices();
- choice("Host (-$250)",function(){if(state.cash<250){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=250;state.operatingSpent+=250;state.eventsHosted++;var gain=300+Math.floor(Math.random()*401);state.cash+=gain;state.revenue+=gain;state.rep+=5;setResult("Great turnout! You bring in "+money(gain)+" and +5 customer satisfaction.","good");finishEncounter()},"primary");
+ choice("Host (-$250)",function(){if(state.cash<250){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=250;state.operatingSpent+=250;state.eventsHosted++;var gain=300+Math.floor(Math.random()*401);state.cash+=gain;state.revenue+=gain;addSatisfaction(5);setResult("Great turnout! You bring in "+money(gain)+" and +5 customer satisfaction.","good");finishEncounter()},"primary");
  choice("Skip",function(){setResult("You skip open mic night.","neutral");finishEncounter()})
 }
 function teacherOrder(){
  scene("school");var offer=720;el("eventTitle").textContent="Teacher Supply Order";el("eventText").textContent="A music teacher needs 4 headphones, 2 cables, and 1 keyboard. Offer: "+money(offer)+".";clearChoices();
- choice("Accept",function(){if(PRODUCTS[6].stock<4||PRODUCTS[7].stock<2||PRODUCTS[1].stock<1){setResult("You cannot fill the full order.","bad");finishEncounter();return}PRODUCTS[6].stock-=4;PRODUCTS[7].stock-=2;PRODUCTS[1].stock-=1;state.cash+=offer;state.revenue+=offer;state.rep+=4;state.accepted++;setResult("Order filled for "+money(offer)+".","good");finishEncounter()},"primary");
+ choice("Accept",function(){if(PRODUCTS[6].stock<4||PRODUCTS[7].stock<2||PRODUCTS[1].stock<1){setResult("You cannot fill the full order.","bad");finishEncounter();return}PRODUCTS[6].stock-=4;PRODUCTS[7].stock-=2;PRODUCTS[1].stock-=1;state.cash+=offer;state.revenue+=offer;addSatisfaction(4);state.accepted++;setResult("Order filled for "+money(offer)+".","good");finishEncounter()},"primary");
  choice("Decline",function(){state.rejected++;setResult("You decline the order.","neutral");finishEncounter()})
 }
 function stormDelay(){
  scene("vendor");el("eventTitle").textContent="Shipping Delay";el("eventText").textContent="A storm delays your next vendor shipment. Pay $200 for expedited delivery?";clearChoices();
  choice("Expedite (-$200)",function(){if(state.cash<200){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=200;state.operatingSpent+=200;setResult("Shipment stays on schedule.","good");finishEncounter()},"primary");
- choice("Wait",function(){state.rep-=2;setResult("Some customers get frustrated. -2 customer satisfaction.","bad");finishEncounter()})
+ choice("Wait",function(){loseSatisfaction(2);setResult("Some customers get frustrated. -2 customer satisfaction.","bad");finishEncounter()})
 }
 function viralClip(){
  scene("metal");el("eventTitle").textContent="Viral Performance Clip";el("eventText").textContent="A local musician tags your store in a viral video.";clearChoices();
- choice("Promote the Post (-$100)",function(){if(state.cash<100){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=100;state.operatingSpent+=100;state.rep+=6;var gain=250+Math.floor(Math.random()*251);state.cash+=gain;state.revenue+=gain;setResult("The post takes off! +6 customer satisfaction and "+money(gain)+".","good");finishEncounter()},"primary");
- choice("Enjoy the Free Buzz",function(){state.rep+=3;setResult("Free publicity! +3 customer satisfaction.","good");finishEncounter()})
+ choice("Promote the Post (-$100)",function(){if(state.cash<100){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=100;state.operatingSpent+=100;addSatisfaction(6);var gain=250+Math.floor(Math.random()*251);state.cash+=gain;state.revenue+=gain;setResult("The post takes off! +6 customer satisfaction and "+money(gain)+".","good");finishEncounter()},"primary");
+ choice("Enjoy the Free Buzz",function(){addSatisfaction(3);setResult("Free publicity! +3 customer satisfaction.","good");finishEncounter()})
 }
 
 /* Upgrade unlocked event families */
@@ -1436,52 +1555,52 @@ function cyberSale(){
 }
 function shippingIssue(){
  scene("vendor");el("eventTitle").textContent="Shipping Problem";el("eventText").textContent="A customer reports a damaged online shipment. Refund $120 or risk satisfaction?";clearChoices();
- choice("Refund (-$120)",function(){if(state.cash>=120){state.cash-=120;state.operatingSpent+=120;state.rep+=2;setResult("Customer taken care of. +2 satisfaction.","good")}else{state.rep-=3;setResult("You cannot afford the refund. -3 satisfaction.","bad")}finishEncounter()},"primary");
- choice("Deny Claim",function(){state.rep-=5;setResult("Negative online review. -5 satisfaction.","bad");finishEncounter()});
+ choice("Refund (-$120)",function(){if(state.cash>=120){state.cash-=120;state.operatingSpent+=120;addSatisfaction(2);setResult("Customer taken care of. +2 satisfaction.","good")}else{loseSatisfaction(3);setResult("You cannot afford the refund. -3 satisfaction.","bad")}finishEncounter()},"primary");
+ choice("Deny Claim",function(){loseSatisfaction(5);setResult("Negative online review. -5 satisfaction.","bad");finishEncounter()});
 }
 function viralOrder(){
  scene("busy");el("eventTitle").textContent="Viral Product Post";el("eventText").textContent="A social post sends shoppers to your online store.";clearChoices();
- choice("Fulfill Rush",function(){var rev=450+Math.floor(Math.random()*501);state.cash+=rev;state.revenue+=rev;state.rep+=3;setResult("VIRAL SALES — "+money(rev)+" and +3 satisfaction.","good");finishEncounter()},"primary");
+ choice("Fulfill Rush",function(){var rev=450+Math.floor(Math.random()*501);state.cash+=rev;state.revenue+=rev;addSatisfaction(3);setResult("VIRAL SALES — "+money(rev)+" and +3 satisfaction.","good");finishEncounter()},"primary");
 }
 function corporateRental(){rental("Corporate Event Rental","A company needs 2 speakers + 1 mixer.","sound",825,3,[[4,2],[5,1]])}
 function festivalRental(){rental("Festival Rental","A local festival needs 2 speakers + 2 microphones.","sound",950,4,[[4,2],[3,2]])}
 function tourRental(){rental("Touring Act Rental","A touring act needs 1 guitar + 1 speaker + 2 microphones.","metal",1050,4,[[0,1],[4,1],[3,2]])}
 function lateReturn(){
  scene("sound");el("eventTitle").textContent="Late Rental Return";el("eventText").textContent="A customer returns gear late. Charge a $90 late fee?";clearChoices();
- choice("Charge Fee",function(){state.cash+=90;state.revenue+=90;state.rep-=1;setResult("+$90 fee, -1 satisfaction.","neutral");finishEncounter()},"primary");
- choice("Waive Fee",function(){state.rep+=2;setResult("Fee waived. +2 satisfaction.","good");finishEncounter()});
+ choice("Charge Fee",function(){state.cash+=90;state.revenue+=90;loseSatisfaction(1);setResult("+$90 fee, -1 satisfaction.","neutral");finishEncounter()},"primary");
+ choice("Waive Fee",function(){addSatisfaction(2);setResult("Fee waived. +2 satisfaction.","good");finishEncounter()});
 }
 function radioCampaign(){
  scene("busy");el("eventTitle").textContent="Local Radio Campaign";el("eventText").textContent="Spend $300 on a local radio campaign?";clearChoices();
- choice("Buy Campaign",function(){if(state.cash<300){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=300;state.operatingSpent+=300;state.rep+=5;var rev=250+Math.floor(Math.random()*401);state.cash+=rev;state.revenue+=rev;setResult("Campaign produces "+money(rev)+" and +5 satisfaction.","good");finishEncounter()},"primary");
+ choice("Buy Campaign",function(){if(state.cash<300){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=300;state.operatingSpent+=300;addSatisfaction(5);var rev=250+Math.floor(Math.random()*401);state.cash+=rev;state.revenue+=rev;setResult("Campaign produces "+money(rev)+" and +5 satisfaction.","good");finishEncounter()},"primary");
  choice("Pass",function(){setResult("No campaign this month.","neutral");finishEncounter()});
 }
 function couponRush(){
  scene("busy");el("eventTitle").textContent="Coupon Rush";el("eventText").textContent="Your coupon campaign attracts bargain hunters.";clearChoices();
- choice("Serve the Rush",function(){var rev=300+Math.floor(Math.random()*451);state.cash+=rev;state.revenue+=rev;state.rep+=2;setResult("Coupon sales: "+money(rev)+".","good");finishEncounter()},"primary");
+ choice("Serve the Rush",function(){var rev=300+Math.floor(Math.random()*451);state.cash+=rev;state.revenue+=rev;addSatisfaction(2);setResult("Coupon sales: "+money(rev)+".","good");finishEncounter()},"primary");
 }
 function influencerVisit(){
  scene("singer");el("eventTitle").textContent="Local Influencer Visit";el("eventText").textContent="A local creator asks to film in your store in exchange for exposure.";clearChoices();
- choice("Say Yes",function(){state.rep+=6;setResult("The video performs well. +6 satisfaction.","good");finishEncounter()},"primary");
+ choice("Say Yes",function(){addSatisfaction(6);setResult("The video performs well. +6 satisfaction.","good");finishEncounter()},"primary");
  choice("Decline",function(){setResult("You decline the visit.","neutral");finishEncounter()});
 }
 function communityAd(){
  scene("school");el("eventTitle").textContent="Community Sponsorship";el("eventText").textContent="Sponsor a school/community program for $250?";clearChoices();
- choice("Sponsor",function(){if(state.cash<250){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=250;state.operatingSpent+=250;state.rep+=7;setResult("+7 satisfaction and community visibility.","good");finishEncounter()},"primary");
+ choice("Sponsor",function(){if(state.cash<250){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=250;state.operatingSpent+=250;addSatisfaction(7);setResult("+7 satisfaction and community visibility.","good");finishEncounter()},"primary");
  choice("Skip",function(){setResult("You skip the sponsorship.","neutral");finishEncounter()});
 }
 function repairRush(){
  scene("customer");el("eventTitle").textContent="Repair Rush";el("eventText").textContent="Three customers arrive with repair jobs.";clearChoices();
- choice("Take Repairs",function(){var rev=325+Math.floor(Math.random()*251);state.cash+=rev;state.revenue+=rev;state.rep+=2;setResult("Repair revenue: "+money(rev)+".","good");finishEncounter()},"primary");
+ choice("Take Repairs",function(){var rev=325+Math.floor(Math.random()*251);state.cash+=rev;state.revenue+=rev;addSatisfaction(2);setResult("Repair revenue: "+money(rev)+".","good");finishEncounter()},"primary");
 }
 function vintageRepair(){
  scene("guitar");el("eventTitle").textContent="Vintage Restoration";el("eventText").textContent="A customer offers $450 for a difficult vintage restoration.";clearChoices();
- choice("Accept",function(){if(Math.random()<.72){state.cash+=450;state.revenue+=450;state.rep+=4;setResult("RESTORATION SUCCESS — +$450, +4 satisfaction.","good")}else{state.cash-=150;state.operatingSpent+=150;state.rep-=2;setResult("Repair took extra parts. -$150, -2 satisfaction.","bad")}finishEncounter()},"primary");
+ choice("Accept",function(){if(Math.random()<.72){state.cash+=450;state.revenue+=450;addSatisfaction(4);setResult("RESTORATION SUCCESS — +$450, +4 satisfaction.","good")}else{state.cash-=150;state.operatingSpent+=150;loseSatisfaction(2);setResult("Repair took extra parts. -$150, -2 satisfaction.","bad")}finishEncounter()},"primary");
  choice("Decline",function(){setResult("You decline the specialty repair.","neutral");finishEncounter()});
 }
 function emergencyFix(){
  scene("metal");el("eventTitle").textContent="Pre-Show Emergency Repair";el("eventText").textContent="A performer needs an emergency fix before tonight's show. Fee: $300.";clearChoices();
- choice("Repair Now",function(){state.cash+=300;state.revenue+=300;state.rep+=4;setResult("+$300 and +4 satisfaction.","good");finishEncounter()},"primary");
+ choice("Repair Now",function(){state.cash+=300;state.revenue+=300;addSatisfaction(4);setResult("+$300 and +4 satisfaction.","good");finishEncounter()},"primary");
 }
 function tradeIn(){
  scene("customer");el("eventTitle").textContent="Trade-In Opportunity";el("eventText").textContent="A customer offers used gear for $140. You could resell it later.";clearChoices();
@@ -1490,20 +1609,20 @@ function tradeIn(){
 }
 function rushDelivery(){
  scene("school");el("eventTitle").textContent="Rush Delivery";el("eventText").textContent="A school pays $275 for same-day equipment delivery.";clearChoices();
- choice("Deliver",function(){state.cash+=275;state.revenue+=275;state.rep+=3;setResult("+$275 and +3 satisfaction.","good");finishEncounter()},"primary");
+ choice("Deliver",function(){state.cash+=275;state.revenue+=275;addSatisfaction(3);setResult("+$275 and +3 satisfaction.","good");finishEncounter()},"primary");
 }
 function schoolDelivery(){
  scene("school");el("eventTitle").textContent="School District Route";el("eventText").textContent="Complete a multi-stop delivery route for $425.";clearChoices();
- choice("Take Route",function(){state.cash+=425;state.revenue+=425;state.rep+=2;setResult("+$425 delivery revenue.","good");finishEncounter()},"primary");
+ choice("Take Route",function(){state.cash+=425;state.revenue+=425;addSatisfaction(2);setResult("+$425 delivery revenue.","good");finishEncounter()},"primary");
 }
 function flatTire(){
  scene("vendor");el("eventTitle").textContent="Delivery Van Flat Tire";el("eventText").textContent="Repair the tire for $160 or lose delivery opportunities this month.";clearChoices();
- choice("Repair (-$160)",function(){if(state.cash>=160){state.cash-=160;state.operatingSpent+=160;setResult("Van repaired.","good")}else{state.rep-=2;setResult("Could not repair immediately. -2 satisfaction.","bad")}finishEncounter()},"primary");
- choice("Delay",function(){state.rep-=3;setResult("Deliveries delayed. -3 satisfaction.","bad");finishEncounter()});
+ choice("Repair (-$160)",function(){if(state.cash>=160){state.cash-=160;state.operatingSpent+=160;setResult("Van repaired.","good")}else{loseSatisfaction(2);setResult("Could not repair immediately. -2 satisfaction.","bad")}finishEncounter()},"primary");
+ choice("Delay",function(){loseSatisfaction(3);setResult("Deliveries delayed. -3 satisfaction.","bad");finishEncounter()});
 }
 function fuelSpike(){
  scene("vendor");el("eventTitle").textContent="Fuel Price Spike";el("eventText").textContent="Fuel costs jump. Pay $120 extra operating cost this month.";clearChoices();
- choice("Pay Fuel Cost",function(){if(state.cash>=120){state.cash-=120;state.operatingSpent+=120;setResult("Delivery operations continue.","neutral")}else{state.rep-=2;setResult("You cannot fully cover delivery costs. -2 satisfaction.","bad")}finishEncounter()},"primary");
+ choice("Pay Fuel Cost",function(){if(state.cash>=120){state.cash-=120;state.operatingSpent+=120;setResult("Delivery operations continue.","neutral")}else{loseSatisfaction(2);setResult("You cannot fully cover delivery costs. -2 satisfaction.","bad")}finishEncounter()},"primary");
 }
 
 function finishEncounter(){
@@ -1519,7 +1638,7 @@ function payExtraLoan(){
  if(!state.started)return;var amt=parseInt(el("loanPayment").value,10);if(isNaN(amt)||amt<=0)return;
  amt=Math.min(amt,state.cash,state.debt);if(amt<=0){setResult("No available cash for that payment.","bad");return}
  state.cash-=amt;state.debt-=amt;state.loanPaid+=amt;el("loanPayment").value="";log("Extra debt payment: "+money(amt)+".");
- if(state.debt===0){state.rep+=4;setResult("DEBT FREE! Your loan balance is now $0. +4 customer satisfaction.","good")}else setResult("Extra payment made. Remaining debt: "+money(state.debt)+".","good");render()
+ if(state.debt===0){addSatisfaction(4);setResult("DEBT FREE! Your loan balance is now $0. +4 customer satisfaction.","good")}else setResult("Extra payment made. Remaining debt: "+money(state.debt)+".","good");render()
 }
 function endMonth(){
  if(!state.started||state.encounters<state.maxEncounters)return;
@@ -1529,7 +1648,7 @@ function endMonth(){
  state.cash-=ex;state.operatingSpent+=ex;log("Paid "+money(ex)+" monthly operating expenses.");
 
  if(state.debt>0){
-   var required=Math.min(250+Math.floor(state.debt*.005),state.debt);
+   var required=Math.min(150+Math.floor(state.debt*.0025),state.debt);
    state.cash-=required;state.debt-=required;state.loanPaid+=required;
    log("Required loan payment: "+money(required)+".");
  }
@@ -1542,7 +1661,8 @@ function endMonth(){
  for(var i=0;i<state.competitors.length;i++){
    state.competitors[i].score=clamp(state.competitors[i].score+(Math.random()*7-1),20,100);
  }
- if(state.cash<0)state.rep-=4;
+ if(state.cash<0)loseSatisfaction(4);
+ applyMonthlySatisfactionDrift();
 
  /* December always triggers annual review */
  if(state.month>=12){
@@ -1565,9 +1685,80 @@ function endMonth(){
 }
 
 
+
+function rewardValues(tier){
+ if(tier==="Platinum")return {cash:3500,debt:4000,stock:10,marketing:12,upgrade:true};
+ if(tier==="Gold")return {cash:2500,debt:3000,stock:8,marketing:10,upgrade:true};
+ if(tier==="Silver")return {cash:1500,debt:2000,stock:6,marketing:7,upgrade:false};
+ return {cash:750,debt:1000,stock:4,marketing:5,upgrade:false};
+}
+function renderRewardChoices(tier){
+ var vals=rewardValues(tier),box=el("rewardChoices");box.innerHTML="";
+ var options=[
+  {id:"cash",title:"💵 Capital Investment",desc:"+"+money(vals.cash)+" cash"},
+  {id:"debt",title:"📉 Debt Relief",desc:"WGSC pays up to "+money(vals.debt)+" of your debt"},
+  {id:"stock",title:"📦 Inventory Grant",desc:"Receive "+vals.stock+" assorted inventory items"},
+  {id:"marketing",title:"📣 Corporate Marketing",desc:"+"+vals.marketing+" satisfaction and stronger January demand"}
+ ];
+ if(vals.upgrade)options.push({id:"upgrade",title:"🏪 Upgrade Credit",desc:"Receive one unowned branch upgrade free"});
+
+ for(var i=0;i<options.length;i++){
+  (function(o){
+    var b=document.createElement("button");
+    b.className="rewardChoice";
+    b.innerHTML="<strong>"+o.title+"</strong><span>"+o.desc+"</span>";
+    b.onclick=function(){selectReward(o.id,tier,b)};
+    box.appendChild(b);
+  })(options[i]);
+ }
+}
+function selectReward(id,tier,button){
+ state.selectedReward={id:id,tier:tier};
+ document.querySelectorAll(".rewardChoice").forEach(function(b){b.classList.remove("selected")});
+ button.classList.add("selected");
+ el("continueYearBtn").disabled=false;
+}
+function applySelectedReward(){
+ if(!state.selectedReward)return;
+ var vals=rewardValues(state.selectedReward.tier),id=state.selectedReward.id;
+
+ if(id==="cash"){
+   state.cash+=vals.cash;
+   log("WGSC corporate reward: "+money(vals.cash)+" capital investment.");
+ }else if(id==="debt"){
+   var relief=Math.min(vals.debt,state.debt);
+   state.debt-=relief;
+   log("WGSC corporate reward: "+money(relief)+" debt relief.");
+ }else if(id==="stock"){
+   for(var i=0;i<vals.stock;i++){
+     PRODUCTS[Math.floor(Math.random()*PRODUCTS.length)].stock++;
+   }
+   log("WGSC corporate reward: "+vals.stock+" inventory items.");
+ }else if(id==="marketing"){
+   addSatisfaction(vals.marketing);
+   state.demandBoostJanuary=1.18;
+   log("WGSC corporate reward: national marketing campaign.");
+ }else if(id==="upgrade"){
+   var available=[];
+   for(var k in state.upgrades)if(!state.upgrades[k])available.push(k);
+   if(available.length){
+     var chosen=available[Math.floor(Math.random()*available.length)];
+     state.upgrades[chosen]=true;
+     if(chosen==="marketing")addSatisfaction(6);
+     log("WGSC corporate reward: free "+UPGRADE_DATA[chosen].name+".");
+   }else{
+     state.cash+=2500;
+     log("All upgrades owned; WGSC converted upgrade credit to $2,500 cash.");
+   }
+ }
+ state.pendingReward=null;
+}
+
 function continueNextYear(){
+ if(!state.selectedReward)return;
+ applySelectedReward();
  el("scoreOverlay").style.display="none";
- state.year+=1;state.month=1;state.encounters=0;state.eventResolved=true;
+ state.year+=1;state.month=1;state.encounters=0;state.eventResolved=true;state.monthlyGoalsCompleted=0;
  /* modest new-year escalation */
  DIFF[state.difficulty].expenses=Math.round(DIFF[state.difficulty].expenses*1.06);
  for(var i=0;i<state.competitors.length;i++)state.competitors[i].score=clamp(state.competitors[i].score+4,20,100);
@@ -1640,25 +1831,72 @@ function animateHighStriker(score){
 function finishGame(){
  state.rep=clamp(state.rep,0,100);
  checkAchievements();
- var inv=0;for(var i=0;i<PRODUCTS.length;i++)inv+=PRODUCTS[i].stock*PRODUCTS[i].cost;
+
+ var inv=0;
+ for(var i=0;i<PRODUCTS.length;i++)inv+=PRODUCTS[i].stock*PRODUCTS[i].cost;
+
  var profit=state.revenue-state.wholesaleSpent-state.operatingSpent-state.interestCost;
  var netWorth=state.cash+inv-state.debt;
  var achievementCount=Object.keys(state.achievements).length;
- var score=Math.max(0,Math.round(netWorth + profit*.55 + state.rep*110 + achievementCount*250));
- if(state.debt===0)score+=1500;
- state.annualScoreHistory.push({year:state.year,score:score,profit:profit,netWorth:netWorth,debt:state.debt,rep:state.rep});
+
+ var profitPts=Math.max(0,Math.round(profit*.32));
+ var worthPts=Math.max(0,Math.round(netWorth*.28));
+ var debtPts=Math.max(0,Math.round((30000-Math.min(state.debt,30000))*.12));
+ var satisfactionPts=Math.round(state.rep*22);
+ var achievementPts=achievementCount*300;
+ var goalPts=(state.monthlyGoalsCompleted||0)*110;
+ var debtFreePts=state.debt===0?1500:0;
+
+ var score=Math.max(0,profitPts+worthPts+debtPts+satisfactionPts+achievementPts+goalPts+debtFreePts);
+
+ if(state.debt===0)state.debtFreeYears=(state.debtFreeYears||0)+1;
+ state.careerScore=(state.careerScore||0)+score;
+ state.bestYearScore=Math.max(state.bestYearScore||0,score);
+ state.highestSatisfaction=Math.max(state.highestSatisfaction||0,state.rep);
+ state.largestCashReserve=Math.max(state.largestCashReserve||0,state.cash);
+
+ state.annualScoreHistory.push({
+   year:state.year,score:score,profit:profit,netWorth:netWorth,debt:state.debt,rep:state.rep
+ });
 
  var grade="Garage Branch",comment="Your branch survived, but the franchise needs a stronger financial plan.";
- if(score>=12000){grade="Franchise Legend";comment="Outstanding! You managed profit, satisfaction, inventory and debt like a seasoned franchise manager."}
- else if(score>=8000){grade="Regional Flagship";comment="A strong branch with room to become the top Williamson’s location in town."}
- else if(score>=4500){grade="Local Headliner";comment="A solid franchise. Better debt and inventory decisions could push you higher."}
- else if(score>=1800){grade="Opening Branch";comment="You built a functioning branch, but cash flow and debt held you back."}
- if(state.debt===0){grade="Debt-Free "+grade;comment+=" Finishing debt-free earns a 1,500-point bonus."}
+ var rewardTier="Bronze";
 
- el("scoreOverlay").style.display="flex";
+ if(score>=14000){
+   grade="Franchise of the Year";
+   rewardTier="Platinum";
+   comment="Exceptional year. WGSC Headquarters considers this one of the network’s model franchises.";
+ }else if(score>=10500){
+   grade="Franchise Legend";
+   rewardTier="Gold";
+   comment="Outstanding performance across finance, customer satisfaction, and growth.";
+ }else if(score>=7500){
+   grade="Regional Flagship";
+   rewardTier="Silver";
+   comment="A strong franchise with excellent momentum heading into next year.";
+ }else if(score>=4500){
+   grade="Local Headliner";
+   rewardTier="Bronze";
+   comment="A solid year. Smart debt and upgrade choices could push your branch higher.";
+ }else if(score>=2000){
+   grade="Opening Branch";
+   rewardTier="Bronze";
+   comment="Your franchise is established, but cash flow and debt management need attention.";
+ }
+
+ if(state.debt===0){
+   grade="Debt-Free "+grade;
+   comment+=" Finishing debt-free earned a 1,500-point score bonus.";
+ }
+
+ state.pendingReward=rewardTier;
+ state.selectedReward=null;
+
+ scoreScene();
  el("scoreTitle").textContent=(state.franchiseName||"Your Franchise")+" — Year "+state.year+" Review";
  el("scoreBig").textContent=score.toLocaleString()+" pts";
  el("scoreBadge").innerHTML='<span class="badge">'+grade+'</span>';
+
  el("scoreStats").innerHTML=
   '<div class="scoreStat"><div class="label">Franchise Profit</div><div class="value">'+money(profit)+'</div></div>'+
   '<div class="scoreStat"><div class="label">Franchise Net Worth</div><div class="value">'+money(netWorth)+'</div></div>'+
@@ -1666,8 +1904,35 @@ function finishGame(){
   '<div class="scoreStat"><div class="label">Customer Satisfaction</div><div class="value">'+Math.round(state.rep)+'/100</div></div>'+
   '<div class="scoreStat"><div class="label">Achievements</div><div class="value">'+achievementCount+' / '+Object.keys(ACHIEVEMENTS).length+'</div></div>'+
   '<div class="scoreStat"><div class="label">Franchise</div><div class="value">'+(state.franchiseId||"#---")+'</div></div>';
- el("scoreComment").textContent=comment+" WGSC Headquarters invites you to continue into Year "+(state.year+1)+".";
- scoreScene();
+
+ el("scoreBreakdown").innerHTML=
+  '<div class="breakTitle">Year '+state.year+' Score Breakdown</div>'+
+  '<div class="breakRow"><span>Profit</span><strong>+'+profitPts.toLocaleString()+'</strong></div>'+
+  '<div class="breakRow"><span>Net Worth</span><strong>+'+worthPts.toLocaleString()+'</strong></div>'+
+  '<div class="breakRow"><span>Debt Management</span><strong>+'+debtPts.toLocaleString()+'</strong></div>'+
+  '<div class="breakRow"><span>Customer Satisfaction</span><strong>+'+satisfactionPts.toLocaleString()+'</strong></div>'+
+  '<div class="breakRow"><span>Achievements</span><strong>+'+achievementPts.toLocaleString()+'</strong></div>'+
+  '<div class="breakRow"><span>Monthly Goals</span><strong>+'+goalPts.toLocaleString()+'</strong></div>'+
+  (debtFreePts?'<div class="breakRow bonusRow"><span>Debt-Free Bonus</span><strong>+'+debtFreePts.toLocaleString()+'</strong></div>':'')+
+  '<div class="breakTotal"><span>TOTAL</span><strong>'+score.toLocaleString()+'</strong></div>';
+
+ el("careerSummary").innerHTML=
+  '<div class="careerTitle">WGSC Career Record</div>'+
+  '<div class="careerGrid">'+
+   '<div><span>Career Score</span><strong>'+state.careerScore.toLocaleString()+'</strong></div>'+
+   '<div><span>Best Year</span><strong>'+state.bestYearScore.toLocaleString()+'</strong></div>'+
+   '<div><span>Highest Satisfaction</span><strong>'+Math.round(state.highestSatisfaction)+'</strong></div>'+
+   '<div><span>Largest Cash Reserve</span><strong>'+money(state.largestCashReserve)+'</strong></div>'+
+   '<div><span>Debt-Free Years</span><strong>'+state.debtFreeYears+'</strong></div>'+
+   '<div><span>Years Managed</span><strong>'+state.year+'</strong></div>'+
+  '</div>';
+
+ el("scoreComment").textContent=comment+" You earned a "+rewardTier+" corporate reward package.";
+
+ renderRewardChoices(rewardTier);
+
+ el("continueYearBtn").disabled=true;
+ el("scoreOverlay").style.display="flex";
  setTimeout(function(){animateHighStriker(score)},180);
  saveGame(true);
 }
@@ -1714,10 +1979,30 @@ function startFromSplash(){
  if(s){
    s.style.transition="opacity .45s ease";
    s.style.opacity="0";
-   setTimeout(function(){s.style.display="none"},460);
+   setTimeout(function(){s.style.display="none";showLaunchModal();},460);
  }
 }
 
+
+
+function showLaunchModal(){
+ var modal=el("launchModal");
+ if(modal)modal.style.display="flex";
+}
+function closeLaunchModal(){
+ var modal=el("launchModal");
+ if(modal)modal.style.display="none";
+}
+function initLaunchModal(){
+ var cards=document.querySelectorAll(".difficultyCard");
+ for(var i=0;i<cards.length;i++){
+   cards[i].addEventListener("click",function(){
+     var level=this.getAttribute("data-difficulty");
+     closeLaunchModal();
+     newGame(level);
+   });
+ }
+}
 
 function initManagerTablet(){
  var apps=document.querySelectorAll(".tabletApp");
@@ -1760,7 +2045,7 @@ function applyResponsiveUI(){
 }
 window.addEventListener("resize",applyResponsiveUI);
 
-scene("busy");render();applyResponsiveUI();initManagerTablet();
+scene("busy");render();applyResponsiveUI();initManagerTablet();initLaunchModal();
 </script>
 </body>
 </html>
