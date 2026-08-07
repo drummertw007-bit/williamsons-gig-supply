@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Williamson's Gig Supply Co. v4.3.1</title>
+<title>Williamson's Gig Supply Co. v4.3.2</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 :root{
@@ -557,7 +557,7 @@ button:not(:disabled){transition:transform .08s ease,filter .12s ease}button:not
 .yearBadge{display:inline-block;padding:3px 7px;border-radius:999px;background:#38465d;color:#fff;font-size:10px;margin-left:4px}
 
 
-/* v4.3.1 mobile touch fixes */
+/* v4.3.2 mobile touch fixes */
 button,
 .priceBtns button,
 .inventoryRow button,
@@ -733,7 +733,7 @@ button,
 }
 
 
-/* v4.3.1 Franchise Progression */
+/* v4.3.2 Franchise Progression */
 .launchModal{
   position:fixed;inset:0;z-index:130;background:rgba(5,8,13,.93);
   align-items:center;justify-content:center;padding:18px;
@@ -793,7 +793,7 @@ button,
 }
 
 
-/* v4.3.1 clean static opening */
+/* v4.3.2 clean static opening */
 .splashScreen{
   position:fixed;inset:0;z-index:120;background:#05070d;
   display:flex;align-items:center;justify-content:center;padding:16px;
@@ -866,7 +866,7 @@ button,
 }
 
 
-/* v4.3.1 splash integration */
+/* v4.3.2 splash integration */
 .staticSplashCard{
   width:min(1180px,96vw);
   height:auto !important;
@@ -924,7 +924,7 @@ button,
   text-shadow:0 1px 3px #000;
 }
 
-/* v4.3.1 franchise agreement */
+/* v4.3.2 franchise agreement */
 .agreementCard{
   width:min(920px,96vw);
   background:#e8e1cf;
@@ -1078,6 +1078,17 @@ button,
   outline-offset:2px;
 }
 
+
+.launchError{
+  margin:12px 0 0;
+  padding:10px 12px;
+  border:2px solid #a33b3b;
+  background:#f7dddd;
+  color:#711f1f;
+  border-radius:7px;
+  font-size:12px;
+  font-weight:700;
+}
 </style>
 </head>
 <body>
@@ -1095,19 +1106,9 @@ button,
   </div>
 </div>
 
-    <div class="splashOverlay">
-      <div class="splashControls">
-        <button class="splashBtn" id="splashStartBtn" onclick="startFromSplash()">Press Start</button>
-        <button class="soundToggle" id="soundToggleBtn" onclick="toggleSound()">🔊 Sound On</button>
-        <div class="splashVersion">Franchise Edition • v4.3.1</div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="wrap">
 <h1>🎵 Williamson’s Gig Supply Co.</h1>
-<div class="sub">Build the Beat. Grow the Business. <span style="opacity:.65">• Franchise Edition • v4.3.1</span></div>
+<div class="sub">Build the Beat. Grow the Business. <span style="opacity:.65">• Franchise Edition • v4.3.2</span></div>
 
 <div class="topbar">
  <div class="stat"><div class="label">Cash</div><div class="value" id="cash">$0</div></div>
@@ -1129,6 +1130,12 @@ button,
 <!-- LEFT -->
 <div>
  <div class="panel" id="setupPanel" style="display:none"></div>
+
+ <div class="panel">
+  <h2>Inventory & Pricing</h2>
+  <div class="small">Budget sells more often. Premium earns more per sale but risks customer rejection.</div>
+  <div id="inventory"></div>
+ </div>
 </div>
 
 <!-- CENTER -->
@@ -1252,7 +1259,7 @@ button,
 
    <div class="tabletBottom">
      <span id="tabletClock">WGSC OS</span>
-     <span>Franchise Edition • v4.3.1</span>
+     <span>Franchise Edition • v4.3.2</span>
    </div>
  </div>
 </div>
@@ -1317,6 +1324,8 @@ button,
           <div class="selectChallenge">Select Contract</div>
         </button>
       </div>
+
+      <div id="launchError" class="launchError" style="display:none"></div>
 
       <div class="agreementFooter">
         <div>
@@ -1557,7 +1566,7 @@ function render(){
    el("momentumBar").style.width=momentum+"%";
    el("momentumText").textContent=momentum<25?"Opening branch":momentum<50?"Building momentum":momentum<75?"Top local branch":"Flagship status";
  }
- var inv=el("inventory");inv.innerHTML="";
+ var inv=el("inventory");if(!inv){throw new Error("Inventory panel is missing.");}inv.innerHTML="";
  for(var i=0;i<PRODUCTS.length;i++){(function(idx){
   var p=PRODUCTS[idx],row=document.createElement("div");row.className="inventoryRow";
   var a=document.createElement("div");a.innerHTML='<span class="icon">'+p.icon+'</span><span class="productName">'+p.name+'</span><div class="small">Wholesale '+money(p.cost)+'</div>';
@@ -1609,11 +1618,11 @@ function toast(msg){
 function saveGame(silent){
  if(!state.started)return;
  var data={state:state,products:PRODUCTS};
- localStorage.setItem("williamsonsGigSupplyV431",JSON.stringify(data));
+ localStorage.setItem("williamsonsGigSupplyV432",JSON.stringify(data));
  if(!silent)toast("Game saved");
 }
 function loadGame(){
- var raw=localStorage.getItem("williamsonsGigSupplyV431")||localStorage.getItem("williamsonsGigSupplyV43")||localStorage.getItem("williamsonsGigSupplyV42")||localStorage.getItem("williamsonsGigSupplyV41")||localStorage.getItem("williamsonsGigSupplyV40")||localStorage.getItem("williamsonsGigSupplyV311")||localStorage.getItem("williamsonsGigSupplyV31")||localStorage.getItem("williamsonsGigSupplyV30")||localStorage.getItem("williamsonsGigSupplyV23");if(!raw){toast("No save found");return}
+ var raw=localStorage.getItem("williamsonsGigSupplyV432")||localStorage.getItem("williamsonsGigSupplyV431")||localStorage.getItem("williamsonsGigSupplyV43")||localStorage.getItem("williamsonsGigSupplyV42")||localStorage.getItem("williamsonsGigSupplyV41")||localStorage.getItem("williamsonsGigSupplyV40")||localStorage.getItem("williamsonsGigSupplyV311")||localStorage.getItem("williamsonsGigSupplyV31")||localStorage.getItem("williamsonsGigSupplyV30")||localStorage.getItem("williamsonsGigSupplyV23");if(!raw){toast("No save found");return}
  try{
   var data=JSON.parse(raw);state=data.state;
   if(typeof state.year==="undefined"){state.year=1;state.month=state.week||1;delete state.week;}
@@ -1636,7 +1645,7 @@ function loadGame(){
   el("eventTitle").textContent="Game Loaded";el("eventText").textContent="Welcome back to your music business.";clearResult();scene("busy");render();applyResponsiveUI();initManagerTablet();initLaunchModal();toast("Game loaded")
  }catch(e){toast("Save could not be loaded")}
 }
-function resetSave(){localStorage.removeItem("williamsonsGigSupplyV431");localStorage.removeItem("williamsonsGigSupplyV43");localStorage.removeItem("williamsonsGigSupplyV42");localStorage.removeItem("williamsonsGigSupplyV41");localStorage.removeItem("williamsonsGigSupplyV40");localStorage.removeItem("williamsonsGigSupplyV31");localStorage.removeItem("williamsonsGigSupplyV30");localStorage.removeItem("williamsonsGigSupplyV23");toast("Save cleared")}
+function resetSave(){localStorage.removeItem("williamsonsGigSupplyV432");localStorage.removeItem("williamsonsGigSupplyV43");localStorage.removeItem("williamsonsGigSupplyV42");localStorage.removeItem("williamsonsGigSupplyV41");localStorage.removeItem("williamsonsGigSupplyV40");localStorage.removeItem("williamsonsGigSupplyV31");localStorage.removeItem("williamsonsGigSupplyV30");localStorage.removeItem("williamsonsGigSupplyV23");toast("Save cleared")}
 
 
 function assignMonthlyGoal(){
@@ -2296,7 +2305,7 @@ function closeLaunchModal(){
  if(modal)modal.style.display="none";
 }
 
-/* v4.3.1 static splash behavior */
+/* v4.3.2 static splash behavior */
 function toggleSound(){ return; }
 function playStartJingle(){ return; }
 function startFromSplash(){
@@ -2312,18 +2321,16 @@ function startFromSplash(){
 
 
 function startContract(level){
+  var errorBox=el("launchError");
+  if(errorBox){errorBox.style.display="none";errorBox.textContent="";}
   try{
-    closeLaunchModal();
     newGame(level);
+    closeLaunchModal();
   }catch(err){
     console.error("WGSC franchise startup error:",err);
-    var modal=el("launchModal");
-    if(modal)modal.style.display="flex";
-    var hint=document.querySelector(".launchHint");
-    if(hint){
-      hint.textContent="Unable to open franchise. Please reload the page and try again.";
-      hint.style.color="#9b1c1c";
-      hint.style.fontWeight="bold";
+    if(errorBox){
+      errorBox.style.display="block";
+      errorBox.textContent="Startup error: "+(err && err.message ? err.message : err);
     }
   }
 }

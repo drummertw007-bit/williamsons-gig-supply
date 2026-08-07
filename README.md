@@ -1,12 +1,9 @@
-# Williamson's Gig Supply Co. v4.3.1 — Startup Hotfix
+# Williamson's Gig Supply Co. v4.3.2
 
-## Fix
-- Difficulty / Select Contract cards now directly start the selected franchise.
-- Removes dependency on post-load event-listener wiring.
-- Improves Safari/mobile reliability.
-- Adds visible focus/press feedback.
-- Preserves v4.3 and earlier saves.
+Critical startup repair:
+- Restores Inventory & Pricing accidentally removed during the modal redesign.
+- Fixes Select Contract startup failure.
+- Removes leftover duplicate Press Start and Sound On controls.
+- Adds a visible startup error message if another launch problem occurs.
 
-## GitHub Pages
-Replace `index.html`.
-The splash image is unchanged but included for completeness.
+For GitHub, replace index.html. The splash image is unchanged.
