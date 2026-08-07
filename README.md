@@ -1,16 +1,31 @@
-# Williamson's Gig Supply Co. v3.1.1 — Hotfix
+# Williamson's Gig Supply Co. v4.0 — Manager Tablet Edition
 
-## Fixes
-- Fixes December annual-review bug. The high-striker franchise review now opens reliably.
-- Adds a short "HQ is preparing your annual review" transition.
-- Caps Customer Satisfaction at 100.
-- Prevents mobile double-tap zoom on game buttons using `touch-action: manipulation`.
-- Uses 16px mobile input text to prevent iOS focus zoom.
-- Preserves migration from v3.1, v3.0 and v2.3 browser saves.
+## Major UI redesign
+The gameplay engine remains intact, but the desktop interface is reorganized around three primary areas:
+
+1. Inventory & Pricing
+2. Customer / Event gameplay
+3. WGSC Manager Tablet
+
+The Manager Tablet replaces the long right-hand stack of panels with six apps:
+
+- 📊 HQ — corporate messages, network rank, monthly goal
+- 💰 Finance — borrowing, repayment and financial snapshot
+- 🏪 Ops — branch upgrades
+- 🏁 Rivals — competing stores
+- 🏆 Awards — achievements
+- 📜 History — save/load controls and franchise log
+
+Only one tablet app is visible at a time, and the selected app scrolls internally. This keeps the main desktop dashboard compact while preserving every management feature.
+
+## Responsive layout
+- Desktop: three-column dashboard with sticky Manager Tablet
+- Tablet: gameplay/inventory plus a centered tablet console
+- Mobile: gameplay first, inventory second, Manager Tablet third
 
 ## GitHub Pages
 Replace:
-- `index.html`
-- `gig_supply_splash.png`
+- index.html
+- gig_supply_splash.png
 
 README.md is optional.

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Williamson's Gig Supply Co. v3.1.1</title>
+<title>Williamson's Gig Supply Co. v4.0</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 :root{
@@ -557,7 +557,7 @@ button:not(:disabled){transition:transform .08s ease,filter .12s ease}button:not
 .yearBadge{display:inline-block;padding:3px 7px;border-radius:999px;background:#38465d;color:#fff;font-size:10px;margin-left:4px}
 
 
-/* v3.1.1 mobile touch fixes */
+/* v4.0 mobile touch fixes */
 button,
 .priceBtns button,
 .inventoryRow button,
@@ -578,6 +578,158 @@ button,
   textarea{
     font-size:16px !important; /* prevents iOS focus-zoom */
   }
+}
+
+
+/* v4 WGSC Manager Tablet */
+.managerTablet{
+  background:#101722;
+  border:3px solid #59697e;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 12px 30px rgba(0,0,0,.28);
+  position:sticky;
+  top:10px;
+}
+.tabletTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 12px;
+  background:#273244;
+  border-bottom:1px solid #46566d;
+}
+.tabletBrand{font-size:13px;font-weight:900;letter-spacing:.8px}
+.tabletStatus{font-size:9px;color:#a9e8b8;font-weight:800}
+.statusDot{
+  width:7px;height:7px;background:#64d980;border-radius:50%;display:inline-block;margin-right:4px;
+  box-shadow:0 0 7px rgba(100,217,128,.7);
+}
+.tabletApps{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:2px;
+  padding:6px;
+  background:#171f2c;
+  border-bottom:1px solid #3c4a60;
+}
+.tabletApp{
+  margin:0;
+  padding:7px 3px 6px;
+  min-width:0;
+  background:#263247;
+  color:#dce3ec;
+  border:1px solid transparent;
+  border-radius:8px;
+  font-size:17px;
+}
+.tabletApp span{
+  display:block;
+  font-size:8px;
+  margin-top:2px;
+  white-space:nowrap;
+}
+.tabletApp.active{
+  background:#e8c149;
+  color:#111;
+  border-color:#fff0a4;
+}
+.tabletScreen{
+  height:525px;
+  background:#17202d;
+  position:relative;
+}
+.tabletPane{
+  display:none;
+  height:100%;
+  overflow-y:auto;
+  padding:13px;
+  scrollbar-width:thin;
+  scrollbar-color:#64748b #1c2635;
+}
+.tabletPane.active{display:block}
+.tabletPaneTitle{
+  font-size:18px;
+  font-weight:900;
+  margin-bottom:9px;
+  border-bottom:1px solid #3a4960;
+  padding-bottom:7px;
+}
+.tabletSectionTitle{
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.45px;
+  color:#f1c84b;
+  margin:14px 0 7px;
+}
+.tabletEmail{
+  background:#eef2f6;
+  color:#18202b;
+  border-radius:9px;
+  overflow:hidden;
+  font-size:11px;
+}
+.emailHeader{
+  padding:8px 9px;
+  background:#d9e0e8;
+  border-bottom:1px solid #bdc7d2;
+}
+.emailBody{padding:10px;line-height:1.45}
+.tabletHighlight{
+  margin-top:8px;
+  background:#dce8f6;
+  border-left:4px solid #5279a8;
+  padding:7px;
+}
+.tabletChips{display:flex;flex-wrap:wrap;gap:5px}
+.tabletChips span{
+  background:#2b3b52;
+  border:1px solid #455a75;
+  border-radius:999px;
+  padding:5px 8px;
+  font-size:9px;
+}
+.tabletWideBtn{width:100%;margin:6px 0 0}
+.financeSnapshot{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:12px;
+}
+.financeSnapshot div{
+  background:#253247;border-radius:8px;padding:7px;text-align:center;
+}
+.financeSnapshot span{display:block;font-size:8px;color:#aeb8c8;text-transform:uppercase}
+.financeSnapshot strong{font-size:12px}
+.tabletToolbar{margin:0 0 5px}
+.tabletLog{max-height:none;height:300px;background:#101722;border-radius:8px;padding:7px;margin-top:5px}
+.tabletBottom{
+  display:flex;justify-content:space-between;padding:7px 10px;background:#273244;
+  color:#aeb8c8;font-size:8px;border-top:1px solid #46566d;
+}
+
+/* v4 desktop proportions */
+@media(min-width:1051px){
+  .layout{grid-template-columns:1.03fr 1.28fr .96fr}
+}
+
+/* v4 medium layout */
+@media(max-width:1050px) and (min-width:761px){
+  .layout{grid-template-columns:1fr 1.25fr}
+  .rightCol{grid-column:1/3;display:block}
+  .managerTablet{position:static;max-width:760px;margin:0 auto}
+  .tabletScreen{height:430px}
+}
+
+/* v4 phone: gameplay → inventory → tablet */
+@media(max-width:760px){
+  .managerTablet{position:static;border-radius:13px;margin-bottom:8px}
+  .tabletApps{grid-template-columns:repeat(3,1fr);gap:4px}
+  .tabletApp{font-size:18px;padding:8px 4px}
+  .tabletApp span{font-size:9px}
+  .tabletScreen{height:430px}
+  .tabletTop{padding:9px}
+  .tabletBrand{font-size:11px}
+  .financeSnapshot{grid-template-columns:1fr 1fr}
+  .badgeGrid{grid-template-columns:repeat(2,1fr)}
 }
 
 </style>
@@ -621,7 +773,7 @@ button,
       <div class="splashControls">
         <button class="splashBtn" id="splashStartBtn" onclick="startFromSplash()">Press Start</button>
         <button class="soundToggle" id="soundToggleBtn" onclick="toggleSound()">🔊 Sound On</button>
-        <div class="splashVersion">Franchise Edition • v3.1.1</div>
+        <div class="splashVersion">Franchise Edition • v4.0</div>
       </div>
     </div>
   </div>
@@ -629,7 +781,7 @@ button,
 
 <div class="wrap">
 <h1>🎵 Williamson’s Gig Supply Co.</h1>
-<div class="sub">Build the Beat. Grow the Business. <span style="opacity:.65">• Franchise Edition • v3.1.1</span></div>
+<div class="sub">Build the Beat. Grow the Business. <span style="opacity:.65">• Franchise Edition • v4.0</span></div>
 
 <div class="topbar">
  <div class="stat"><div class="label">Cash</div><div class="value" id="cash">$0</div></div>
@@ -697,62 +849,106 @@ button,
 
 <!-- RIGHT -->
 <div class="rightCol">
- <div class="panel">
-  <h2>🏢 WGSC Franchise HQ</h2>
-  <div class="small">Parent Company: <strong>Williamson’s Gig Supply Co.</strong></div>
-  <div class="small" style="margin-top:5px">Your goal: build the highest-performing franchise in the WGSC network.</div><div class="small" id="networkRank" style="margin-top:6px"><strong>Network Rank:</strong> Unranked</div>
-  <div class="marketTag">Pricing</div><div class="marketTag">Inventory</div><div class="marketTag">Debt</div><div class="marketTag">Satisfaction</div><div style="margin-top:8px" class="small" id="hqMessage"></div>
- </div>
- <div class="panel">
-  <h2>🎯 Monthly Goal</h2>
-  <div id="monthlyGoal" class="small">Open your franchise to receive a goal.</div>
-  <div class="progressOuter"><div class="progressInner" id="goalProgress"></div></div>
-  <div id="goalProgressText" class="small" style="margin-top:4px"></div>
- </div>
- <div class="panel">
-  <h2>🏦 Franchise Finance</h2>
-  <div class="small">Borrowing gives you cash now, but interest increases the debt you must repay.</div>
-  <div class="loanGrid" style="margin-top:7px">
-   <div class="loanOption"><div><strong>Small Loan: +$2,000</strong><div class="small">Adds $2,300 debt (15% cost)</div></div><button class="secondary" onclick="borrow(2000,2300)">Borrow</button></div>
-   <div class="loanOption"><div><strong>Growth Loan: +$5,000</strong><div class="small">Adds $5,600 debt (12% cost)</div></div><button class="secondary" onclick="borrow(5000,5600)">Borrow</button></div>
-   <div class="loanOption"><div><strong>Expansion Loan: +$10,000</strong><div class="small">Adds $11,000 debt (10% cost)</div></div><button class="orange" onclick="borrow(10000,11000)">Borrow</button></div>
-  </div>
-  <input class="moneyInput" id="loanPayment" type="number" min="0" step="100" placeholder="Extra repayment amount">
-  <button class="good" style="width:100%;margin-top:5px" onclick="payExtraLoan()">Make Extra Payment</button>
-  <div class="small" style="margin-top:5px">WGSC franchise credit limit: $30,000 total debt.</div>
- </div>
+ <div class="managerTablet">
+   <div class="tabletTop">
+     <div>
+       <div class="tabletBrand">WGSC MANAGER TABLET</div>
+       <div class="small" id="tabletBranch">Franchise Console</div>
+     </div>
+     <div class="tabletStatus"><span class="statusDot"></span>ONLINE</div>
+   </div>
 
- <div class="panel">
-  <h2>🏁 Rival Stores</h2>
-  <div id="competitors"></div>
- </div>
+   <div class="tabletApps" role="tablist" aria-label="Manager Tablet Apps">
+     <button class="tabletApp active" data-app="dashboard" type="button">📊<span>HQ</span></button>
+     <button class="tabletApp" data-app="finance" type="button">💰<span>Finance</span></button>
+     <button class="tabletApp" data-app="operations" type="button">🏪<span>Ops</span></button>
+     <button class="tabletApp" data-app="rivals" type="button">🏁<span>Rivals</span></button>
+     <button class="tabletApp" data-app="achievements" type="button">🏆<span>Awards</span></button>
+     <button class="tabletApp" data-app="history" type="button">📜<span>History</span></button>
+   </div>
 
+   <div class="tabletScreen">
+     <section class="tabletPane active" id="tablet-dashboard" data-pane="dashboard">
+       <div class="tabletPaneTitle">📧 WGSC Headquarters</div>
+       <div class="tabletEmail">
+         <div class="emailHeader">
+           <strong>To:</strong> <span id="hqBranchAddress">Franchise Manager</span><br>
+           <strong>From:</strong> WGSC Franchise Headquarters
+         </div>
+         <div class="emailBody">
+           <div>Your goal: build the highest-performing franchise in the WGSC network.</div>
+           <div id="networkRank" class="tabletHighlight"><strong>Network Rank:</strong> Unranked</div>
+           <div id="hqMessage" style="margin-top:9px"></div>
+         </div>
+       </div>
 
- <div class="panel">
-  <h2>🏪 Branch Upgrades</h2>
-  <div id="upgrades"></div>
- </div>
+       <div class="tabletSectionTitle">🎯 Monthly Goal</div>
+       <div id="monthlyGoal" class="small">Open your franchise to receive a goal.</div>
+       <div class="progressOuter"><div class="progressInner" id="goalProgress"></div></div>
+       <div id="goalProgressText" class="small" style="margin-top:4px"></div>
 
- <div class="panel">
-  <h2>🏅 Achievements</h2>
-  <div class="badgeGrid" id="achievements"></div>
- </div>
+       <div class="tabletSectionTitle">📈 Franchise Focus</div>
+       <div class="tabletChips">
+         <span>Pricing</span><span>Inventory</span><span>Debt</span><span>Satisfaction</span>
+       </div>
+     </section>
 
- <div class="panel">
-  <h2>💾 Game</h2>
-  <div class="toolbar">
-    <button class="secondary" onclick="saveGame()">Save</button>
-    <button class="secondary" onclick="loadGame()">Load</button>
-    <button class="danger" onclick="resetSave()">Reset Save</button>
-  </div>
-  <div class="small">This franchise saves in this browser.</div>
- </div>
+     <section class="tabletPane" id="tablet-finance" data-pane="finance">
+       <div class="tabletPaneTitle">💰 Franchise Finance</div>
+       <p class="small">Borrowing gives you cash now, but interest increases the debt you must repay.</p>
+       <div class="loanGrid">
+         <div class="loanOption"><div><strong>Small Loan: +$2,000</strong><div class="small">Adds $2,300 debt (15% cost)</div></div><button class="secondary" onclick="borrow(2000,2300)">Borrow</button></div>
+         <div class="loanOption"><div><strong>Growth Loan: +$5,000</strong><div class="small">Adds $5,600 debt (12% cost)</div></div><button class="secondary" onclick="borrow(5000,5600)">Borrow</button></div>
+         <div class="loanOption"><div><strong>Expansion Loan: +$10,000</strong><div class="small">Adds $11,000 debt (10% cost)</div></div><button class="orange" onclick="borrow(10000,11000)">Borrow</button></div>
+       </div>
+       <div class="tabletSectionTitle">Repay Debt</div>
+       <input class="moneyInput" id="loanPayment" type="number" min="0" step="100" placeholder="Extra repayment amount">
+       <button class="good tabletWideBtn" onclick="payExtraLoan()">Make Extra Payment</button>
+       <div class="small" style="margin-top:7px">WGSC franchise credit limit: $30,000 total debt.</div>
+       <div class="financeSnapshot">
+         <div><span>Cash</span><strong id="tabletCash">$0</strong></div>
+         <div><span>Debt</span><strong id="tabletDebt">$0</strong></div>
+         <div><span>Revenue</span><strong id="tabletRevenue">$0</strong></div>
+       </div>
+     </section>
 
- <div class="panel">
-  <h2>📒 Franchise Log</h2>
-  <button class="secondary" id="toggleLogBtn" onclick="toggleLog()" style="display:none;width:100%;margin-bottom:6px">Show / Hide Log</button>
-  <div class="log" id="log"></div>
+     <section class="tabletPane" id="tablet-operations" data-pane="operations">
+       <div class="tabletPaneTitle">🏪 Branch Operations</div>
+       <p class="small">Upgrades unlock new types of customers, jobs, and events.</p>
+       <div id="upgrades"></div>
+     </section>
+
+     <section class="tabletPane" id="tablet-rivals" data-pane="rivals">
+       <div class="tabletPaneTitle">🏁 Rival Stores</div>
+       <p class="small">Watch how competing stores strengthen as your franchise grows.</p>
+       <div id="competitors"></div>
+     </section>
+
+     <section class="tabletPane" id="tablet-achievements" data-pane="achievements">
+       <div class="tabletPaneTitle">🏆 Achievements</div>
+       <div class="badgeGrid" id="achievements"></div>
+     </section>
+
+     <section class="tabletPane" id="tablet-history" data-pane="history">
+       <div class="tabletPaneTitle">📜 Franchise History</div>
+       <div class="toolbar tabletToolbar">
+         <button class="secondary" onclick="saveGame()">💾 Save</button>
+         <button class="secondary" onclick="loadGame()">📂 Load</button>
+         <button class="danger" onclick="resetSave()">Reset</button>
+       </div>
+       <div class="small">This franchise saves in this browser.</div>
+
+       <div class="tabletSectionTitle">Activity Log</div>
+       <div class="log tabletLog" id="log"></div>
+     </section>
+   </div>
+
+   <div class="tabletBottom">
+     <span id="tabletClock">WGSC OS</span>
+     <span>Franchise Edition • v4.0</span>
+   </div>
  </div>
+</div>
 </div>
 </div>
 </div>
@@ -943,6 +1139,7 @@ function render(){
  }
  el("encounterCount").textContent=state.started?"This month: "+state.encounters+" of "+state.maxEncounters+" encounters completed.":"";
  if(el("seasonRevenue")) el("seasonRevenue").textContent=money(state.revenue);
+ updateTablet();
  if(el("momentumBar")){
    var momentum=clamp((state.revenue/12000)*55+(state.rep/100)*25+((30000-Math.min(state.debt,30000))/30000)*20,0,100);
    el("momentumBar").style.width=momentum+"%";
@@ -1000,11 +1197,11 @@ function toast(msg){
 function saveGame(silent){
  if(!state.started)return;
  var data={state:state,products:PRODUCTS};
- localStorage.setItem("williamsonsGigSupplyV311",JSON.stringify(data));
+ localStorage.setItem("williamsonsGigSupplyV40",JSON.stringify(data));
  if(!silent)toast("Game saved");
 }
 function loadGame(){
- var raw=localStorage.getItem("williamsonsGigSupplyV311")||localStorage.getItem("williamsonsGigSupplyV31")||localStorage.getItem("williamsonsGigSupplyV30")||localStorage.getItem("williamsonsGigSupplyV23");if(!raw){toast("No save found");return}
+ var raw=localStorage.getItem("williamsonsGigSupplyV40")||localStorage.getItem("williamsonsGigSupplyV31")||localStorage.getItem("williamsonsGigSupplyV30")||localStorage.getItem("williamsonsGigSupplyV23");if(!raw){toast("No save found");return}
  try{
   var data=JSON.parse(raw);state=data.state;
   if(typeof state.year==="undefined"){state.year=1;state.month=state.week||1;delete state.week;}
@@ -1016,10 +1213,10 @@ function loadGame(){
   if(!state.upgrades)state.upgrades={online:false,rental:false,marketing:false,repair:false,delivery:false};
   if(!state.achievements)state.achievements={};
   el("setupPanel").style.display="none";el("nextBtn").disabled=state.encounters>=state.maxEncounters;el("endMonthBtn").disabled=state.encounters<state.maxEncounters;
-  el("eventTitle").textContent="Game Loaded";el("eventText").textContent="Welcome back to your music business.";clearResult();scene("busy");render();applyResponsiveUI();toast("Game loaded")
+  el("eventTitle").textContent="Game Loaded";el("eventText").textContent="Welcome back to your music business.";clearResult();scene("busy");render();applyResponsiveUI();initManagerTablet();toast("Game loaded")
  }catch(e){toast("Save could not be loaded")}
 }
-function resetSave(){localStorage.removeItem("williamsonsGigSupplyV311");localStorage.removeItem("williamsonsGigSupplyV31");localStorage.removeItem("williamsonsGigSupplyV30");localStorage.removeItem("williamsonsGigSupplyV23");toast("Save cleared")}
+function resetSave(){localStorage.removeItem("williamsonsGigSupplyV40");localStorage.removeItem("williamsonsGigSupplyV31");localStorage.removeItem("williamsonsGigSupplyV30");localStorage.removeItem("williamsonsGigSupplyV23");toast("Save cleared")}
 
 
 function assignMonthlyGoal(){
@@ -1521,6 +1718,29 @@ function startFromSplash(){
  }
 }
 
+
+function initManagerTablet(){
+ var apps=document.querySelectorAll(".tabletApp");
+ for(var i=0;i<apps.length;i++){
+   apps[i].addEventListener("click",function(){
+     var target=this.getAttribute("data-app");
+     document.querySelectorAll(".tabletApp").forEach(function(b){b.classList.remove("active")});
+     document.querySelectorAll(".tabletPane").forEach(function(p){p.classList.remove("active")});
+     this.classList.add("active");
+     var pane=document.getElementById("tablet-"+target);
+     if(pane)pane.classList.add("active");
+   });
+ }
+}
+function updateTablet(){
+ if(el("tabletBranch"))el("tabletBranch").textContent=state.franchiseName||"Franchise Console";
+ if(el("hqBranchAddress"))el("hqBranchAddress").textContent=state.franchiseName||"Franchise Manager";
+ if(el("tabletCash"))el("tabletCash").textContent=money(state.cash);
+ if(el("tabletDebt"))el("tabletDebt").textContent=money(state.debt);
+ if(el("tabletRevenue"))el("tabletRevenue").textContent=money(state.revenue);
+ if(el("tabletClock"))el("tabletClock").textContent=state.started?(MONTH_NAMES[state.month-1]+" • Y"+state.year):"WGSC OS";
+}
+
 function toggleLog(){
  var l=document.getElementById("log");
  if(!l)return;
@@ -1540,7 +1760,7 @@ function applyResponsiveUI(){
 }
 window.addEventListener("resize",applyResponsiveUI);
 
-scene("busy");render();applyResponsiveUI();
+scene("busy");render();applyResponsiveUI();initManagerTablet();
 </script>
 </body>
 </html>
