@@ -1,9 +1,22 @@
-# Williamson's Music Mogul v2.0
+# Williamson's Music Mogul v2.1
 
-Static classroom tycoon game.
+Responsive update for GitHub Pages.
 
-## GitHub Pages
-Upload `index.html` and `music_mogul_splash.png` to the root of your repository.
-Then enable GitHub Pages in Settings → Pages and deploy from the main branch/root folder.
+Files:
+- index.html
+- music_mogul_splash.png
 
-The game uses browser localStorage for save data, so no server or database is required.
+To update GitHub:
+1. Open the `music-mogul` repository.
+2. Upload these two files to the repository root.
+3. Confirm replacement of the existing files.
+4. Commit changes.
+5. GitHub Pages will refresh automatically.
+
+Mobile improvements:
+- Full uncropped portrait splash screen
+- Gameplay shown before inventory
+- Compact mobile inventory layout
+- Better phone-sized event controls
+- Mobile score screen adjustments
+- Collapsible business log
