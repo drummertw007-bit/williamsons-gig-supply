@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Williamson's Gig Supply Co. v4.3.2</title>
+<title>Williamson's Gig Supply Co. v5.0</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 :root{
@@ -16,7 +16,7 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(
 .wrap{max-width:1480px;margin:auto;padding:14px 18px 18px}
 h1{margin:0;font-size:32px;letter-spacing:.2px}
 .sub{color:var(--muted);font-size:12px;margin:2px 0 10px}
-.topbar{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:10px}
+.topbar{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:10px}
 .stat{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;min-height:58px}
 .label{font-size:10px;color:var(--muted);text-transform:uppercase}
 .value{font-size:20px;font-weight:800;margin-top:2px}
@@ -557,7 +557,7 @@ button:not(:disabled){transition:transform .08s ease,filter .12s ease}button:not
 .yearBadge{display:inline-block;padding:3px 7px;border-radius:999px;background:#38465d;color:#fff;font-size:10px;margin-left:4px}
 
 
-/* v4.3.2 mobile touch fixes */
+/* v5.0 mobile touch fixes */
 button,
 .priceBtns button,
 .inventoryRow button,
@@ -607,7 +607,7 @@ button,
 }
 .tabletApps{
   display:grid;
-  grid-template-columns:repeat(6,1fr);
+  grid-template-columns:repeat(7,1fr);
   gap:2px;
   padding:6px;
   background:#171f2c;
@@ -733,7 +733,7 @@ button,
 }
 
 
-/* v4.3.2 Franchise Progression */
+/* v5.0 Franchise Progression */
 .launchModal{
   position:fixed;inset:0;z-index:130;background:rgba(5,8,13,.93);
   align-items:center;justify-content:center;padding:18px;
@@ -793,7 +793,7 @@ button,
 }
 
 
-/* v4.3.2 clean static opening */
+/* v5.0 clean static opening */
 .splashScreen{
   position:fixed;inset:0;z-index:120;background:#05070d;
   display:flex;align-items:center;justify-content:center;padding:16px;
@@ -866,7 +866,7 @@ button,
 }
 
 
-/* v4.3.2 splash integration */
+/* v5.0 splash integration */
 .staticSplashCard{
   width:min(1180px,96vw);
   height:auto !important;
@@ -924,7 +924,7 @@ button,
   text-shadow:0 1px 3px #000;
 }
 
-/* v4.3.2 franchise agreement */
+/* v5.0 franchise agreement */
 .agreementCard{
   width:min(920px,96vw);
   background:#e8e1cf;
@@ -1089,6 +1089,114 @@ button,
   font-size:12px;
   font-weight:700;
 }
+
+/* v5.0 three-level departments */
+.departmentCard{
+  background:#222e40;
+  border:1px solid #3d4d64;
+  border-radius:10px;
+  padding:10px;
+  margin-bottom:8px;
+}
+.departmentHeader{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.departmentHeader strong{
+  flex:1;
+  font-size:12px;
+}
+.departmentIcon{font-size:20px}
+.departmentStars{
+  color:#f1c84b;
+  letter-spacing:2px;
+  font-size:14px;
+  white-space:nowrap;
+}
+.departmentLevelName{
+  color:#dce4ee;
+  font-size:11px;
+  font-weight:800;
+  margin:6px 0 3px;
+}
+.departmentAction{
+  margin-top:8px;
+}
+.departmentAction button{
+  width:100%;
+  margin:0;
+  font-size:10px;
+}
+.maxLevel{
+  display:block;
+  text-align:center;
+  padding:7px;
+  border-radius:7px;
+  background:#1f5331;
+  color:#bff1cb;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.6px;
+}
+@media(max-width:760px){
+  .departmentHeader strong{font-size:11px}
+  .departmentStars{font-size:13px}
+}
+
+
+/* v5 Endless Tycoon */
+.rankProgressBox{margin-top:9px}
+.rankProgressLabels{display:flex;justify-content:space-between;font-size:9px;font-weight:800;margin-bottom:4px}
+
+.careerRankHero{
+  display:flex;align-items:center;gap:12px;
+  background:#24334a;border:1px solid #425775;border-radius:10px;padding:11px;
+}
+.careerRankIcon{font-size:34px}
+.careerRankName{font-size:16px;font-weight:900;color:#f1c84b;margin:2px 0}
+.careerScoreLine{font-size:11px;color:#c9d3df}
+.careerTabletGrid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:6px;
+}
+.careerTabletGrid div{
+  background:#222e40;border-radius:8px;padding:8px;
+}
+.careerTabletGrid span{
+  display:block;font-size:8px;color:#aeb8c8;text-transform:uppercase;
+}
+.careerTabletGrid strong{
+  display:block;font-size:13px;margin-top:3px;
+}
+.historyChart{display:flex;flex-direction:column;gap:6px}
+.historyRow{
+  display:grid;grid-template-columns:28px 1fr 55px;gap:6px;align-items:center;font-size:10px;
+}
+.historyYear{font-weight:900;color:#dce4ee}
+.historyTrack{
+  height:10px;background:#2c394d;border-radius:7px;overflow:hidden;
+}
+.historyBar{
+  height:100%;background:#f1c84b;border-radius:7px;
+}
+.historyRow strong{text-align:right;font-size:10px}
+.hallOfFameBox{
+  margin-top:14px;border:1px solid #655525;background:#2f2a19;border-radius:10px;padding:10px;
+}
+.hallOfFameBox strong{display:block;color:#f1c84b;font-size:12px;margin-bottom:4px}
+.hallOfFameBox span{display:block;font-size:10px;color:#d8d1b2;line-height:1.4}
+.hallOfFameBox.achieved{
+  background:#3a3014;border-color:#f1c84b;
+}
+.annualReviewHistory{
+  background:#253247;border-radius:11px;padding:11px;margin:12px 0;text-align:left;
+}
+.compactHistory{max-height:150px;overflow:auto}
+@media(max-width:760px){
+  .careerTabletGrid{grid-template-columns:repeat(2,1fr)}
+  .tabletApps{grid-template-columns:repeat(4,1fr)}
+}
+
 </style>
 </head>
 <body>
@@ -1108,7 +1216,7 @@ button,
 
 <div class="wrap">
 <h1>🎵 Williamson’s Gig Supply Co.</h1>
-<div class="sub">Build the Beat. Grow the Business. <span style="opacity:.65">• Franchise Edition • v4.3.2</span></div>
+<div class="sub">Build the Beat. Grow the Business. <span style="opacity:.65">• Franchise Edition • v5.0</span></div>
 
 <div class="topbar">
  <div class="stat"><div class="label">Cash</div><div class="value" id="cash">$0</div></div>
@@ -1178,6 +1286,7 @@ button,
      <button class="tabletApp" data-app="operations" type="button">🏪<span>Ops</span></button>
      <button class="tabletApp" data-app="rivals" type="button">🏁<span>Rivals</span></button>
      <button class="tabletApp" data-app="achievements" type="button">🏆<span>Awards</span></button>
+     <button class="tabletApp" data-app="career" type="button">⭐<span>Career</span></button>
      <button class="tabletApp" data-app="history" type="button">📜<span>History</span></button>
    </div>
 
@@ -1192,6 +1301,11 @@ button,
          <div class="emailBody">
            <div>Your goal: build the highest-performing franchise in the WGSC network.</div>
            <div id="networkRank" class="tabletHighlight"><strong>Network Rank:</strong> Unranked</div>
+           <div class="rankProgressBox">
+             <div class="rankProgressLabels"><span id="rankCurrent">New Franchise</span><span id="rankNext">Next Rank</span></div>
+             <div class="progressOuter"><div class="progressInner" id="rankProgress"></div></div>
+             <div id="rankProgressText" class="small" style="margin-top:4px"></div>
+           </div>
            <div id="hqMessage" style="margin-top:9px"></div>
          </div>
        </div>
@@ -1228,7 +1342,7 @@ button,
 
      <section class="tabletPane" id="tablet-operations" data-pane="operations">
        <div class="tabletPaneTitle">🏪 Branch Operations</div>
-       <p class="small">Upgrades unlock new types of customers, jobs, and events.</p>
+       <p class="small">Build each department from ★☆☆ to ★★★. Level 2 unlocks in Year 2 and Level 3 in Year 3.</p>
        <div id="upgrades"></div>
      </section>
 
@@ -1241,6 +1355,44 @@ button,
      <section class="tabletPane" id="tablet-achievements" data-pane="achievements">
        <div class="tabletPaneTitle">🏆 Achievements</div>
        <div class="badgeGrid" id="achievements"></div>
+     </section>
+
+     
+     <section class="tabletPane" id="tablet-career" data-pane="career">
+       <div class="tabletPaneTitle">⭐ Franchise Career</div>
+
+       <div class="careerRankHero">
+         <div class="careerRankIcon" id="careerRankIcon">🎵</div>
+         <div>
+           <div class="small">WGSC Network Status</div>
+           <div class="careerRankName" id="careerRankName">New Franchise</div>
+           <div class="careerScoreLine">Career Score: <strong id="careerScoreTablet">0</strong></div>
+         </div>
+       </div>
+
+       <div class="tabletSectionTitle">Career Statistics</div>
+       <div class="careerTabletGrid">
+         <div><span>Years Managed</span><strong id="statYears">0</strong></div>
+         <div><span>Best Year</span><strong id="statBestYear">0</strong></div>
+         <div><span>Customers Served</span><strong id="statCustomers">0</strong></div>
+         <div><span>Instruments Sold</span><strong id="statInstruments">0</strong></div>
+         <div><span>Rentals Completed</span><strong id="statRentals">0</strong></div>
+         <div><span>Debt-Free Years</span><strong id="statDebtFree">0</strong></div>
+         <div><span>Monthly Goals</span><strong id="statGoals">0</strong></div>
+         <div><span>Departments Maxed</span><strong id="statMaxed">0</strong></div>
+         <div><span>Highest Satisfaction</span><strong id="statSatisfaction">0</strong></div>
+         <div><span>Largest Cash Reserve</span><strong id="statCash">$0</strong></div>
+       </div>
+
+       <div class="tabletSectionTitle">Annual Score History</div>
+       <div id="annualHistoryChart" class="historyChart">
+         <div class="small">Complete Year 1 to begin your score history.</div>
+       </div>
+
+       <div class="hallOfFameBox" id="hallOfFameBox">
+         <strong>🌟 WGSC Hall of Fame</strong>
+         <span>Reach a Career Score of 18,000 to earn Hall of Fame status. The game continues afterward.</span>
+       </div>
      </section>
 
      <section class="tabletPane" id="tablet-history" data-pane="history">
@@ -1259,7 +1411,7 @@ button,
 
    <div class="tabletBottom">
      <span id="tabletClock">WGSC OS</span>
-     <span>Franchise Edition • v4.3.2</span>
+     <span>Franchise Edition • v5.0</span>
    </div>
  </div>
 </div>
@@ -1375,12 +1527,13 @@ button,
   <div id="scoreComment" style="font-size:15px;line-height:1.45;margin:10px 0"></div>
   <div class="scoreBreakdown" id="scoreBreakdown"></div>
   <div class="careerSummary" id="careerSummary"></div>
+  <div class="annualReviewHistory"><div class="careerTitle">Annual Score History</div><div id="reviewHistoryChart" class="historyChart compactHistory"></div></div>
   <div class="rewardPanel" id="rewardPanel">
     <div class="rewardTitle">WGSC Corporate Reward</div>
     <div class="small">Choose one benefit before continuing.</div>
     <div class="rewardChoices" id="rewardChoices"></div>
   </div>
-  <button class="primary" id="continueYearBtn" onclick="continueNextYear()" disabled>Continue to Next Year</button>
+  <button class="primary" id="continueYearBtn" onclick="continueNextYear()" disabled>Accept Renewal & Open Next Year</button>
   <button class="secondary" onclick="location.reload()">Start New Franchise</button>
  </div>
 </div>
@@ -1399,8 +1552,8 @@ var PRODUCTS=[
 
 var state={started:false,cash:0,rep:50,debt:10000,year:1,month:1,maxMonths:12,difficulty:"-",encounters:0,maxEncounters:5,eventResolved:true,
  demand:{},competitors:[],revenue:0,wholesaleSpent:0,operatingSpent:0,interestCost:0,loanBorrowed:10000,loanPaid:0,accepted:0,rejected:0,
- upgrades:{online:false,rental:false,marketing:false,repair:false,delivery:false},
- franchiseId:"",franchiseName:"",monthStartRevenue:0,monthStartAccepted:0,monthStartDebt:10000,monthStartEvents:0,currentGoal:null,annualScoreHistory:[],careerScore:0,bestYearScore:0,highestSatisfaction:50,largestCashReserve:0,debtFreeYears:0,monthlyGoalsCompleted:0,pendingReward:null,selectedReward:null,
+ upgrades:{retail:0,academy:0,repair:0,delivery:0,online:0,live:0,marketing:0},
+ franchiseId:"",franchiseName:"",monthStartRevenue:0,monthStartAccepted:0,monthStartDebt:10000,monthStartEvents:0,currentGoal:null,annualScoreHistory:[],careerScore:0,bestYearScore:0,highestSatisfaction:50,largestCashReserve:0,debtFreeYears:0,monthlyGoalsCompleted:0,pendingReward:null,selectedReward:null,customersServed:0,instrumentsSold:0,rentalsCompleted:0,totalYearsRenewed:0,hallOfFameReached:false,
  achievements:{},eventsHosted:0,bulkSales:0,loansTaken:0};
 
 var DIFF={
@@ -1409,6 +1562,26 @@ var DIFF={
  Hard:{cash:3500,debt:10000,encounters:6,tolerance:.98,ai:62,expenses:900,label:"Music Entrepreneur",desc:"Heavy financing • Tough market"}
 };
 
+
+
+var NETWORK_RANKS=[
+ {min:0,name:"New Franchise",icon:"🎵"},
+ {min:3000,name:"Neighborhood Favorite",icon:"🥉"},
+ {min:6000,name:"Regional Headliner",icon:"🥈"},
+ {min:9000,name:"Regional Flagship",icon:"🥇"},
+ {min:12000,name:"Platinum Partner",icon:"💎"},
+ {min:15000,name:"WGSC Elite Franchise",icon:"👑"},
+ {min:18000,name:"Hall of Fame Franchise",icon:"🌟"}
+];
+
+function getNetworkRank(score){
+ var found=NETWORK_RANKS[0],index=0;
+ for(var i=0;i<NETWORK_RANKS.length;i++){
+   if(score>=NETWORK_RANKS[i].min){found=NETWORK_RANKS[i];index=i;}
+ }
+ var next=index<NETWORK_RANKS.length-1?NETWORK_RANKS[index+1]:null;
+ return {rank:found,index:index,next:next};
+}
 
 var MONTH_NAMES=["January","February","March","April","May","June","July","August","September","October","November","December"];
 
@@ -1447,18 +1620,71 @@ var HQ_MESSAGES=[
 
 var UPGRADE_EVENTS={
  online:["onlineOrder","cyberSale","shippingIssue","viralOrder"],
- rental:["corporateRental","festivalRental","lateReturn","tourRental"],
+ live:["corporateRental","festivalRental","lateReturn","tourRental"],
  marketing:["radioCampaign","couponRush","influencerVisit","communityAd"],
  repair:["repairRush","vintageRepair","emergencyFix","tradeIn"],
- delivery:["rushDelivery","schoolDelivery","flatTire","fuelSpike"]
+ delivery:["rushDelivery","schoolDelivery","flatTire","fuelSpike"],
+ academy:["lessonSignup","studentRecital","drumClinic","summerCamp"],
+ retail:["walkInRush","premiumCustomer","displayRefresh","flagshipShopper"]
 };
 
 var UPGRADE_DATA={
- online:{name:"Online Store",cost:2000,desc:"Unlocks online orders, Cyber sales, shipping events and +5% acceptance"},
- rental:{name:"Rental Department",cost:2200,desc:"Unlocks weddings, festivals, touring rentals and +15% rental payouts"},
- marketing:{name:"Local Marketing",cost:1600,desc:"Unlocks campaign events and +6 satisfaction immediately"},
- repair:{name:"Repair Bench",cost:2000,desc:"Unlocks repair customers plus monthly service income"},
- delivery:{name:"Delivery Van",cost:2400,desc:"Unlocks delivery jobs and +10% school/community payouts"}
+ retail:{
+   name:"Retail Showroom",icon:"🏪",
+   levels:[
+     {cost:1500,name:"Expanded Display Floor",desc:"More walk-in traffic and slightly better stock turnover."},
+     {cost:4000,name:"Premium Showroom",desc:"Higher-value customers and improved premium-price acceptance."},
+     {cost:9000,name:"Flagship Retail Floor",desc:"Major retail traffic boost and exclusive high-value customer events."}
+   ]
+ },
+ academy:{
+   name:"Williamson Drum Academy",icon:"🥁",
+   levels:[
+     {cost:1800,name:"Private Lessons",desc:"Recurring lesson income and a small satisfaction boost."},
+     {cost:4500,name:"Community Music School",desc:"Multiple instructors, recitals and stronger monthly income."},
+     {cost:9500,name:"Williamson Music Conservatory",desc:"Clinics, masterclasses and major recurring revenue."}
+   ]
+ },
+ repair:{
+   name:"Repair Department",icon:"🔧",
+   levels:[
+     {cost:2000,name:"Repair Bench",desc:"Unlocks basic repair customers and service income."},
+     {cost:4800,name:"Full Service Shop",desc:"Unlocks overhauls, trade-ins and higher-margin repairs."},
+     {cost:10000,name:"Authorized Service Center",desc:"Unlocks touring-artist emergency repairs and vintage restoration."}
+   ]
+ },
+ delivery:{
+   name:"Delivery Fleet",icon:"🚚",
+   levels:[
+     {cost:2400,name:"One WGSC Van",desc:"Unlocks rush and school delivery jobs."},
+     {cost:5200,name:"Three-Van Fleet",desc:"Unlocks district routes and larger delivery contracts."},
+     {cost:10500,name:"Regional Distribution",desc:"Unlocks major event logistics and boosts school/community payouts."}
+   ]
+ },
+ online:{
+   name:"Online Sales",icon:"🌐",
+   levels:[
+     {cost:2000,name:"Basic Website",desc:"Unlocks online orders and improves customer reach."},
+     {cost:5000,name:"Regional Online Store",desc:"More frequent online orders and higher-value web sales."},
+     {cost:12000,name:"Nationwide Shipping",desc:"Unlocks major online sales, bulk orders and holiday surges."}
+   ]
+ },
+ live:{
+   name:"Live Events",icon:"🎤",
+   levels:[
+     {cost:2200,name:"Local Event Rentals",desc:"Unlocks small parties and community events."},
+     {cost:5500,name:"Professional Event Services",desc:"Unlocks weddings, corporate events and larger rentals."},
+     {cost:11500,name:"Tour & Festival Division",desc:"Unlocks touring acts, festivals and major production contracts."}
+   ]
+ },
+ marketing:{
+   name:"Marketing",icon:"📣",
+   levels:[
+     {cost:1600,name:"Local Advertising",desc:"Unlocks local campaigns and boosts satisfaction."},
+     {cost:4200,name:"Radio & Social Media",desc:"More campaign events and better premium-price tolerance."},
+     {cost:9000,name:"Regional Media Campaign",desc:"Large traffic boosts and national-level promotions."}
+   ]
+ }
 };
 
 var ACHIEVEMENTS={
@@ -1534,7 +1760,7 @@ function newGame(level){
  state.franchiseId="#"+String(101+Math.floor(Math.random()*899));
  state.franchiseName=fn?fn+" "+state.franchiseId:"Franchise "+state.franchiseId;
  state.revenue=0;state.wholesaleSpent=0;state.operatingSpent=0;state.interestCost=0;state.loanBorrowed=DIFF[level].debt;state.loanPaid=0;state.accepted=0;state.rejected=0;
- state.upgrades={online:false,rental:false,marketing:false,repair:false,delivery:false};state.achievements={};state.eventsHosted=0;state.bulkSales=0;state.loansTaken=0;
+ state.upgrades={retail:0,academy:0,repair:0,delivery:0,online:0,live:0,marketing:0};state.achievements={};state.eventsHosted=0;state.bulkSales=0;state.loansTaken=0;state.careerScore=0;state.bestYearScore=0;state.highestSatisfaction=50;state.largestCashReserve=state.cash;state.debtFreeYears=0;state.monthlyGoalsCompleted=0;state.annualScoreHistory=[];state.customersServed=0;state.instrumentsSold=0;state.rentalsCompleted=0;state.totalYearsRenewed=0;state.hallOfFameReached=false;
  PRODUCTS[0].stock=2;PRODUCTS[1].stock=2;PRODUCTS[2].stock=1;PRODUCTS[3].stock=4;PRODUCTS[4].stock=2;PRODUCTS[5].stock=2;PRODUCTS[6].stock=5;PRODUCTS[7].stock=8;
  for(var i=0;i<PRODUCTS.length;i++)PRODUCTS[i].priceMode="Standard";
  state.competitors=[{name:"Beat Street",score:DIFF[level].ai,style:"Discount"},{name:"Stage Supply",score:DIFF[level].ai+3,style:"Rental"},{name:"Sound Central",score:DIFF[level].ai+1,style:"Balanced"}];
@@ -1554,9 +1780,23 @@ function render(){
  renderMonthlyGoal();
 
  if(el("networkRank")&&state.started){
-   var rankScore=state.revenue+(state.rep*55)-state.debt*.25;
-   var rankText=rankScore<1000?"Rookie Branch":rankScore<3500?"Rising Branch":rankScore<7000?"Local Headliner":rankScore<11000?"Regional Flagship":"Top 10 WGSC Franchise";
-   el("networkRank").innerHTML="<strong>Network Rank:</strong> "+rankText;
+   var career=state.careerScore||0;
+   var info=getNetworkRank(career);
+   el("networkRank").innerHTML="<strong>Network Rank:</strong> "+info.rank.icon+" "+info.rank.name;
+
+   if(el("rankCurrent"))el("rankCurrent").textContent=info.rank.icon+" "+info.rank.name;
+   if(info.next){
+     var span=info.next.min-info.rank.min;
+     var made=career-info.rank.min;
+     var pct=clamp((made/span)*100,0,100);
+     if(el("rankNext"))el("rankNext").textContent=info.next.icon+" "+info.next.name;
+     if(el("rankProgress"))el("rankProgress").style.width=pct+"%";
+     if(el("rankProgressText"))el("rankProgressText").textContent=(info.next.min-career).toLocaleString()+" points to next rank";
+   }else{
+     if(el("rankNext"))el("rankNext").textContent="TOP RANK";
+     if(el("rankProgress"))el("rankProgress").style.width="100%";
+     if(el("rankProgressText"))el("rankProgressText").textContent="Hall of Fame status achieved — keep building your record!";
+   }
  }
  el("encounterCount").textContent=state.started?"This month: "+state.encounters+" of "+state.maxEncounters+" encounters completed.":"";
  if(el("seasonRevenue")) el("seasonRevenue").textContent=money(state.revenue);
@@ -1577,14 +1817,47 @@ function render(){
   row.appendChild(a);row.appendChild(b);row.appendChild(c);row.appendChild(pb);row.appendChild(d);inv.appendChild(row)
  })(i)}
 
- var up=el("upgrades");if(up){up.innerHTML="";
+ var up=el("upgrades");if(up){
+  up.innerHTML="";
+  var unlocked=departmentUnlockedLevel();
+
   for(var uk in UPGRADE_DATA){(function(key){
-    var u=UPGRADE_DATA[key],owned=state.upgrades[key],r=document.createElement("div");r.className="upgradeRow";
-    var t=document.createElement("div");t.innerHTML="<strong>"+u.name+"</strong><div class='small'>"+u.desc+" • "+money(u.cost)+"</div>";
-    var b=document.createElement("button");b.className=owned?"good":"secondary";b.textContent=owned?"Active":"Buy";b.disabled=owned;
-    b.onclick=function(){buyUpgrade(key)};r.appendChild(t);r.appendChild(b);up.appendChild(r)
+    var data=UPGRADE_DATA[key];
+    var current=departmentLevel(key);
+    var next=current+1;
+    var r=document.createElement("div");
+    r.className="departmentCard";
+
+    var stars="";
+    for(var si=1;si<=3;si++)stars+=(si<=current?"★":"☆");
+
+    var body=document.createElement("div");
+    body.className="departmentInfo";
+    body.innerHTML=
+      '<div class="departmentHeader"><span class="departmentIcon">'+data.icon+'</span><strong>'+data.name+'</strong><span class="departmentStars">'+stars+'</span></div>'+
+      '<div class="departmentLevelName">'+(current>0?data.levels[current-1].name:"Not Yet Established")+'</div>'+
+      '<div class="small">'+(current>0?data.levels[current-1].desc:"Open this department to unlock new revenue streams and events.")+'</div>';
+
+    var action=document.createElement("div");
+    action.className="departmentAction";
+
+    if(current>=3){
+      action.innerHTML='<span class="maxLevel">MAX LEVEL</span>';
+    }else if(next>unlocked){
+      action.innerHTML='<button class="secondary" disabled>Unlocks Year '+next+'</button><div class="small">HQ approval required</div>';
+    }else{
+      var b=document.createElement("button");
+      b.className="secondary";
+      b.textContent=(current===0?"Open Level 1":"Upgrade to Level "+next)+" • "+money(data.levels[next-1].cost);
+      b.onclick=function(){buyUpgrade(key)};
+      action.appendChild(b);
+    }
+
+    r.appendChild(body);
+    r.appendChild(action);
+    up.appendChild(r);
   })(uk)}
- }
+}
  checkAchievements();
  var ag=el("achievements");if(ag){ag.innerHTML="";
   for(var ak in ACHIEVEMENTS){var item=ACHIEVEMENTS[ak],got=!!state.achievements[ak],a=document.createElement("div");a.className="achieve"+(got?"":" locked");
@@ -1594,12 +1867,41 @@ function render(){
  for(var j=0;j<state.competitors.length;j++){var cp=state.competitors[j],dv=document.createElement("div");dv.className="competitor";dv.innerHTML="<strong>"+cp.name+"</strong> <span class='small'>("+cp.style+")</span><div class='bar'><span style='width:"+clamp(cp.score,0,100)+"%'></span></div><div class='small'>Strength "+Math.round(cp.score)+"/100</div>";co.appendChild(dv)}
 }
 
+function departmentLevel(key){
+  var v=state.upgrades[key];
+  if(typeof v==="boolean")return v?1:0;
+  return Number(v)||0;
+}
+function departmentUnlockedLevel(){
+  return Math.min(3,state.year||1);
+}
 function buyUpgrade(key){
- var u=UPGRADE_DATA[key];if(!state.started||state.upgrades[key])return;
- if(state.cash<u.cost){setResult("Not enough cash for that upgrade.","bad");return}
- state.cash-=u.cost;state.operatingSpent+=u.cost;state.upgrades[key]=true;
- if(key==="marketing")addSatisfaction(6);
- log("Purchased "+u.name+".");setResult(u.name+" installed!","good");render();saveGame(true)
+  if(!state.started)return;
+  var data=UPGRADE_DATA[key];
+  if(!data)return;
+  var current=departmentLevel(key);
+  var next=current+1;
+  if(next>3)return;
+  if(next>departmentUnlockedLevel()){
+    setResult("WGSC Headquarters has not approved Level "+next+" upgrades yet. Reach Year "+next+".","bad");
+    return;
+  }
+  var levelData=data.levels[next-1];
+  if(state.cash<levelData.cost){
+    setResult("Not enough cash for "+data.name+" Level "+next+".","bad");
+    return;
+  }
+  state.cash-=levelData.cost;
+  state.operatingSpent+=levelData.cost;
+  state.upgrades[key]=next;
+
+  if(key==="marketing") addSatisfaction(next===1?4:next===2?3:2);
+  if(key==="academy") addSatisfaction(2);
+
+  log("Upgraded "+data.name+" to Level "+next+": "+levelData.name+".");
+  setResult(data.icon+" "+data.name+" is now Level "+next+" — "+levelData.name+".","good");
+  render();
+  saveGame(true);
 }
 function checkAchievements(){
  if(state.accepted>=1)state.achievements.firstSale=true;
@@ -1618,11 +1920,11 @@ function toast(msg){
 function saveGame(silent){
  if(!state.started)return;
  var data={state:state,products:PRODUCTS};
- localStorage.setItem("williamsonsGigSupplyV432",JSON.stringify(data));
+ localStorage.setItem("williamsonsGigSupplyV50",JSON.stringify(data));
  if(!silent)toast("Game saved");
 }
 function loadGame(){
- var raw=localStorage.getItem("williamsonsGigSupplyV432")||localStorage.getItem("williamsonsGigSupplyV431")||localStorage.getItem("williamsonsGigSupplyV43")||localStorage.getItem("williamsonsGigSupplyV42")||localStorage.getItem("williamsonsGigSupplyV41")||localStorage.getItem("williamsonsGigSupplyV40")||localStorage.getItem("williamsonsGigSupplyV311")||localStorage.getItem("williamsonsGigSupplyV31")||localStorage.getItem("williamsonsGigSupplyV30")||localStorage.getItem("williamsonsGigSupplyV23");if(!raw){toast("No save found");return}
+ var raw=localStorage.getItem("williamsonsGigSupplyV50")||localStorage.getItem("williamsonsGigSupplyV44")||localStorage.getItem("williamsonsGigSupplyV432")||localStorage.getItem("williamsonsGigSupplyV431")||localStorage.getItem("williamsonsGigSupplyV43")||localStorage.getItem("williamsonsGigSupplyV42")||localStorage.getItem("williamsonsGigSupplyV41")||localStorage.getItem("williamsonsGigSupplyV40")||localStorage.getItem("williamsonsGigSupplyV311")||localStorage.getItem("williamsonsGigSupplyV31")||localStorage.getItem("williamsonsGigSupplyV30")||localStorage.getItem("williamsonsGigSupplyV23");if(!raw){toast("No save found");return}
  try{
   var data=JSON.parse(raw);state=data.state;
   if(typeof state.year==="undefined"){state.year=1;state.month=state.week||1;delete state.week;}
@@ -1638,14 +1940,31 @@ function loadGame(){
   if(typeof state.monthlyGoalsCompleted==="undefined")state.monthlyGoalsCompleted=0;
   if(typeof state.pendingReward==="undefined")state.pendingReward=null;
   if(typeof state.selectedReward==="undefined")state.selectedReward=null;
+  if(!state.upgrades)state.upgrades={};
+  var oldUp=state.upgrades;
+  var migrated={
+    retail:Number(oldUp.retail)||0,
+    academy:Number(oldUp.academy)||0,
+    repair:(typeof oldUp.repair==="boolean"?(oldUp.repair?1:0):Number(oldUp.repair)||0),
+    delivery:(typeof oldUp.delivery==="boolean"?(oldUp.delivery?1:0):Number(oldUp.delivery)||0),
+    online:(typeof oldUp.online==="boolean"?(oldUp.online?1:0):Number(oldUp.online)||0),
+    live:(typeof oldUp.live==="boolean"?(oldUp.live?1:0):(typeof oldUp.rental==="boolean"?(oldUp.rental?1:0):Number(oldUp.live)||0)),
+    marketing:(typeof oldUp.marketing==="boolean"?(oldUp.marketing?1:0):Number(oldUp.marketing)||0)
+  };
+  state.upgrades=migrated;
+  if(typeof state.customersServed==="undefined")state.customersServed=0;
+  if(typeof state.instrumentsSold==="undefined")state.instrumentsSold=0;
+  if(typeof state.rentalsCompleted==="undefined")state.rentalsCompleted=0;
+  if(typeof state.totalYearsRenewed==="undefined")state.totalYearsRenewed=Math.max(0,(state.year||1)-1);
+  if(typeof state.hallOfFameReached==="undefined")state.hallOfFameReached=(state.careerScore||0)>=18000;
   for(var i=0;i<PRODUCTS.length;i++){for(var k in data.products[i])PRODUCTS[i][k]=data.products[i][k]}
-  if(!state.upgrades)state.upgrades={online:false,rental:false,marketing:false,repair:false,delivery:false};
+  if(!state.upgrades)state.upgrades={retail:0,academy:0,repair:0,delivery:0,online:0,live:0,marketing:0};
   if(!state.achievements)state.achievements={};
   el("setupPanel").style.display="none";el("nextBtn").disabled=state.encounters>=state.maxEncounters;el("endMonthBtn").disabled=state.encounters<state.maxEncounters;
   el("eventTitle").textContent="Game Loaded";el("eventText").textContent="Welcome back to your music business.";clearResult();scene("busy");render();applyResponsiveUI();initManagerTablet();initLaunchModal();toast("Game loaded")
  }catch(e){toast("Save could not be loaded")}
 }
-function resetSave(){localStorage.removeItem("williamsonsGigSupplyV432");localStorage.removeItem("williamsonsGigSupplyV43");localStorage.removeItem("williamsonsGigSupplyV42");localStorage.removeItem("williamsonsGigSupplyV41");localStorage.removeItem("williamsonsGigSupplyV40");localStorage.removeItem("williamsonsGigSupplyV31");localStorage.removeItem("williamsonsGigSupplyV30");localStorage.removeItem("williamsonsGigSupplyV23");toast("Save cleared")}
+function resetSave(){localStorage.removeItem("williamsonsGigSupplyV50");localStorage.removeItem("williamsonsGigSupplyV43");localStorage.removeItem("williamsonsGigSupplyV42");localStorage.removeItem("williamsonsGigSupplyV41");localStorage.removeItem("williamsonsGigSupplyV40");localStorage.removeItem("williamsonsGigSupplyV31");localStorage.removeItem("williamsonsGigSupplyV30");localStorage.removeItem("williamsonsGigSupplyV23");toast("Save cleared")}
 
 
 function assignMonthlyGoal(){
@@ -1720,8 +2039,8 @@ function nextEncounter(){
 function customerChance(p){
  var ratio=price(p)/p.base,base=.90*state.demand[p.name]*DIFF[state.difficulty].tolerance;
  if(ratio<.9)base+=.10;if(ratio>1.18)base-=.25;
- base+=(state.rep-50)/260;if(state.upgrades.online)base+=.05;
- return clamp(base,.12,.98)
+ base+=(state.rep-50)/260;if(departmentLevel("online")>0)base+=.03*departmentLevel("online");
+ if(departmentLevel("retail")>0)base+=.02*departmentLevel("retail");if(departmentLevel("marketing")>1)base+=.015*(departmentLevel("marketing")-1);return clamp(base,.12,.98)
 }
 function singleCustomer(){
  var idx=Math.floor(Math.random()*PRODUCTS.length),p=PRODUCTS[idx],qty=Math.random()<.18?2:1;
@@ -1767,9 +2086,14 @@ var EVENTS=[
 function specialEvent(){
  var unlocked=[];
  for(var key in state.upgrades){
-   if(state.upgrades[key]&&UPGRADE_EVENTS[key])unlocked=unlocked.concat(UPGRADE_EVENTS[key]);
+   var lvl=departmentLevel(key);
+   if(lvl>0&&UPGRADE_EVENTS[key]){
+     var list=UPGRADE_EVENTS[key];
+     var allowed=Math.min(list.length,lvl===1?2:lvl===2?3:4);
+     unlocked=unlocked.concat(list.slice(0,allowed));
+   }
  }
- if(unlocked.length&&Math.random()<.38){
+ if(unlocked.length&&Math.random()<.42){
    var fn=window[unlocked[Math.floor(Math.random()*unlocked.length)]];
    if(typeof fn==="function"){fn();return}
  }
@@ -1779,7 +2103,7 @@ function rental(title,text,art,payout,repGain,needs){
  scene(art);el("eventTitle").textContent=title;el("eventText").innerHTML=text+"<br><strong>Rental price: "+money(payout)+".</strong>";clearChoices();
  choice("Accept Rental",function(){var ok=true;for(var i=0;i<needs.length;i++)if(PRODUCTS[needs[i][0]].stock<needs[i][1])ok=false;
  if(!ok){state.rejected++;setResult("DENIED BY INVENTORY — you cannot fill the order.","bad");log("Could not fill "+title+".");finishEncounter();return}
- var actual=payout;if(state.upgrades.rental)actual=Math.round(actual*1.15);if(state.upgrades.delivery&&(title.indexOf("School")>=0||title.indexOf("Community")>=0))actual=Math.round(actual*1.10);state.cash+=actual;state.revenue+=actual;state.rep+=repGain;state.accepted++;setResult("ACCEPTED — rental booked for <strong>"+money(actual)+"</strong>.","good");log(title+" earned "+money(actual)+".");finishEncounter()},"primary");
+ var actual=payout;if(departmentLevel("live")>0)actual=Math.round(actual*(1+.07*departmentLevel("live")));if(departmentLevel("delivery")>0&&(title.indexOf("School")>=0||title.indexOf("Community")>=0))actual=Math.round(actual*(1+.05*departmentLevel("delivery")));state.cash+=actual;state.revenue+=actual;state.rep+=repGain;state.accepted++;state.customersServed=(state.customersServed||0)+1;state.rentalsCompleted=(state.rentalsCompleted||0)+1;setResult("ACCEPTED — rental booked for <strong>"+money(actual)+"</strong>.","good");log(title+" earned "+money(actual)+".");finishEncounter()},"primary");
  choice("Decline",function(){state.rejected++;setResult("You declined the rental.","neutral");finishEncounter()})
 }
 function vendor(title,text,art,cost,adds){
@@ -1820,7 +2144,7 @@ function competitorSale(){
 function bulkCustomer(){
  scene("school");var idx=Math.floor(Math.random()*PRODUCTS.length),p=PRODUCTS[idx],qty=3;var offer=Math.round(price(p)*qty*.92);
  el("eventTitle").textContent="Bulk Customer";el("eventText").innerHTML="A community group wants <strong>3 "+p.name+"</strong> and offers <strong>"+money(offer)+" total</strong>.";clearChoices();
- choice("Accept Offer",function(){if(p.stock<qty){setResult("Not enough inventory.","bad");finishEncounter();return}p.stock-=qty;state.cash+=offer;state.revenue+=offer;state.accepted++;state.bulkSales++;setResult("BULK SALE ACCEPTED — "+money(offer)+".","good");log("Bulk sale: "+qty+" "+p.name+".");finishEncounter()},"primary");
+ choice("Accept Offer",function(){if(p.stock<qty){setResult("Not enough inventory.","bad");finishEncounter();return}p.stock-=qty;state.cash+=offer;state.revenue+=offer;state.accepted++;state.bulkSales++;state.customersServed=(state.customersServed||0)+1;state.instrumentsSold=(state.instrumentsSold||0)+qty;setResult("BULK SALE ACCEPTED — "+money(offer)+".","good");log("Bulk sale: "+qty+" "+p.name+".");finishEncounter()},"primary");
  choice("Decline",function(){state.rejected++;setResult("You decline the bulk offer.","neutral");finishEncounter()})
 }
 
@@ -1856,7 +2180,7 @@ function onlineOrder(){
  el("eventTitle").textContent="Online Order";
  el("eventText").innerHTML="Your website receives an order for <strong>"+qty+" "+p.name+"</strong> worth <strong>"+money(rev)+"</strong>.";
  clearChoices();
- choice("Ship Order",function(){if(p.stock<qty){setResult("Online order cancelled: insufficient inventory.","bad");finishEncounter();return}p.stock-=qty;state.cash+=rev;state.revenue+=rev;state.accepted++;setResult("ONLINE SALE — "+money(rev)+" collected.","good");log("Online order shipped.");finishEncounter()},"primary");
+ choice("Ship Order",function(){if(p.stock<qty){setResult("Online order cancelled: insufficient inventory.","bad");finishEncounter();return}p.stock-=qty;state.cash+=rev;state.revenue+=rev;state.accepted++;state.customersServed=(state.customersServed||0)+1;state.instrumentsSold=(state.instrumentsSold||0)+qty;setResult("ONLINE SALE — "+money(rev)+" collected.","good");log("Online order shipped.");finishEncounter()},"primary");
  choice("Cancel",function(){state.rejected++;setResult("Order cancelled.","neutral");finishEncounter()});
 }
 function cyberSale(){
@@ -1936,6 +2260,62 @@ function fuelSpike(){
  choice("Pay Fuel Cost",function(){if(state.cash>=120){state.cash-=120;state.operatingSpent+=120;setResult("Delivery operations continue.","neutral")}else{loseSatisfaction(2);setResult("You cannot fully cover delivery costs. -2 satisfaction.","bad")}finishEncounter()},"primary");
 }
 
+
+/* v5.0 department events */
+function lessonSignup(){
+ scene("customer");el("eventTitle").textContent="New Drum Student";
+ var fee=departmentLevel("academy")>=2?240:160;
+ el("eventText").textContent="A new student wants to enroll in drum lessons. First-month tuition: "+money(fee)+".";
+ clearChoices();
+ choice("Enroll Student",function(){state.cash+=fee;state.revenue+=fee;addSatisfaction(2);setResult("🥁 New academy student enrolled for "+money(fee)+".","good");finishEncounter()},"primary");
+}
+function studentRecital(){
+ scene("school");el("eventTitle").textContent="Academy Recital";
+ el("eventText").textContent="Host a student recital for $200 in production costs?";
+ clearChoices();
+ choice("Host Recital",function(){if(state.cash<200){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=200;state.operatingSpent+=200;var gain=350+Math.floor(Math.random()*251);state.cash+=gain;state.revenue+=gain;addSatisfaction(5);setResult("🥁 Recital success — "+money(gain)+" revenue and stronger community support.","good");finishEncounter()},"primary");
+ choice("Skip",function(){setResult("You skip the recital this month.","neutral");finishEncounter()});
+}
+function drumClinic(){
+ scene("metal");el("eventTitle").textContent="Guest Drum Clinic";
+ el("eventText").textContent="A touring drummer can host a clinic for a $350 appearance fee.";
+ clearChoices();
+ choice("Book Clinic",function(){if(state.cash<350){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=350;state.operatingSpent+=350;var gain=600+Math.floor(Math.random()*351);state.cash+=gain;state.revenue+=gain;addSatisfaction(6);setResult("🥁 Packed clinic! "+money(gain)+" revenue.","good");finishEncounter()},"primary");
+ choice("Pass",function(){setResult("You pass on the clinic.","neutral");finishEncounter()});
+}
+function summerCamp(){
+ scene("school");el("eventTitle").textContent="Summer Drum Camp";
+ el("eventText").textContent="Run a week-long youth drum camp for $500 in staffing costs.";
+ clearChoices();
+ choice("Run Camp",function(){if(state.cash<500){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=500;state.operatingSpent+=500;var gain=950+Math.floor(Math.random()*551);state.cash+=gain;state.revenue+=gain;addSatisfaction(5);setResult("🥁 Camp fills up! "+money(gain)+" revenue.","good");finishEncounter()},"primary");
+ choice("Skip",function(){setResult("No camp this season.","neutral");finishEncounter()});
+}
+function walkInRush(){
+ scene("busy");el("eventTitle").textContent="Showroom Rush";
+ el("eventText").textContent="Your upgraded showroom attracts a burst of walk-in customers.";
+ clearChoices();
+ choice("Serve the Rush",function(){var gain=280+Math.floor(Math.random()*(220*departmentLevel("retail")+1));state.cash+=gain;state.revenue+=gain;addSatisfaction(2);setResult("🏪 Showroom sales: "+money(gain)+".","good");finishEncounter()},"primary");
+}
+function premiumCustomer(){
+ scene("customer");el("eventTitle").textContent="Premium Shopper";
+ el("eventText").textContent="A customer is looking for high-end gear and values service over price.";
+ clearChoices();
+ choice("Give Premium Service",function(){var gain=450+Math.floor(Math.random()*401);state.cash+=gain;state.revenue+=gain;addSatisfaction(3);setResult("🏪 Premium sale: "+money(gain)+".","good");finishEncounter()},"primary");
+}
+function displayRefresh(){
+ scene("customer");el("eventTitle").textContent="Showroom Refresh";
+ el("eventText").textContent="Spend $180 refreshing the retail displays to improve traffic?";
+ clearChoices();
+ choice("Refresh Displays",function(){if(state.cash<180){setResult("Not enough cash.","bad");finishEncounter();return}state.cash-=180;state.operatingSpent+=180;addSatisfaction(3);setResult("🏪 Fresh displays improve the customer experience.","good");finishEncounter()},"primary");
+ choice("Not Now",function(){setResult("You keep the current displays.","neutral");finishEncounter()});
+}
+function flagshipShopper(){
+ scene("busy");el("eventTitle").textContent="Flagship Customer Event";
+ el("eventText").textContent="Your Level 3 showroom attracts a regional buying group.";
+ clearChoices();
+ choice("Host Buyers",function(){var gain=1100+Math.floor(Math.random()*801);state.cash+=gain;state.revenue+=gain;addSatisfaction(4);setResult("🏪 Flagship event generates "+money(gain)+".","good");finishEncounter()},"primary");
+}
+
 function finishEncounter(){
  state.eventResolved=true;saveGame(true);clearChoices();render();
  if(state.encounters<state.maxEncounters){el("nextBtn").disabled=false;el("endMonthBtn").disabled=true}else{el("nextBtn").disabled=true;el("endMonthBtn").disabled=false;el("eventText").innerHTML+="<br><br><strong>All encounters for this month are complete.</strong>"}
@@ -1964,8 +2344,17 @@ function endMonth(){
    log("Required loan payment: "+money(required)+".");
  }
 
- if(state.upgrades.repair&&Math.random()<.60){
-   var service=180+Math.floor(Math.random()*241);
+ 
+ if(departmentLevel("academy")>0){
+   var academyLevel=departmentLevel("academy");
+   var lessonIncome=academyLevel===1?220:academyLevel===2?525:950;
+   state.cash+=lessonIncome;
+   state.revenue+=lessonIncome;
+   log("Williamson Drum Academy earned "+money(lessonIncome)+" in monthly lesson/program revenue.");
+ }
+
+ if(departmentLevel("repair")>0&&Math.random()<(0.40+0.15*departmentLevel("repair"))){
+   var service=(120*departmentLevel("repair"))+Math.floor(Math.random()*(180*departmentLevel("repair")+1));
    state.cash+=service;state.revenue+=service;log("Repair Bench earned "+money(service)+".");
  }
 
@@ -2051,15 +2440,20 @@ function applySelectedReward(){
    log("WGSC corporate reward: national marketing campaign.");
  }else if(id==="upgrade"){
    var available=[];
-   for(var k in state.upgrades)if(!state.upgrades[k])available.push(k);
+   var maxAllowed=departmentUnlockedLevel();
+   for(var k in state.upgrades){
+     if(departmentLevel(k)<Math.min(3,maxAllowed))available.push(k);
+   }
    if(available.length){
      var chosen=available[Math.floor(Math.random()*available.length)];
-     state.upgrades[chosen]=true;
-     if(chosen==="marketing")addSatisfaction(6);
-     log("WGSC corporate reward: free "+UPGRADE_DATA[chosen].name+".");
+     var newLevel=departmentLevel(chosen)+1;
+     state.upgrades[chosen]=newLevel;
+     if(chosen==="marketing")addSatisfaction(3);
+     if(chosen==="academy")addSatisfaction(2);
+     log("WGSC corporate reward: free "+UPGRADE_DATA[chosen].name+" Level "+newLevel+".");
    }else{
      state.cash+=2500;
-     log("All upgrades owned; WGSC converted upgrade credit to $2,500 cash.");
+     log("All currently approved departments are maxed; WGSC converted upgrade credit to $2,500 cash.");
    }
  }
  state.pendingReward=null;
@@ -2069,9 +2463,9 @@ function continueNextYear(){
  if(!state.selectedReward)return;
  applySelectedReward();
  el("scoreOverlay").style.display="none";
- state.year+=1;state.month=1;state.encounters=0;state.eventResolved=true;state.monthlyGoalsCompleted=0;
+ state.totalYearsRenewed=(state.totalYearsRenewed||0)+1;state.year+=1;state.month=1;state.encounters=0;state.eventResolved=true;state.monthlyGoalsCompleted=0;
  /* modest new-year escalation */
- DIFF[state.difficulty].expenses=Math.round(DIFF[state.difficulty].expenses*1.06);
+ DIFF[state.difficulty].expenses=Math.round(Math.min(DIFF[state.difficulty].expenses*1.045,2200));
  for(var i=0;i<state.competitors.length;i++)state.competitors[i].score=clamp(state.competitors[i].score+4,20,100);
  state.monthStartRevenue=state.revenue;state.monthStartAccepted=state.accepted;state.monthStartDebt=state.debt;state.monthStartEvents=state.eventsHosted;
  assignMonthlyGoal();setTrend();scene("busy");
@@ -2162,6 +2556,7 @@ function finishGame(){
 
  if(state.debt===0)state.debtFreeYears=(state.debtFreeYears||0)+1;
  state.careerScore=(state.careerScore||0)+score;
+ var careerRankInfo=getNetworkRank(state.careerScore);
  state.bestYearScore=Math.max(state.bestYearScore||0,score);
  state.highestSatisfaction=Math.max(state.highestSatisfaction||0,state.rep);
  state.largestCashReserve=Math.max(state.largestCashReserve||0,state.cash);
@@ -2214,7 +2609,9 @@ function finishGame(){
   '<div class="scoreStat"><div class="label">Debt Remaining</div><div class="value">'+money(state.debt)+'</div></div>'+
   '<div class="scoreStat"><div class="label">Customer Satisfaction</div><div class="value">'+Math.round(state.rep)+'/100</div></div>'+
   '<div class="scoreStat"><div class="label">Achievements</div><div class="value">'+achievementCount+' / '+Object.keys(ACHIEVEMENTS).length+'</div></div>'+
-  '<div class="scoreStat"><div class="label">Franchise</div><div class="value">'+(state.franchiseId||"#---")+'</div></div>';
+  '<div class="scoreStat"><div class="label">Franchise</div><div class="value">'+(state.franchiseId||"#---")+'</div></div>'+
+  '<div class="scoreStat"><div class="label">Career Score</div><div class="value">'+state.careerScore.toLocaleString()+'</div></div>'+
+  '<div class="scoreStat"><div class="label">Network Rank</div><div class="value">'+careerRankInfo.rank.icon+' '+careerRankInfo.rank.name+'</div></div>';
 
  el("scoreBreakdown").innerHTML=
   '<div class="breakTitle">Year '+state.year+' Score Breakdown</div>'+
@@ -2236,9 +2633,24 @@ function finishGame(){
    '<div><span>Largest Cash Reserve</span><strong>'+money(state.largestCashReserve)+'</strong></div>'+
    '<div><span>Debt-Free Years</span><strong>'+state.debtFreeYears+'</strong></div>'+
    '<div><span>Years Managed</span><strong>'+state.year+'</strong></div>'+
+   '<div><span>Network Rank</span><strong>'+careerRankInfo.rank.icon+' '+careerRankInfo.rank.name+'</strong></div>'+
   '</div>';
 
- el("scoreComment").textContent=comment+" You earned a "+rewardTier+" corporate reward package.";
+ 
+ var reviewChart=el("reviewHistoryChart");
+ if(reviewChart){
+   reviewChart.innerHTML="";
+   var rh=state.annualScoreHistory||[];
+   var rmax=1;
+   for(var ri=0;ri<rh.length;ri++)rmax=Math.max(rmax,rh[ri].score);
+   for(var rj=0;rj<rh.length;rj++){
+     var rr=document.createElement("div");rr.className="historyRow";
+     rr.innerHTML='<span class="historyYear">Y'+rh[rj].year+'</span><div class="historyTrack"><div class="historyBar" style="width:'+Math.max(4,(rh[rj].score/rmax)*100)+'%"></div></div><strong>'+rh[rj].score.toLocaleString()+'</strong>';
+     reviewChart.appendChild(rr);
+   }
+ }
+
+ el("scoreComment").textContent=comment+" WGSC Headquarters has renewed your franchise agreement for Year "+(state.year+1)+". You earned a "+rewardTier+" corporate reward package.";
 
  renderRewardChoices(rewardTier);
 
@@ -2305,7 +2717,7 @@ function closeLaunchModal(){
  if(modal)modal.style.display="none";
 }
 
-/* v4.3.2 static splash behavior */
+/* v5.0 static splash behavior */
 function toggleSound(){ return; }
 function playStartJingle(){ return; }
 function startFromSplash(){
@@ -2352,6 +2764,65 @@ function initManagerTablet(){
    });
  }
 }
+
+function maxedDepartmentCount(){
+ var n=0;
+ for(var k in state.upgrades)if(departmentLevel(k)>=3)n++;
+ return n;
+}
+function renderCareerDashboard(){
+ var career=state.careerScore||0;
+ var info=getNetworkRank(career);
+
+ if(el("careerRankIcon"))el("careerRankIcon").textContent=info.rank.icon;
+ if(el("careerRankName"))el("careerRankName").textContent=info.rank.name;
+ if(el("careerScoreTablet"))el("careerScoreTablet").textContent=career.toLocaleString();
+
+ if(el("statYears"))el("statYears").textContent=Math.max(0,(state.year||1)-1);
+ if(el("statBestYear"))el("statBestYear").textContent=(state.bestYearScore||0).toLocaleString();
+ if(el("statCustomers"))el("statCustomers").textContent=(state.customersServed||0).toLocaleString();
+ if(el("statInstruments"))el("statInstruments").textContent=(state.instrumentsSold||0).toLocaleString();
+ if(el("statRentals"))el("statRentals").textContent=(state.rentalsCompleted||0).toLocaleString();
+ if(el("statDebtFree"))el("statDebtFree").textContent=state.debtFreeYears||0;
+ if(el("statGoals"))el("statGoals").textContent=state.monthlyGoalsCompleted||0;
+ if(el("statMaxed"))el("statMaxed").textContent=maxedDepartmentCount()+" / "+Object.keys(UPGRADE_DATA).length;
+ if(el("statSatisfaction"))el("statSatisfaction").textContent=Math.round(state.highestSatisfaction||state.rep||0);
+ if(el("statCash"))el("statCash").textContent=money(state.largestCashReserve||0);
+
+ var chart=el("annualHistoryChart");
+ if(chart){
+   chart.innerHTML="";
+   var hist=state.annualScoreHistory||[];
+   if(!hist.length){
+     chart.innerHTML='<div class="small">Complete Year 1 to begin your score history.</div>';
+   }else{
+     var maxScore=1;
+     for(var i=0;i<hist.length;i++)maxScore=Math.max(maxScore,hist[i].score);
+     for(var j=0;j<hist.length;j++){
+       var row=document.createElement("div");
+       row.className="historyRow";
+       var width=Math.max(4,(hist[j].score/maxScore)*100);
+       row.innerHTML='<span class="historyYear">Y'+hist[j].year+'</span>'+
+         '<div class="historyTrack"><div class="historyBar" style="width:'+width+'%"></div></div>'+
+         '<strong>'+hist[j].score.toLocaleString()+'</strong>';
+       chart.appendChild(row);
+     }
+   }
+ }
+
+ var hof=el("hallOfFameBox");
+ if(hof){
+   if(career>=18000){
+     hof.classList.add("achieved");
+     hof.innerHTML='<strong>🌟 WGSC HALL OF FAME FRANCHISE</strong><span>Career Score '+career.toLocaleString()+'. Your franchise has reached the network’s highest prestige tier — keep playing to extend your record.</span>';
+     state.hallOfFameReached=true;
+   }else{
+     hof.classList.remove("achieved");
+     hof.innerHTML='<strong>🌟 WGSC Hall of Fame</strong><span>'+(18000-career).toLocaleString()+' career points remaining. Hall of Fame is a prestige milestone, not the end of the game.</span>';
+   }
+ }
+}
+
 function updateTablet(){
  if(el("tabletBranch"))el("tabletBranch").textContent=state.franchiseName||"Franchise Console";
  if(el("hqBranchAddress"))el("hqBranchAddress").textContent=state.franchiseName||"Franchise Manager";
@@ -2359,6 +2830,7 @@ function updateTablet(){
  if(el("tabletDebt"))el("tabletDebt").textContent=money(state.debt);
  if(el("tabletRevenue"))el("tabletRevenue").textContent=money(state.revenue);
  if(el("tabletClock"))el("tabletClock").textContent=state.started?(MONTH_NAMES[state.month-1]+" • Y"+state.year):"WGSC OS";
+ renderCareerDashboard();
 }
 
 function toggleLog(){
